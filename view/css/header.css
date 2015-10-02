@@ -1,0 +1,17 @@
+
+#search-bar {
+    
+    margin-top: 2em
+}
+
+#Login {
+
+	text-align: right;
+	margin-top: 1em;
+}
+
+@media (min-width: 979px) {
+  ul.nav li.dropdown:hover > ul.dropdown-menu {
+    display: block;
+  }
+}
