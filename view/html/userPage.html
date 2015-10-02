@@ -9,6 +9,10 @@
 		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
 		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap-theme.min.css">
 		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+		<script src="http://code.jquery.com/jquery-latest.min.js"></script>
+		<script src="js/bootstrap.min.js"></script>
+
+		<script type="../js/user-page.js"></script>
 
 		<!-- My stylesheets -->
 
@@ -26,7 +30,7 @@
 			        	<div class ="row-fluid">
 			            		
 			           		<div class="col-md-3">
-			             		<a href="#" class="pull-left">
+			             		<a href="home.html" class="pull-left">
 			              			<img id="logoImg" src="../../assets/logo.png" alt="Best Clothes"/>
 			             		</a>
 		             		</div>
@@ -164,7 +168,7 @@
 			        <!-- Cuenta -->
 			        <li class="dropdown">
 			          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
-			          	<i class="glyphicon glyphicon-user"></i> Ingresa
+			          	<i class="glyphicon glyphicon-user"></i> Ingresar
 			          	<span class="caret"></span>
 			          </a>
 			          <ul class="dropdown-menu">
@@ -184,29 +188,58 @@
 		<!-- Body Page -->
 
 		<div class="row-fluid">
+			
+			<div class="col-md-1">
+				
+			</div>
+
+			<div class="col-md-9">
+				<div class="row">
+					<!-- Aca empiezan las tabs-->
+						<ul class="nav nav-tabs" role="tablist"id="tab-selector">
+						  	<li role="presentation" class="active">
+						  		<a href="#Cart" aria-controls="Cart" role="tab" data-toggle="tab" id="Cart-tab">
+						  			<i class="glyphicon glyphicon-shopping-cart"></i> Carrito
+						  		</a>
+							</li>
+						 	<li role="presentation">
+						 		<a href="#WishList" aria-controls="WishList" role="tab" data-toggle="tab" id="WishList-tab">
+						 			<i class="glyphicon glyphicon-heart"></i> Favoritos
+						  		</a>
+						  	</li role="presentation">
+						  	<li>
+						  		<a href="#Account" aria-controls="Account" role="tab" data-toggle="tab" id="Account-tab">
+						  			<i class="glyphicon glyphicon-user"></i> Cuenta
+						  		</a>
+						  	</li>
+						</ul>
+				</div>
+				
+				<div class="row tab-content">
+
+					<!--Contenido de las tabs -->
+					<!-- <div class="tab-content">	-->
+						<div role="tabpanel" class="tab-pane fade active in" id="Cart">
+							Este es el cart
+						</div>	
+
+						<div role="tabpanel" class="tab-pane fade" id="WishList">
+							Esta es la wish list
+						</div>
+
+						<div role="tabpanel" class="tab-pane fade" id="Account">
+							Aca van los datos de usuario
+						</div>
+
+					<!-- </div> -->
+
+				</div>
+			</div>
+
 			<div class="col-md-2">
 				Aca podemos poner productos recomendados
 			</div>
-			<div class="col-md-9">
-				<!-- Aca empiezan las tabs-->
-				<ul class="nav nav-tabs">
-				  	<li role="presentation" class="active">
-				  		<a href="#" data-toggle="tab">
-				  			<i class="glyphicon glyphicon-shopping-cart"></i>
-				  		</a>
-					</li>
-				 	<li role="presentation">
-				 		<a href="#" data-toggle="tab">
-				 			<i class="glyphicon glyphicon-heart"></i>
-				  		</a>
-				  	</li>
-				  	<li role="presentation">
-				  		<a href="#" data-toggle="tab">
-				  			<i class="glyphicon glyphicon-user"></i>
-				  		</a>
-				  	</li>
-				</ul>
-			</div>
+		</div>
 
 
 
