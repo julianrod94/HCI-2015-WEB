@@ -5,6 +5,7 @@ body {
 .mega-dropdown {
   position: static !important;
 }
+
 .mega-dropdown-menu {
     padding: 20px 0px;
     width: 100%;
@@ -68,6 +69,11 @@ body {
     box-shadow: none;
 }
 
+#custom-search-input {
+    
+    margin-top: 2em
+}
+
 #custom-search-input button{
     margin: 2px 0 0 0;
     background: none;
@@ -88,4 +94,39 @@ body {
     font-size: 23px;
 }
 
+#Login {
+
+  text-align: right;
+  margin-top: 1em;
+}
+
+@media (min-width: 979px) {
+  ul.nav li.dropdown:hover > ul.dropdown-menu {
+    display: block;
+  }
+}
+
+.productbox {
+    background-color:#ffffff;
+  padding:10px;
+  margin-bottom:10px;
+  -webkit-box-shadow: 0 8px 6px -6px  #999;
+     -moz-box-shadow: 0 8px 6px -6px  #999;
+          box-shadow: 0 8px 6px -6px #999;
+}
+
+.producttitle {
+    font-weight:bold;
+  padding:5px 0 5px 0;
+}
+
+.productprice {
+  border-top:1px solid #dadada;
+  padding-top:5px;
+}
+
+.pricetext {
+  font-weight:bold;
+  font-size:1.4em;
+}
 
