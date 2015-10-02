@@ -68,6 +68,11 @@ body {
     box-shadow: none;
 }
 
+#custom-search-input {
+    
+    margin-top: 2em
+}
+
 #custom-search-input button{
     margin: 2px 0 0 0;
     background: none;
@@ -87,5 +92,27 @@ body {
 #custom-search-input .glyphicon-search{
     font-size: 23px;
 }
+#btn-custom {
+  margin-top: 0.5em
+}
 
+.btn-custom {
+  background: rgba(255, 255, 255, 0);
+  border-color: rgba(255, 255, 255, 0); 
+  color: rgba(51, 51, 51, 1); 
+  font-size: 30px; 
+  border-radius: 4px; 
+  border-width: 1px;
+}
 
+.btn-custom:hover {
+  background: rgba(235, 235, 235, 0); 
+  border-color: rgba(173, 173, 173, 0); 
+  color: rgba(51, 51, 51, 1);
+}
+
+.btn-custom:active, .btn-custom:focus {
+  background: rgba(235, 235, 235, 0); 
+  border-color: rgba(173, 173, 173, 0); 
+  color: rgba(51, 51, 51, 1);
+}
