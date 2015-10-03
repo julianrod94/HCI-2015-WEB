@@ -1,7 +1,6 @@
 /*********************************************
     			Call Bootstrap (despues me fijo si no esta de mas esto)
 *********************************************/
-@import url("http://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.5.4/bootstrap-select.min.css");
 @import url("bootstrap/bootstrap.min.css");
 @import url("bootstrap-override.css");
 @import url("//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css");
@@ -136,3 +135,4 @@
 .service-image-left > center > img,.service-image-right > center > img{
 	max-height: 155px;
 }
+
