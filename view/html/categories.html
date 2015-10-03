@@ -20,8 +20,7 @@
 		<!-- My stylesheets -->
 		<link rel="stylesheet" type="text/css" href="../css/common.css">
 		<link rel="stylesheet" type="text/css" href="../css/header.css">
-		<link rel="stylesheet" type="text/css" href="../css/user-page.css">
-		
+		<link rel="stylesheet" type="text/css" href="../css/categories.css">
 		
 
 		<!-- Angular stuff -->
@@ -41,55 +40,31 @@
 			<div ng-include="'header.html'"></div> <!-- Import's header -->
 		</div>
 
-		<!-- Body Page -->
-
 		<div class="container-fluid">
-			
-			<div class="col-md-1">
-				
+
+			<div class="col-md-2">
+				filtros
 			</div>
 
-			<div class="col-md-9">
-				<div class="row">
-					<!-- Aca empiezan las tabs-->
-						<ul class="nav nav-tabs">
-						  	<li class="active"><a href="#Carrito"data-toggle="tab"> <i class="glyphicon glyphicon-shopping-cart"></i> Carrito</a></li>
-						 	<li><a href="#Favoritos" data-toggle="tab"><i class="glyphicon glyphicon-heart"></i> Favoritos</a></li>
-						  	<li><a href="#Cuenta"data-toggle="tab"><i class="glyphicon glyphicon-user"></i> Cuenta</a></li>
-						</ul>
-				
-				
-						<div class="tab-content">
-							<div class="tab-pane fade active in" id="Carrito">
-
-								<div ng-controller="cartController">
-									<p>Este es el cart
-									<p> Aca van a estar las funcionalidades del carrito, traidas mediante angular por un controller
-									<p> Ejemplo de uso: {{ fullName() }}
-								</div>
-
-							</div>	
-
-							<div class="tab-pane fade" id="Favoritos">
-								<p>Esta es la wish list
-							</div>
-
-							<div class="tab-pane fade" id="Cuenta">
-								<p>Aca van los datos de usuario
-							</div>
-
-						</div>
-
+			<div class="col-md-8">
+				<div class="container-fluid">
+					<div class="col-md-4">
+						Categoria 1
+					</div>
+					<div class="col-md-4">
+						Categoria 2
+					</div>
+					<div class="col-md-4">
+						Categoria 3
+					</div>
 				</div>
 			</div>
-
+		
 			<div class="col-md-2">
 				<div ng-app="">
 					<div ng-include="'recommendations.html'"></div> <!-- Import's recommendations -->
 				</div>
 			</div>
-		</div>
-
 
 
 
