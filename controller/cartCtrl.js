@@ -1,4 +1,4 @@
-angular.module('hciApp', []).controller('cartCtrl', function($scope) {
+angular.module('cartApp', []).controller('cartController', function($scope) {
     $scope.firstName = "John",
     $scope.lastName = "Doe",
    

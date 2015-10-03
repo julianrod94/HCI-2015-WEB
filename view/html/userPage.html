@@ -28,6 +28,7 @@
 
 		<!-- My code -->
 		<script src="../../controller/cartCtrl.js"></script>
+		<script src="../js/selectController.js"></script>
 		
 
 	</head>
@@ -38,6 +39,7 @@
 		<div ng-app=""> 
 			<div ng-include="'header.html'"></div> <!-- Import's header -->
 		</div>
+
 		<!-- Body Page -->
 
 		<div class="container-fluid">
@@ -58,9 +60,13 @@
 				
 						<div class="tab-content">
 							<div class="tab-pane fade active in" id="Carrito">
-								<p>Este es el cart
-								<p> Aca van a estar las funcionalidades del carrito, traidas mediante angular por un controller
-								<p> Ejemplo de uso: {{ fullName() }}
+								<div id="cartAppId">
+									<div ng-controller="cartController">
+										<p>Este es el cart
+										<p> Aca van a estar las funcionalidades del carrito, traidas mediante angular por un controller
+										<p> Ejemplo de uso: {{ fullName() }}
+									</div>
+								</div>
 							</div>	
 
 							<div class="tab-pane fade" id="Favoritos">
