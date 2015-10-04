@@ -1,3 +1,8 @@
+angular.element(document).ready(function() {
+      angular.bootstrap(document, ['cartApp']);
+    });
+
+
 angular.module('cartApp', []).controller('cartController', function($scope) {
     $scope.firstName = "John",
     $scope.lastName = "Doe",
