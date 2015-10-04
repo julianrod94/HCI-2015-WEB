@@ -46,13 +46,26 @@
  			<li class="active"> {{pageName()}}</li>
 		</ol>
 
-		<div class="container-fluid">
+		<div class="container-fluid" ng-init="categories=categories()">
 			
-			<div class="col-md-2">
-				filtros
+			<div class="col-md-2" ng-init="sub_categories=sub_categories()" id="sub-categories">
+				<ul>
+					<li ng-repeat="i in [0,1,2]">
+						<a ng-href="catalogue.html?gender={{pageName().toLowerCase()}}&category={{categories[i].toLowerCase()}}&sub=null">
+							{{ categories[i] }}
+						</a>
+						<ul ng-init="subs=sub_categories[i]">
+							<li ng-repeat="y in subs">
+								<a ng-href="catalogue.html?gender={{pageName().toLowerCase()}}&category={{categories[i].toLowerCase()}}&sub={{y.id}}">
+									{{y.name}}
+								</a>
+							</li>
+						</ul>
+					</li>
+				</ul>
 			</div>
 
-			<div class="col-md-8">
+			<div class="col-md-8" id="body-content">
 				<div class="container-fluid">
 					<div class="row" id="page-title">
 						<h1> {{ pageName() }} </h1>
@@ -62,7 +75,7 @@
 							<a href="#"> 
 								<img src={{pictures[0]}} alt="Indumentaria" class="img-responsive"/>
 								<div class="category-text">
-									Indumentaria
+									{{categories[0]}}
 								</div>
 							</a>
 						</div>
@@ -70,7 +83,7 @@
 							<a href="#">
 								<img src={{pictures[1]}} alt="Calzado" class="img-responsive"/>
 								<div class="category-text">
-									Calzado
+									{{categories[1]}}
 								</div>
 							</a>
 						</div>
@@ -78,10 +91,13 @@
 							<a href="#">
 								<img src={{pictures[2]}} alt="Accesorios" class="img-responsive"/>
 								<div class="category-text">
-									Accesorios
+									{{categories[2]}}
 								</div>
 							</a>
 						</div>
+					</div>
+					<div class="row">
+						Aca ponemos historial de vistas
 					</div>
 				</div>
 			</div>
