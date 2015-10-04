@@ -1,4 +1,10 @@
 
+// Angular modules loader
+angular.element(document).ready(function() {
+      angular.bootstrap(document, ['cartApp']);
+    });
+
+
 $(document).ready(function(){
 
 	function getParameterByName(name) {

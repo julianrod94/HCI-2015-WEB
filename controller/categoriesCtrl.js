@@ -1,20 +1,37 @@
 
 function getSex(result) {
 
-   	
    	switch (result) {
    		case 'hombre':
-   			result = "HOMBRE";
+   			result = "Hombres";
    			break;
    		case 'mujer':
-   			result = "MUJER";
+   			result = "Mujeres";
    			break;
    		case 'ninos':
-   			result = "NIÑOS";
+   			result = "Niños";
    			break;
    	}
    	return result;
 	}
+
+function getCategoryPictures(result) {
+
+  switch (result) {
+      case 'hombre':
+        result = ['../../assets/categories/men-clothes.png','../../assets/categories/men-shoes.png','../../assets/categories/men-accesories.png'];
+        break;
+      case 'mujer':
+        result = ['../../assets/categories/women-clothes.png','../../assets/categories/women-shoes.png','../../assets/categories/women-accesories.png'];
+        break;
+      case 'ninos':
+        result = ['../../assets/categories/kids-clothes.png','../../assets/categories/kids-shoes.png','../../assets/categories/kids-accesories.png'];
+        break;
+    }
+    return result;
+
+
+}
 
 
 function getParameterByName(name) {
@@ -26,17 +43,17 @@ function getParameterByName(name) {
 
 
 
-angular.element(document).ready(function() {
-	angular.bootstrap(document, ['categoriesApp']);
-});
-
 angular.module('categoriesApp', []).controller('categoriesController', function($scope) {
 	var pageId = getParameterByName('id');
     $scope.sex = getSex(pageId),
-    $scope.categoriesImages = "Doe",
+    $scope.categoriesImages = getCategoryPictures(pageId),
 
     $scope.pageName = function() {
     	return $scope.sex;
+    },
+
+    $scope.pictures = function() {
+      return $scope.categoriesImages;
     }
 
 

@@ -28,6 +28,7 @@
 
 		<!-- My code -->
 		<script src="../../controller/categoriesCtrl.js"></script>
+		<script src="../js/categories.js"></script>
 		
 
 	</head>
@@ -39,13 +40,14 @@
 			<div ng-include="'header.html'"></div> <!-- Import's header -->
 		</div>
 
+	<div = ng-controller="categoriesController">
 		<ol class="breadcrumb">
   			<li><a href="home.html">Home</a></li>
- 			<li class="active">Hombres</li>
+ 			<li class="active"> {{pageName()}}</li>
 		</ol>
 
 		<div class="container-fluid">
-			<div = ng-controller="categoriesController">
+			
 			<div class="col-md-2">
 				filtros
 			</div>
@@ -55,15 +57,30 @@
 					<div class="row" id="page-title">
 						<h1> {{ pageName() }} </h1>
 					</div>
-					<div class="row">
-						<div class="col-md-4">
-							Categoria 1
+					<div class="row" ng-init="pictures=pictures()" id="categories-holder">
+						<div class="col-md-4" id="category1">
+							<a href="#"> 
+								<img src={{pictures[0]}} alt="Indumentaria" class="img-responsive"/>
+								<div class="category-text">
+									Indumentaria
+								</div>
+							</a>
 						</div>
-						<div class="col-md-4">
-							Categoria 2
+						<div class="col-md-4" id="category2">
+							<a href="#">
+								<img src={{pictures[1]}} alt="Calzado" class="img-responsive"/>
+								<div class="category-text">
+									Calzado
+								</div>
+							</a>
 						</div>
-						<div class="col-md-4">
-							Categoria 3
+						<div class="col-md-4" id="category3">
+							<a href="#">
+								<img src={{pictures[2]}} alt="Accesorios" class="img-responsive"/>
+								<div class="category-text">
+									Accesorios
+								</div>
+							</a>
 						</div>
 					</div>
 				</div>
