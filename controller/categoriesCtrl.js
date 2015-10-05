@@ -183,19 +183,4 @@ angular.module('categoriesApp', []).controller('categoriesController', function(
 
 
 
-/*
-categories = [ {    name:'Indumentaria', 
-                    sub-categories: ['Camizas', 'Pantalones', 'Remeras', 
-                            'Jeans', 'Bermudas y Shorts',
-                            'Trajes de bañp', 'Abrigos'],
-
-}
-
-]
-*/
-
-
-
-
-
 

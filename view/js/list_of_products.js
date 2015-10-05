@@ -11,7 +11,7 @@ var products = [
 						ocassion: 'Casual',
 						gender: 'Hombres',
 						category: 'Indumentaria',
-						sub_category: 'Remeras',
+						sub: 'Remeras',
 						price: 99.99,
 						images: [	
 									'dc_brikline_black_1.jpg',
@@ -24,12 +24,12 @@ var products = [
 						name: 'Brickline',
 						brand: 'DC - Shoes',
 						descriptions: ['Remera básica', '100% algodón'],
-						colors: 'Blanco',
+						color: 'Blanco',
 						sizes: ['XS','S', 'M', 'L', 'XL','XXL'],
 						ocassion: 'Casual',
 						gender: 'Hombres',
 						category: 'Indumentaria',
-						sub_category: 'Remeras',
+						sub: 'Remeras',
 						price: 99.99,
 						images: [	
 									'dc_brikline_white1.jpg',
@@ -47,7 +47,7 @@ var products = [
 						ocassion: 'Casual',
 						gender: 'Hombres',
 						category: 'Indumentaria',
-						sub_category: 'Remeras',
+						sub: 'Remeras',
 						price: 149.99,
 						images: [	
 									'dc_dpm_black_1.jpg',
@@ -65,7 +65,7 @@ var products = [
 						ocassion: 'Casual',
 						gender: 'Hombres',
 						category: 'Indumentaria',
-						sub_category: 'Remeras',
+						sub: 'Remeras',
 						price: 149.99,
 						images: [	
 									'dc_dpm_white_1.jpg',
@@ -83,7 +83,7 @@ var products = [
 						sizes: ['XS','S', 'M', 'L', 'XL','XXL'],
 						gender: 'Hombres',
 						category: 'Indumentaria',
-						sub_category: 'Remeras',
+						sub: 'Remeras',
 						price: 149.99,
 						images: [	
 									'dc_rebuilt_black_1.jpg',
@@ -101,7 +101,7 @@ var products = [
 						ocassion: 'Casual',
 						gender: 'Hombres',
 						category: 'Indumentaria',
-						sub_category: 'Remeras',
+						sub: 'Remeras',
 						price: 149.99,
 						images: [	
 									'dc_rebuilt_white_1.jpg',
@@ -119,7 +119,7 @@ var products = [
 						ocassion: 'Casual',
 						gender: 'Hombres',
 						category: 'Indumentaria',
-						sub_category: 'Remeras',
+						sub: 'Remeras',
 						price: 149.99,
 						images: [	
 									'dc_rebuilt_green_1.jpg',
@@ -137,7 +137,7 @@ var products = [
 						ocassion: 'Casual',
 						gender: 'Hombres',
 						category: 'Indumentaria',
-						sub_category: 'Remeras',
+						sub: 'Remeras',
 						price: 149.99,
 						images: [	
 									'dc_rebuilt_red.jpg',
@@ -155,7 +155,7 @@ var products = [
 						ocassion: 'Casual',
 						gender: 'Hombres',
 						category: 'Indumentaria',
-						sub_category: 'Remeras',
+						sub: 'Remeras',
 						price: 149.99,
 						images: [	
 									'vans_regal_black_1.jpg',
@@ -174,7 +174,7 @@ var products = [
 						ocassion: 'Casual',
 						gender: 'Hombres',
 						category: 'Indumentaria',
-						sub_category: 'Remeras',
+						sub: 'Remeras',
 						price: 49.99,
 						images: [	
 									'oneill_hyperdry_grey_1.jpg',
@@ -194,7 +194,7 @@ var products = [
 						ocassion: 'Casual',
 						gender: 'Hombres',
 						category: 'Indumentaria',
-						sub_category: 'Remeras',
+						sub: 'Remeras',
 						price: 49.99,
 						images: [	
 									'oneill_hyperdry_black_1.jpg',
@@ -214,7 +214,7 @@ var products = [
 						ocassion: 'Casual',
 						gender: 'Hombres',
 						category: 'Indumentaria',
-						sub_category: 'Camisas',
+						sub: 'Camisas',
 						price: 89.99,
 						images: [	
 									'dinamarca_blueberry_red_1.jpg',
@@ -232,7 +232,7 @@ var products = [
 						ocassion: 'Casual',
 						gender: 'Hombres',
 						category: 'Indumentaria',
-						sub_category: 'Camisas',
+						sub: 'Camisas',
 						price: 89.99,
 						images: [	
 									'dinamarca_blueberry_green_1.jpg',
@@ -250,7 +250,7 @@ var products = [
 						ocassion: 'Formal',
 						gender: 'Hombres',
 						category: 'Indumentaria',
-						sub_category: 'Camisas',
+						sub: 'Camisas',
 						price: 129.99,
 						images: [	
 									'lacoste_regular_lightblue_1.jpg',
@@ -268,7 +268,7 @@ var products = [
 						ocassion: 'Sport',
 						gender: 'Hombres',
 						category: 'Indumentaria',
-						sub_category: 'Pantalones',
+						sub: 'Pantalones',
 						price: 229.99,
 						images: [	
 									'wellington_polo_club_brown_1.jpg',
@@ -288,7 +288,7 @@ var products = [
 						ocassion: 'Sport',
 						gender: 'Hombres',
 						category: 'Indumentaria',
-						sub_category: 'Pantalones',
+						sub: 'Pantalones',
 						price: 229.99,
 						images: [	
 									'wellington_polo_club_black_1.jpg',
@@ -303,12 +303,12 @@ var products = [
 						name: 'Taxco',
 						brand: 'Keveingstone',
 						descriptions: ['Boton y cierre', '4 Bolsillos'],
-						color: "",
+						color: null,
 						sizes: ['38','40', '42', '44', '46', '48'],
 						ocassion: 'Casual',
 						gender: 'Hombres',
 						category: 'Indumentaria',
-						sub_category: 'Bermudas y shorts',
+						sub: 'Bermudas y shorts',
 						price: 99.99,
 						images: [	
 									'kevingstone_taxco_1.jpg',
@@ -326,7 +326,7 @@ var products = [
 						ocassion: 'Casual',
 						gender: 'Hombres',
 						category: 'Indumentaria',
-						sub_category: 'Bermudas y shorts',
+						sub: 'Bermudas y shorts',
 						price: 99.99,
 						images: [	
 									'lacoste_bermuda_blue_1.jpg',
@@ -345,7 +345,7 @@ var products = [
 						ocassion: 'Casual',
 						gender: 'Hombres',
 						category: 'Indumentaria',
-						sub_category: 'Bermudas y shorts',
+						sub: 'Bermudas y shorts',
 						price: 89.99,
 						images: [	
 									'lacoste_bermuda_white_1.jpg',
@@ -358,12 +358,12 @@ var products = [
 						name: 'Skinny fit',
 						brand: 'Lacoste',
 						descriptions: ['Relajado', 'Boton y cierre', 'Semi recto'],
-						color: '',
+						color: null,
 						sizes: ['30', '32', '34', '36', '38'],
 						ocassion: 'Casual',
 						gender: 'Hombres',
 						category: 'Indumentaria',
-						sub_category: 'Jeans',
+						sub: 'Jeans',
 						price: 299.99,
 						images: [	
 									'lacoste_skinny_1.jpg',
@@ -378,12 +378,12 @@ var products = [
 						name: 'Photog',
 						brand: 'Quicksilver',
 						descriptions: ['Relajado', 'Cordón y belcro'],
-						color: '',
+						color: null,
 						sizes: ['30', '32', '34', '36', '38'],
 						ocassion: 'Casual',
 						gender: 'Hombres',
 						category: 'Indumentaria',
-						sub_category: 'Trajes de Baño',
+						sub: 'Trajes de Baño',
 						price: 79.99,
 						images: [	
 									'quicksilver_photog_1.jpg',
@@ -401,7 +401,7 @@ var products = [
 						ocassion: 'Casual',
 						gender: 'Hombres',
 						category: 'Indumentaria',
-						sub_category: 'Trajes de Baño',
+						sub: 'Trajes de Baño',
 						price: 59.99,
 						images: [	
 									'tocasna_sfida_pink_1.jpg',
@@ -421,7 +421,7 @@ var products = [
 						ocassion: 'Casual',
 						gender: 'Hombres',
 						category: 'Indumentaria',
-						sub_category: 'Trajes de Baño',
+						sub: 'Trajes de Baño',
 						price: 59.99,
 						images: [	
 									'tocasna_sfida_lightblue_1.jpg',
@@ -441,7 +441,7 @@ var products = [
 						ocassion: 'Casual',
 						gender: 'Hombres',
 						category: 'Indumentaria',
-						sub_category: 'Abrigos',
+						sub: 'Abrigos',
 						price: 159.99,
 						images: [	
 									'circa_park_stadium_1.jpg',
@@ -461,7 +461,7 @@ var products = [
 						ocassion: 'Casual',
 						gender: 'Hombres',
 						category: 'Indumentaria',
-						sub_category: 'Abrigos',
+						sub: 'Abrigos',
 						price: 99.99,
 						images: [	
 									'rever_pass_ronnie_grey_1.jpg',
@@ -481,7 +481,7 @@ var products = [
 						ocassion: 'Casual',
 						gender: 'Hombres',
 						category: 'Indumentaria',
-						sub_category: 'Abrigos',
+						sub: 'Abrigos',
 						price: 99.99,
 						images: [	
 									'rever_pass_ronnie_black_1.jpg',
@@ -518,29 +518,31 @@ function getAll(field) {
 	var array = [];
 	var i;
 	for (i = 0 ; i < products.length ; i++) {
-		if (!array.contains(products[i][field])) {
-			array.push(register);
+		if (products[i][field] != undefined && !array.contains(products[i][field])) {
+			array.push(products[i][field]);
 		}
 	}
 	return array;
 }
 
-
-
-function getByCategory(category) {
+function getAllFields() {
 
 	var array = [];
-
-	for (each in products) {
-		if (each.category == category) {
-			array.push(each);
-		}
+	for (var key in products[0]) {
+		array.push(key);
 	}
 	return array;
 }
 
+function getFieldsForFilters() {
 
+	return ['gender', 'category', 'sub', 'brand', 'color', 'sizes', 'ocassion', 'price'];
+}
 
+function getPageReloadFields() {
+
+	return ['gender', 'category', 'sub'];
+}
 
 
 

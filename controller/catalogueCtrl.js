@@ -145,6 +145,12 @@ angular.module('catalogueApp', []).controller('catalogueController', function($s
 	var gender = getParameterByName('gender');
 	var category = getParameterByName('category');
 	var sub_category = getParameterByName('sub');
+	var brand = getParameterByName('brand');
+	var color = getParameterByName('color');
+	var sizes = getParameterByName('sizes');
+	var ocassion = getParameterByName('ocassion');
+	var minPrice = getParameterByName('min-price');
+	var maxPrice = getParameterByName('max-price');
 
 	$scope.gender = function() {
 		return gender.charAt(0).toUpperCase() + gender.slice(1);
@@ -156,12 +162,66 @@ angular.module('catalogueApp', []).controller('catalogueController', function($s
 
 	$scope.sub_category = function() {
 		return get_subcategory(gender, sub_category);
-	}
+	},
 
 	$scope.corruptedQueryString = function() {
 
-		return (gender == null || category == null || sub_category == null);
+		return (gender == null || category == null || sub_category == null); // These are the three parameters that must be completed
+	},
+
+	$scope.fullCatalogue = function() {
+
+		return selectItemsBy(
+			function(prod) {
+				return true;
+			});
+	},
+
+	$scope.products = function() {
+
+		return selectItemsBy(
+			function(prod) {
+				var flag = prod.gender == $scope.gender() && prod.category == $scope.category();
+				if (flag) {
+					if (sub_category != null) {
+						flag &= prod.sub == $scope.sub_category();
+					}
+				}
+
+				return flag;
+			} );	
+	},
+
+	$scope.reloadFilters = function() {
+
+		return getFieldsForFilters();
+	},
+
+
+
+	$scope.filters = function() {
+
+		return ['Géneros', 'Categorias', 'Sub-Categorias', 'Marcas', 'Colores', 'Talles', 'Ocasiones', 'Precio'];
+	},
+
+	$scope.getAll = function(field) {
+
+		return getAll(field);
+	},
+
+	$scope.transformFilter = function(filter) {
+
+
+		return $scope.reloadFilters()[$scope.filters.indexOf(filter)];
 	}
-
-
 })
+
+
+
+
+
+
+
+
+
+
