@@ -40,7 +40,7 @@
 			<div ng-include="'header.html'"></div> <!-- Import's header -->
 		</div>
 
-	<div = ng-controller="categoriesController">
+	<div ng-controller="categoriesController">
 		<ol class="breadcrumb">
   			<li><a href="home.html">Home</a></li>
  			<li class="active"> {{pageName()}}</li>
@@ -70,9 +70,10 @@
 					<div class="row" id="page-title">
 						<h1> {{ pageName() }} </h1>
 					</div>
+					<hr>
 					<div class="row" ng-init="pictures=pictures()" id="categories-holder">
 						<div class="col-md-4" id="category1">
-							<a href="#"> 
+							<a ng-href="catalogue.html?gender={{pageName().toLowerCase()}}&category={{categories[0].toLowerCase()}}&sub=null"> 
 								<img src={{pictures[0]}} alt="Indumentaria" class="img-responsive"/>
 								<div class="category-text">
 									{{categories[0]}}
@@ -80,7 +81,7 @@
 							</a>
 						</div>
 						<div class="col-md-4" id="category2">
-							<a href="#">
+							<a ng-href="catalogue.html?gender={{pageName().toLowerCase()}}&category={{categories[1].toLowerCase()}}&sub=null">
 								<img src={{pictures[1]}} alt="Calzado" class="img-responsive"/>
 								<div class="category-text">
 									{{categories[1]}}
@@ -88,7 +89,7 @@
 							</a>
 						</div>
 						<div class="col-md-4" id="category3">
-							<a href="#">
+							<a ng-href="catalogue.html?gender={{pageName().toLowerCase()}}&category={{categories[2].toLowerCase()}}&sub=null">
 								<img src={{pictures[2]}} alt="Accesorios" class="img-responsive"/>
 								<div class="category-text">
 									{{categories[2]}}
@@ -103,9 +104,7 @@
 			</div>
 		
 			<div class="col-md-2">
-				<div ng-app="">
-					<div ng-include="'recommendations.html'"></div> <!-- Import's recommendations -->
-				</div>
+				<div ng-include="'recommendations.html'"></div> <!-- Import's recommendations -->
 			</div>
 		</div>
 	</div>

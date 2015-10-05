@@ -2,13 +2,13 @@
 function getGender(result) {
 
    	switch (result) {
-   		case 'hombre':
+   		case 'hombres':
    			result = "Hombres";
    			break;
-   		case 'mujer':
+   		case 'mujeres':
    			result = "Mujeres";
    			break;
-   		case 'ninos':
+   		case 'infantiles':
    			result = "Infantiles";
    			break;
    	}
@@ -18,13 +18,13 @@ function getGender(result) {
 function getCategoryPictures(result) {
 
   switch (result) {
-      case 'hombre':
+      case 'hombres':
         result = ['../../assets/categories/men-clothes.png','../../assets/categories/men-shoes.png','../../assets/categories/men-accesories.png'];
         break;
-      case 'mujer':
+      case 'mujeres':
         result = ['../../assets/categories/women-clothes.png','../../assets/categories/women-shoes.png','../../assets/categories/women-accesories.png'];
         break;
-      case 'ninos':
+      case 'infantiles':
         result = ['../../assets/categories/kids-clothes.png','../../assets/categories/kids-shoes.png','../../assets/categories/kids-accesories.png'];
         break;
     }
@@ -34,13 +34,13 @@ function getCategoryPictures(result) {
 function getSubcategories(result) {
 
     switch(result) {
-        case 'hombre':
+        case 'hombres':
             result = 0;
             break;
-        case 'mujer':
+        case 'mujeres':
             result = 1;
             break;
-        case 'ninos':
+        case 'infantiles':
             result = 2;
             break;
         default:
@@ -139,9 +139,8 @@ function getSubcategories(result) {
                                     {name: 'Mochilas', id: "mochilas"},
                                     {name: 'Carpetas', id: "carpetas"},
                                     {name: 'Cartucheras', id: "cartucheras"}
-                                ]
-                            ]
-    ]
+                                ] 
+                            ] ];
 
     return sub_categories[result];
 }
