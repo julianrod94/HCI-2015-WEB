@@ -46,8 +46,8 @@
             <ol class="breadcrumb">
                 <li><a href="home.html">Home</a></li>
                 <li><a ng-href="categories.html?id={{product().gender.toLowerCase()}}">{{product().gender}}</a></li>
-                <li><a ng-href="{{createBackLink()}}">{{product().category}}</a></li>
-                <li><a ng-href="{{createBackLink()}}">{{product().sub}}</a></li>
+                <li><a ng-href="{{createBackLinkCategory()}}">{{product().category}}</a></li>
+                <li><a ng-href="{{createBackLinkSubCategory()}}">{{product().sub}}</a></li>
                 <li class="active">Sapatisha</li>
             </ol>
 
@@ -60,33 +60,21 @@
                             <div class="row">
                                 <div class="col-md-8">
                                     <div class="product col-md-5 service-image-left">
-
-                                        <center>
-                                          <img id="item-display" src={{product_images()[0]}} alt=""></img>
-                                        </center>
+                                        <img id="item-display" src={{product_images()[0]}} alt={{product().name}}></img>
                                     </div>
 
                                     <div class="container service1-items col-sm-2 col-md-2 pull-left">
-                                        <center>
-                                            <a id="item-1" class="service1-item">
-                                                <img src="../../assets/shoes/zapatillas3.jpg" alt=""></img>
+                                        <div ng-repeat="i in product_images()" 
+                                            <a class="service1-item">
+                                                <img src="{{i}}" alt=""></img>
                                             </a>
-                                            <a id="item-2" class="service1-item">
-                                                <img src="../../assets/shoes/zapatillas3.jpg" alt=""></img>
-                                            </a>
-                                            <a id="item-3" class="service1-item">
-                                                <img src="../../assets/shoes/zapatillas3.jpg" alt=""></img>
-                                            </a>
-                                        </center>
+                                        </div>
                                     </div>
                                 </div>
 
                                 <div class="col-md-3">
                                     <div class="product-title">
-                                        Sapatisha
-                                    </div>
-                                    <div class="product-desc"> 
-                                        Alta yanta. La mejore pa lo wachine del fuerte apache
+                                        {{product().brand + " | " + product().name}}
                                     </div>
                                     <div class="product-rating">
                                         <i class="fa fa-star gold"></i>
@@ -96,50 +84,51 @@
                                         <i class="fa fa-star-o"></i>
                                     </div>
                                     <hr>
-                                    <div class="product-price">$ 300.00 (tre gamba)</div>
+                                    <div class="product-price">{{'$' + product().price}}</div>
                                     <div class="product-stock">In Stock</div>
                                     <hr>
                                     <div class="container">
                                         <div class="btn-group">
                                             <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                                Talle
+                                                Talles
                                                 <span class="caret"></span>
                                             </button>
                                             <ul class="dropdown-menu">
-                                                <li><a href="#">Extra Small</a></li>
-                                                <li><a href="#">Small</a></li>
-                                                <li><a href="#">Medium</a></li>
-                                                <li><a href="#">Large</a></li>
-                                                <li><a href="#">Extra Large</a></li>
+
+                                                <li ng-repeat="i in product().sizes"><a href="#">{{i}}</a></li>
+                                        
                                             </ul>
                                         </div>
-                                        <hr>
-                                        <hr>
-                                        <div class="btn-group">
-                                            <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                                Color
-                                                <span class="caret"></span>
+                                        
+                                        <div ng-init="other=product_variants()">
+
+                                            <div ng-if="other.length > 1">
+                                                <br>
+                                                <hr>
+                                                <br>
+                                                <div class="row">
+                                                    <h4>Colores</h4>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col-md-3" ng-repeat="i in other">
+                                                        <a href="#"><img class="other-colors" src="{{get_first_picture(i.id)}}"/></a>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <hr>
+                                    <div class="btn-group cart container myButtons">
+                                        <div class="row">
+                                            <button type="button" class="btn btn-success">
+                                                <i class="glyphicon glyphicon-shopping-cart"></i>
                                             </button>
-                                            <ul class="dropdown-menu">
-                                                <li><a href="#">Rojo</a></li>
-                                                <li><a href="#">Azul</a></li>
-                                                <li><a href="#">Verde</a></li>
-                                                <li><a href="#">Negro</a></li>
-                                                <li><a href="#">Blanco</a></li>
-                                            </ul>
                                         </div>
-                                    </div>
-                                    <hr>
-                                    <div class="btn-group cart">
-                                        <button type="button" class="btn btn-success">
-                                            Agregar al carrito
-                                        </button>
-                                    </div>
-                                    <hr>
-                                    <div class="btn-group wishlist">
-                                        <button type="button" class="btn btn-danger">
-                                            Agregar a favoritos 
-                                        </button>
+                                        <div class="row">
+                                            <button type="button" class="btn btn-warning">
+                                                <i class="glyphicon glyphicon-heart"></i>
+                                            </button>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -148,7 +137,7 @@
                 </div>
             </div>
 
-
+            <!--
             <div class="container-fluid">   
                 <div class="col-md-12 product-info">
                     <ul id="myTab" class="nav nav-tabs nav_tabs">
@@ -185,7 +174,41 @@
                     </div>
                     <hr>
                 </div>
-            </div>
+            </div> -->
+                <div class="container-fluid">
+
+                        <ul class="nav nav-tabs">
+                            <li class="active"><a href="#Descripcion"data-toggle="tab">Descripción</a></li>
+                            <li><a href="#Resenias" data-toggle="tab">Reseñas</a></li>
+                        </ul>
+
+                    <div class="tab-content">
+                        <div class="tab-pane fade active in" id="Descripcion">
+                            <br>
+                            <ul>
+                                <li>Marca: {{product().brand}}</li>
+                                <li>Color: {{product().color}}</li>
+                                <li ng-repeat="i in product().descriptions"> {{i}}</li>
+                        </div>  
+
+                        <div class="tab-pane fade" id="Resenias">
+                            <br>
+                            <div class="row resenia">
+                                <h5>Julian </h5>
+                                <hr>
+                                Muy buen producto! Lo recomiendo
+                            </div>
+                            <br>
+                            <div class="row resenia">
+                                <h5>Andrea </h5>
+                                <hr>
+                                No me gustó mucho
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+                <br>
         </div>
     </body>
 </html>
