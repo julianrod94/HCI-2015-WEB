@@ -14,8 +14,8 @@ var products = [
 						sub: 'Remeras',
 						price: 99.99,
 						images: [	
-									'dc_brikline_black_1.jpg',
-									'dc_brikline_black_2.jpg'
+									'dc_brickline_black_1.jpg',
+									'dc_brickline_black_2.jpg'
 						]
 					},
 					{
@@ -32,8 +32,8 @@ var products = [
 						sub: 'Remeras',
 						price: 99.99,
 						images: [	
-									'dc_brikline_white1.jpg',
-									'dc_brikline_white2.jpg'
+									'dc_brickline_white_1.jpg',
+									'dc_brickline_white_2.jpg'
 						]
 					},
 					{
@@ -75,7 +75,7 @@ var products = [
 					{
 						id: 5,
 						prod_id: 3,
-						name: 'DPM DC',
+						name: 'Rebuilt',
 						brand: 'DC - Shoes',
 						descriptions: ['100% algodón'],
 						ocassion: 'Casual',
@@ -93,7 +93,7 @@ var products = [
 					{
 						id: 6,
 						prod_id: 3,
-						name: 'DPM DC',
+						name: 'Rebuilt',
 						brand: 'DC - Shoes',
 						descriptions: ['100% algodón'],
 						color: 'Blanco',
@@ -111,7 +111,7 @@ var products = [
 					{
 						id: 7,
 						prod_id: 3,
-						name: 'DPM DC',
+						name: 'Rebuilt',
 						brand: 'DC - Shoes',
 						descriptions: ['100% algodón'],
 						color: 'Verde',
@@ -129,7 +129,7 @@ var products = [
 					{
 						id: 8,
 						prod_id: 3,
-						name: 'DPM DC',
+						name: 'Rebuilt',
 						brand: 'DC - Shoes',
 						descriptions: ['100% algodón'],
 						color: 'Rojo',
@@ -140,8 +140,8 @@ var products = [
 						sub: 'Remeras',
 						price: 149.99,
 						images: [	
-									'dc_rebuilt_red.jpg',
-									'dc_rebuilt_red.jpg'
+									'dc_rebuilt_red_1.jpg',
+									'dc_rebuilt_red_2.jpg'
 						]
 					},
 					{
@@ -464,10 +464,10 @@ var products = [
 						sub: 'Abrigos',
 						price: 99.99,
 						images: [	
-									'rever_pass_ronnie_grey_1.jpg',
-									'rever_pass_ronnie_grey_2.jpg',
-									'rever_pass_ronnie_grey_3.jpg',
-									'rever_pass_ronnie_grey_4.jpg',
+									'reverpass_ronnie_grey_1.jpg',
+									'reverpass_ronnie_grey_2.jpg',
+									'reverpass_ronnie_grey_3.jpg',
+									'reverpass_ronnie_grey_4.jpg',
 						]
 					},
 					{
@@ -484,10 +484,10 @@ var products = [
 						sub: 'Abrigos',
 						price: 99.99,
 						images: [	
-									'rever_pass_ronnie_black_1.jpg',
-									'rever_pass_ronnie_black_2.jpg',
-									'rever_pass_ronnie_black_3.jpg',
-									'rever_pass_ronnie_black_4.jpg',
+									'reverpass_ronnie_black_1.jpg',
+									'reverpass_ronnie_black_2.jpg',
+									'reverpass_ronnie_black_3.jpg',
+									'reverpass_ronnie_black_4.jpg',
 						]
 					}
 ];

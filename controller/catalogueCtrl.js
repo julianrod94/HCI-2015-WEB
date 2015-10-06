@@ -128,7 +128,73 @@ function get_subcategory(gender, value) {
     } 
 
 	return value;
+}
 
+function createJSONFilterObject() {
+
+    var result = getParameterByName('filters');
+    result = decodeURIComponent(result);
+    try {
+        result = JSON.parse(result);  // Gets an array of objects with a name propery 
+                                    //and a value property which is an array of values to filter
+    } catch (e) {
+        return null;
+    }
+    result = eval(result);
+    return result;
+
+}
+
+var JSONFilters = createJSONFilterObject();
+
+function  getComponentsOfFilter() {
+    var result = JSONFilters;
+    if (result == null) {
+        return 0;
+    }
+    return result.length;
+}
+
+function createCodeForQuery() {
+    var result = getParameterByName('filters');
+    result = decodeURIComponent(result);
+    result = JSON.parse(result);  // Gets an array of objects with a name propery 
+                                    //and a value property which is an array of values to filter
+    if (result == '') {
+        return '';
+    }
+    result = eval(result);
+    var i;
+    var prod = 'prod';
+    var code = '';
+
+    for (i = 0 ; i < result.length ; i++) {
+        var aux = prod + '.' + result[i].name;
+        var j;
+        for (j = 0 ; j < result[i].values.length ; j++) {
+            if (j == 0) {
+                code += '(';
+            }
+            code = code + '(' + aux + '==' + '\'' + result[i].values[j] + '\'' + ')';
+            if (j + 1 < result[i].values.length) {
+                code += '||';
+            } else {
+                code += ')';
+            }
+        }
+        if (i + 1 < result.length) {
+            code += '&&';
+        }
+    }
+    return code;
+}
+
+function createFunctionToQuery() {
+
+    return function(prod) {
+        var condition = createCodeForQuery();
+        return eval(condition);
+    }
 }
 
 
@@ -142,7 +208,6 @@ function getParameterByName(name) {
 
 
 angular.module('catalogueApp', []).controller('catalogueController', function($scope) {
-	var gender = getParameterByName('gender');
 	var category = getParameterByName('category');
 	var sub_category = getParameterByName('sub');
 	var brand = getParameterByName('brand');
@@ -153,15 +218,45 @@ angular.module('catalogueApp', []).controller('catalogueController', function($s
 	var maxPrice = getParameterByName('max-price');
 
 	$scope.gender = function() {
-		return gender.charAt(0).toUpperCase() + gender.slice(1);
+		
+        var i, flag = false, result = null;
+        for (i = 0 ; i < JSONFilters.length && !flag ; i++) {
+            if (JSONFilters[i].name == 'gender') {
+                flag = true;
+                if (JSONFilters[i].values.length == 1) {
+                    result = JSONFilters[i].values[0];
+                }
+            }
+        }
+        return result;
 	},
 
 	$scope.category = function() {
-		return category.charAt(0).toUpperCase() + category.slice(1);
+		//return category.charAt(0).toUpperCase() + category.slice(1);
+        var i, flag = false, result = null;
+        for (i = 0 ; i < JSONFilters.length && !flag ; i++) {
+            if (JSONFilters[i].name == 'category') {
+                flag = true;
+                if (JSONFilters[i].values.length == 1) {
+                    result = JSONFilters[i].values[0];
+                }
+            }
+        }
+        return result;
+
 	},
 
 	$scope.sub_category = function() {
-		return get_subcategory(gender, sub_category);
+		var i, flag = false, result = null;
+        for (i = 0 ; i < JSONFilters.length && !flag ; i++) {
+            if (JSONFilters[i].name == 'sub') {
+                flag = true;
+                if (JSONFilters[i].values.length == 1) {
+                    result = JSONFilters[i].values[0];
+                }
+            }
+        }
+        return result;
 	},
 
 	$scope.corruptedQueryString = function() {
@@ -213,8 +308,34 @@ angular.module('catalogueApp', []).controller('catalogueController', function($s
 
 
 		return $scope.reloadFilters()[$scope.filters.indexOf(filter)];
-	}
+	},
+
+    $scope.categories_link = function(gend, cat) {
+
+        var str = '[{"name":"gender", "values":["' + gend + '"]}, {"name":"category", "values":["' + cat + '"]}]';
+        str = JSON.stringify(str);
+        str = encodeURIComponent(str);
+        return "catalogue.html?filters=" + str;
+      
+    },
+
+    $scope.sub_categories_link = function(gend, cat, sub) {
+
+
+        var str = '[{"name":"gender", "values":["' + gend + '"]}, {"name":"category", "values":["' + cat + '"]}, {"name":"sub", "values":["' + sub + '"]}]';
+        str = JSON.stringify(str);
+        str = encodeURIComponent(str);
+        return "catalogue.html?filters=" + str;
+      
+    }, 
+
+    $scope.how_many_filters = function() {
+
+        return getComponentsOfFilter();
+    }
 })
+
+
 
 
 
