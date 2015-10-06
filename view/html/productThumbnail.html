@@ -1,12 +1,13 @@
 <div class="row">
     <div class="col-sm-12">
-        <a href="product.html">
+        <a ng-href="{{getProductLink(prod.id)}}">
             <div class="thumbnail my_thumbnail">
                 <div ng-init="thumb_image='../../assets/clothes/t-shirts/' + prod.images[0]">
                     <img src={{thumb_image}} alt="Remera" id="product_image"/>
                     <div class="caption" id="product_text">
                         <div class="col-md-8" id="product_title">
                             {{ prod.brand + ' | ' + prod.name }}
+
                         </div>
                         <div class="col-md-4" id="product_price">
                             {{'$' + prod.price}}

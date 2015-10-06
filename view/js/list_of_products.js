@@ -383,7 +383,7 @@ var products = [
 						ocassion: 'Casual',
 						gender: 'Hombres',
 						category: 'Indumentaria',
-						sub: 'Trajes de Baño',
+						sub: 'Trajes de baño',
 						price: 79.99,
 						images: [	
 									'quicksilver_photog_1.jpg',
@@ -401,7 +401,7 @@ var products = [
 						ocassion: 'Casual',
 						gender: 'Hombres',
 						category: 'Indumentaria',
-						sub: 'Trajes de Baño',
+						sub: 'Trajes de baño',
 						price: 59.99,
 						images: [	
 									'toscana_sfida_pink_1.jpg',
@@ -421,7 +421,7 @@ var products = [
 						ocassion: 'Casual',
 						gender: 'Hombres',
 						category: 'Indumentaria',
-						sub: 'Trajes de Baño',
+						sub: 'Trajes de baño',
 						price: 59.99,
 						images: [	
 									'toscana_sfida_lightblue_1.jpg',
@@ -542,6 +542,19 @@ function getFieldsForFilters() {
 function getPageReloadFields() {
 
 	return ['gender', 'category', 'sub'];
+}
+
+function getProductById(id) {
+
+	var prod = null;
+	var i, flag = false;
+	for (i = 0 ; i < products.length & !flag; i++) {
+		if (products[i].id == id) {
+			flag = true;
+			prod = products[i];
+		}
+	}
+	return prod;
 }
 
 

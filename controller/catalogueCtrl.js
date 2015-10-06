@@ -130,23 +130,43 @@ function get_subcategory(gender, value) {
 	return value;
 }
 
+// Creates a JSON Object that contains filter names and values to filter
+// Based on 'filters' query string parameter
+// In case it wasn't a valid query string, returns null
 function createJSONFilterObject() {
 
     var result = getParameterByName('filters');
     result = decodeURIComponent(result);
     try {
-        result = JSON.parse(result);  // Gets an array of objects with a name propery 
-                                    //and a value property which is an array of values to filter
+        result = JSON.parse(result);
     } catch (e) {
         return null;
     }
     result = eval(result);
+
+    if (result.length == undefined) {
+        return null;
+    }
+
+    var i, flag = false;
+    for (i = 0 ; i < result.length & !flag ; i++) {
+        var j;
+        for (j = 0 ; j < getFieldsForFilters().length &!flag; j++) {
+            flag = result[i].name == getFieldsForFilters()[j];
+        }
+    }
+    if (!flag) {
+        return null;
+    }
+
     return result;
 
 }
 
+// Field that contains the JSON Filter Object (we create it only once)
 var JSONFilters = createJSONFilterObject();
 
+// Returns how many filters there are (used to load a proper breadcrumb)
 function  getComponentsOfFilter() {
     var result = JSONFilters;
     if (result == null) {
@@ -155,6 +175,7 @@ function  getComponentsOfFilter() {
     return result.length;
 }
 
+// Creates a boolean expression to use as a query
 function createCodeForQuery() {
     var result = getParameterByName('filters');
     result = decodeURIComponent(result);
@@ -189,6 +210,7 @@ function createCodeForQuery() {
     return code;
 }
 
+// Creates the function that has boolean expression
 function createFunctionToQuery() {
 
     return function(prod) {
@@ -198,7 +220,7 @@ function createFunctionToQuery() {
 }
 
 
-
+// Gets the specified query string parameter
 function getParameterByName(name) {
 	name = name.replace(/[\[]/, "\\[").replace(/[\]]/, "\\]");
 	var regex = new RegExp("[\\?&]" + name + "=([^&#]*)"),
@@ -206,7 +228,23 @@ function getParameterByName(name) {
 	return results === null ? null : decodeURIComponent(results[1].replace(/\+/g, " "));
 }
 
+// Function that returns breadcrumbs filter values (gender, category and sub_category)
+function getBreadcrumbValue(filter_name) {
 
+    var i, flag = false, result = null;
+        for (i = 0 ; i < JSONFilters.length && !flag ; i++) {
+            if (JSONFilters[i].name == filter_name) {
+                flag = true;
+                if (JSONFilters[i].values.length == 1) {
+                    result = JSONFilters[i].values[0];
+                }
+            }
+        }
+    return result;
+
+}
+
+// Controller for catalogue
 angular.module('catalogueApp', []).controller('catalogueController', function($scope) {
 	var brand = getParameterByName('brand');
 	var color = getParameterByName('color');
@@ -216,45 +254,17 @@ angular.module('catalogueApp', []).controller('catalogueController', function($s
 	var maxPrice = getParameterByName('max-price');
 
 	$scope.gender = function() {
-		
-        var i, flag = false, result = null;
-        for (i = 0 ; i < JSONFilters.length && !flag ; i++) {
-            if (JSONFilters[i].name == 'gender') {
-                flag = true;
-                if (JSONFilters[i].values.length == 1) {
-                    result = JSONFilters[i].values[0];
-                }
-            }
-        }
-        return result;
+        return getBreadcrumbValue('gender');
 	},
 
 	$scope.category = function() {
 		//return category.charAt(0).toUpperCase() + category.slice(1);
-        var i, flag = false, result = null;
-        for (i = 0 ; i < JSONFilters.length && !flag ; i++) {
-            if (JSONFilters[i].name == 'category') {
-                flag = true;
-                if (JSONFilters[i].values.length == 1) {
-                    result = JSONFilters[i].values[0];
-                }
-            }
-        }
-        return result;
+        return getBreadcrumbValue('category');
 
 	},
 
 	$scope.sub_category = function() {
-		var i, flag = false, result = null;
-        for (i = 0 ; i < JSONFilters.length && !flag ; i++) {
-            if (JSONFilters[i].name == 'sub') {
-                flag = true;
-                if (JSONFilters[i].values.length == 1) {
-                    result = JSONFilters[i].values[0];
-                }
-            }
-        }
-        return result;
+		return getBreadcrumbValue('sub');
 	},
 
 	$scope.corruptedQueryString = function() {
@@ -272,42 +282,36 @@ angular.module('catalogueApp', []).controller('catalogueController', function($s
 
 	$scope.products = function() {
 
-		/*return selectItemsBy(
-			function(prod) {
-				var flag = prod.gender == $scope.gender() && prod.category == $scope.category();
-				if (flag) {
-					if (sub_category != null) {
-						flag &= prod.sub == $scope.sub_category();
-					}
-				}
-
-				return flag;
-			} );	*/
-        return selectItemsBy(createFunctionToQuery());
+        return selectItemsBy(createFunctionToQuery()); // Returns a list of products based on the query string filter parameter
 	},
 
 	$scope.reloadFilters = function() {
 
-		return getFieldsForFilters();
+		return getFieldsForFilters(); // Returns filters used to query
 	},
 
+    $scope.transformFilter = function(filter) {
+
+        return $scope.reloadFilters()[$scope.filters.indexOf(filter)];
+    },
+
+    $scope.getProductLink = function(id) {
+        return "product.html?id=" + id +"&filters=" + encodeURIComponent(JSON.stringify(JSONFilters));
+    }
 
 
+    // FiltersUI methods
 	$scope.filters = function() {
 
-		return ['Géneros', 'Categorias', 'Sub-Categorias', 'Marcas', 'Colores', 'Talles', 'Ocasiones', 'Precio'];
+		return ['Géneros', 'Categorias', 'Sub-Categorias', 'Marcas', 'Colores', 'Talles', 'Ocasiones', 'Precio']; // Returns filters names
 	},
 
 	$scope.getAll = function(field) {
 
-		return getAll(field);
+		return getAll(field); // Returns filters values
 	},
 
-	$scope.transformFilter = function(filter) {
-
-
-		return $scope.reloadFilters()[$scope.filters.indexOf(filter)];
-	},
+	
 
     $scope.categories_link = function(gend, cat) {
 
