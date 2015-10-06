@@ -404,10 +404,10 @@ var products = [
 						sub: 'Trajes de Baño',
 						price: 59.99,
 						images: [	
-									'tocasna_sfida_pink_1.jpg',
-									'tocasna_sfida_pink_2.jpg',
-									'tocasna_sfida_pink_3.jpg',
-									'tocasna_sfida_pink_4.jpg',
+									'toscana_sfida_pink_1.jpg',
+									'toscana_sfida_pink_2.jpg',
+									'toscana_sfida_pink_3.jpg',
+									'toscana_sfida_pink_4.jpg',
 						]
 					},
 					{
@@ -424,10 +424,10 @@ var products = [
 						sub: 'Trajes de Baño',
 						price: 59.99,
 						images: [	
-									'tocasna_sfida_lightblue_1.jpg',
-									'tocasna_sfida_lightblue_2.jpg',
-									'tocasna_sfida_lightblue_3.jpg',
-									'tocasna_sfida_lightblue_4.jpg',
+									'toscana_sfida_lightblue_1.jpg',
+									'toscana_sfida_lightblue_2.jpg',
+									'toscana_sfida_lightblue_3.jpg',
+									'toscana_sfida_lightblue_4.jpg',
 						]
 					},
 					{

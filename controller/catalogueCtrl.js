@@ -208,8 +208,6 @@ function getParameterByName(name) {
 
 
 angular.module('catalogueApp', []).controller('catalogueController', function($scope) {
-	var category = getParameterByName('category');
-	var sub_category = getParameterByName('sub');
 	var brand = getParameterByName('brand');
 	var color = getParameterByName('color');
 	var sizes = getParameterByName('sizes');
@@ -274,7 +272,7 @@ angular.module('catalogueApp', []).controller('catalogueController', function($s
 
 	$scope.products = function() {
 
-		return selectItemsBy(
+		/*return selectItemsBy(
 			function(prod) {
 				var flag = prod.gender == $scope.gender() && prod.category == $scope.category();
 				if (flag) {
@@ -284,7 +282,8 @@ angular.module('catalogueApp', []).controller('catalogueController', function($s
 				}
 
 				return flag;
-			} );	
+			} );	*/
+        return selectItemsBy(createFunctionToQuery());
 	},
 
 	$scope.reloadFilters = function() {
