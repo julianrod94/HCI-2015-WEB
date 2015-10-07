@@ -28,6 +28,13 @@
     max-height: 90px;
 }
 
+#custom-search-input{
+    padding-bottom: 30px
+    border: solid 1px #E4e4e4
+    border-radius: 6px;
+    background-color: #fff;
+
+}
 #custom-search-input input{
     border: 0;
     box-shadow: none;
@@ -51,20 +58,3 @@
 #custom-search-input .glyphicon-search{
     font-size: 23px;
 }
-
-#login-form {
-
-    
-}
-
-#login-form .container-fluid .form-group > input {
-
-    width: 200px;
-}
-
-#login-form .container-fluid > button {
-
-    margin-top: 10px;
-}
-
-

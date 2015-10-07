@@ -1,11 +1,14 @@
+<!--<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+<script src="../js/header.js"></script>
+-->
 <div id="Header">
 			<div id="Upper zone">
 				<div class="container-fluid">
 			        	
 			        	<div class ="row-fluid">
 			            		
-			           		<div class="col-md-3">
-			             		<a href="./home.html" class="pull-left">
+			           		<div class="col-md-3" id='logo'>
+			             		<a href="./home.html">
 			              			<img id="logoImg" src="../../assets/logo2.jpg" alt="Best Clothes"/>
 			             		</a>
 		             		</div>
@@ -125,14 +128,85 @@
 
 
 			        <!-- Cuenta -->
+			        <script type="text/javascript">
+			        	$(document).ready(function() {
+
+
+						    $('#login-form .container-fluid .btn').click(function() {
+
+						        var str = document.location.pathname;
+						        str += '?';
+						 
+						        var email = $("#login-form .container-fluid #e-mail-input").val();
+						        var password = $("#login-form .container-fluid #password-input").val()
+						        var user_id = login(email,password);
+						        /*if (user_id == null) {
+						            console.log("Error");
+						            return;
+						        }*/
+						        var query = getParameterByName('filters');
+						        if (query != null && query != '') {
+						        	if (str[str.length - 1] != '?') {
+						        		str = str + '&';
+						        	}
+							        str += 'filters=' + encodeURIComponent(query);
+							    }
+							    query = getParameterByName('id');
+						        if (query != null && query != '') {
+						        	if (str[str.length - 1] != '?') {
+						        		str = str + '&';
+						        	}
+							        str += 'id=' + query;
+							    }
+							    query = getParameterByName('search');
+						        if (query != null && query != '') {
+						        	if (str[str.length - 1] != '?') {
+						        		str = str + '&';
+						        	}
+							        str += 'search=' + query;
+							    }
+							    if (str[str.length - 1] != '?') {
+						        		str = str + '&';
+						        	}
+							        str += 'user_id=' + query;
+
+							    console.log(str);
+						    }
+						)});
+			        </script>
+			        
 			        <li class="dropdown">
 			          <a href="userPage.html?id=usuario" class="dropdown-toggle" role="button" aria-haspopup="true" aria-expanded="false">
 			          	<i class="glyphicon glyphicon-user"></i> Ingresar
 			          	<span class="caret"></span>
 			          </a>
-			          <ul class="dropdown-menu">
-			            <li><a href="#">Ingresar</a></li>
-			            <li><a href="#">Registrarse</a></li>
+			          <ul class="dropdown-menu" id="login-form">
+
+			          	<div class="container-fluid">
+						  	<div class="form-group">
+						    	<label>Usuario</label>
+						    	<input type="email" class="form-control" id="e-mail-input" placeholder="Email">
+						  	</div>
+						  	<div class="form-group">
+						    	<label>Contraseña</label>
+						    	<input type="password" class="form-control" id="password-input" placeholder="Password">
+						  	</div>
+						  	<div>
+						  		<a href="#">Crear cuenta nueva</a>
+						  	</div>
+						  	<div>
+						  		<a href="#">Olvidé mi contraseña</a>
+						  	</div>
+						  	<button type="submit" class="btn btn-default">Ingresar</button>
+						</div>
+
+
+
+
+
+
+
+
 			          </ul>
 			        </li>
 

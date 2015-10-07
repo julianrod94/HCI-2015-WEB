@@ -30,6 +30,7 @@
 		<!-- My code -->
 		
 		<script src="../../controller/cartCtrl.js"></script>
+		<script src="../../controller/accountCtrl.js"></script>
 		<script src="../js/user-page.js"></script>
 
 		
@@ -57,35 +58,63 @@
 			</div>
 
 			<div class="col-md-9">
-				<div class="row">
+				<div class="container-fluid">
 					<!-- Aca empiezan las tabs-->
-						<ul class="nav nav-tabs">
-						  	<li class="active"><a href="#Carrito"data-toggle="tab"> <i class="glyphicon glyphicon-shopping-cart"></i> Carrito</a></li>
-						 	<li><a href="#Favoritos" data-toggle="tab"><i class="glyphicon glyphicon-heart"></i> Favoritos</a></li>
-						  	<li><a href="#Cuenta"data-toggle="tab"><i class="glyphicon glyphicon-user"></i> Cuenta</a></li>
-						</ul>
+					<ul class="nav nav-tabs">
+					  	<li class="active"><a href="#Carrito"data-toggle="tab"> <i class="glyphicon glyphicon-shopping-cart"></i> Carrito</a></li>
+					 	<li><a href="#Favoritos" data-toggle="tab"><i class="glyphicon glyphicon-heart"></i> Favoritos</a></li>
+					  	<li><a href="#Cuenta"data-toggle="tab"><i class="glyphicon glyphicon-user"></i> Cuenta</a></li>
+					</ul>
 				
 				
-						<div class="tab-content">
-							<div class="tab-pane fade active in" id="Carrito">
+					<div class="tab-content">
+						<div class="tab-pane fade active in generalTabPane" id="Carrito">
 
-								<div ng-controller="cartController">
-									<p>Este es el cart
-									<p> Aca van a estar las funcionalidades del carrito, traidas mediante angular por un controller
-									<p> Ejemplo de uso: {{ fullName() }}
-								</div>
-
-							</div>	
-
-							<div class="tab-pane fade" id="Favoritos">
-								<p>Esta es la wish list
+							<div ng-controller="cartController">
+								<p>Este es el cart
+								<p> Aca van a estar las funcionalidades del carrito, traidas mediante angular por un controller
+								<p> Ejemplo de uso: {{ fullName() }}
 							</div>
 
-							<div class="tab-pane fade" id="Cuenta">
-								<p>Aca van los datos de usuario
-							</div>
+						</div>	
 
+						<div class="tab-pane fade generalTabPane" id="Favoritos">
+							<p>Esta es la wish list
 						</div>
+
+						<div class="tab-pane fade generalTabPane" id="Cuenta" >
+							<div class="container-fluid" ng-controller="accountController" ng-init="user=get_user()">
+							  	<ul class="nav nav-pills myPills">
+							    	<li role="presentation" class="active"><a href="#Personales" data-toggle="pill">Datos Personales</a></li>
+							    	<li role="presentation"><a href="#InfoCuenta" data-toggle="pill">Información de cuenta</a></li>
+							    	<li role="presentation"><a href="#Direcciones" data-toggle="pill">Direcciones</a></li>
+							  	</ul>
+								<div class="tab-content">
+							    	<div class="tab-pane fade active in" id="Personales">
+							        		<p>Nombre: {{user.first_name}}</p>
+          									<p>Apellido: {{user.last_name}}</p>
+									        <p>Fecha de nacimiento: {{user.birth}}</p>
+									        <p>Sexo: {{user.gender}}</p>
+							        </div>
+							        <div class="tab-pane fade" id="InfoCuenta">
+							    		<p>Usuario: {{user.user_name}}</p>
+							    		<p>Email: {{user.e_mail}}</p>
+							    		<p>Contraseña: {{user.password}}</p>
+							    		<p>Contraseña: {{user.telephone}}</p>
+							        </div>
+							        <div class="tab-pane fade" id="Direcciones">
+						        		<div ng-repeat="i in user.addresses">
+						        			<hr>
+						        			<p> Calle: {{i.street + " " + i.number }} {{(i.floor != null)?floor:'' + " - " + (i.apartment != null)?floor:''}}</p>
+						        			<p> {{"Ciudad: " + i.city + " " }}</p>
+						        			<p> Código postal: {{i.zip_code}}</p>
+						        			<hr>
+						        		</div>
+							        </div>
+							    </div>
+							</div>
+						</div>
+					</div>
 
 				</div>
 			</div>

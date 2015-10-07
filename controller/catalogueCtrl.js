@@ -144,7 +144,7 @@ function createJSONFilterObject() {
     }
     result = eval(result);
 
-    if (result.length == undefined) {
+    if (result == null || result.length == undefined) {
         return null;
     }
 

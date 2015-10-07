@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<!-- saved from url=(0056)http://localhost:8000/view/html/userPage.html?id=usuario -->
+<html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"><style type="text/css">@charset "UTF-8";[ng\:cloak],[ng-cloak],[data-ng-cloak],[x-ng-cloak],.ng-cloak,.x-ng-cloak,.ng-hide:not(.ng-hide-animate){display:none !important;}ng\:form{display:block;}</style>
+		<meta charset="utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		
+		<title>User Page</title>
+
+		<!-- Bootstrap stuff -->
+		<script src="./User Page_files/jquery-latest.min.js"></script>
+		<script src="./User Page_files/bootstrap.min.js"></script>
+
+		<link rel="stylesheet" href="./User Page_files/bootstrap.min.css">
+		<link rel="stylesheet" href="./User Page_files/bootstrap-theme.min.css">
+		
+		
+
+		<!-- My stylesheets -->
+		<link rel="stylesheet" type="text/css" href="./User Page_files/common.css">
+		<link rel="stylesheet" type="text/css" href="./User Page_files/header.css">
+		<link rel="stylesheet" type="text/css" href="./User Page_files/user-page.css">
+		
+		
+
+		<!-- Angular stuff -->
+		<script src="./User Page_files/angular.min.js"></script>
+
+		<!-- My code -->
+		
+		<script src="./User Page_files/cartCtrl.js"></script>
+		<script src="./User Page_files/accountCtrl.js"></script>
+		<script src="./User Page_files/user-page.js"></script>
+
+		
+
+	</head>
+
+
+	<body>
+
+		<div ng-app="" class="ng-scope"> 
+			<!-- ngInclude: 'header.html' --><div ng-include="&#39;header.html&#39;" class="ng-scope"><div id="Header" class="ng-scope">
+			<div id="Upper zone">
+				<div class="container-fluid">
+			        	
+			        	<div class="row-fluid">
+			            		
+			           		<div class="col-md-3" id="logo">
+			             		<a href="http://localhost:8000/view/html/home.html">
+			              			<img id="logoImg" src="./User Page_files/logo2.jpg" alt="Best Clothes">
+			             		</a>
+		             		</div>
+
+		             		<!-- ver que poner para que baje todo un poco -->
+		             		<div class="col-md-8">
+		             			<div class="row">
+			             			<div id="custom-search-input">
+                						<div id="search-bar" class="input-group col-md-8">
+                  							<input type="text" class="form-control input-lg" placeholder="Buscar...">
+                 							<span class="input-group-btn">
+	                    						<button class="btn btn-info btn-lg" type="button">
+	                      							<i class="glyphicon glyphicon-search"></i>
+	                    						</button>
+                  							</span>
+                						</div>
+             						</div>
+			             		</div>
+			             	</div>
+		        		</div>
+				</div>
+			</div>
+
+			<nav class="navbar navbar-inverse">
+			  <div class="container-fluid">
+			    <!-- Brand and toggle get grouped for better mobile display -->
+			    <div class="navbar-header">
+			      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+			        <span class="sr-only">Toggle navigation</span>
+			        <span class="icon-bar"></span>
+			        <span class="icon-bar"></span>
+			        <span class="icon-bar"></span>
+			      </button>
+			    </div>
+
+			    <!-- Collect the nav links, forms, and other content for toggling -->
+			    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+			      <ul class="nav navbar-nav">
+
+					<!-- Dropdown de hombres-->
+			        <li class="dropdown">
+			          <a href="http://localhost:8000/view/html/categories.html?id=hombres" class="dropdown-toggle" role="button" aria-haspopup="true" aria-expanded="false">Hombres <span class="caret"></span></a>
+			          <ul class="dropdown-menu">
+			            <li><a href="http://localhost:8000/view/html/userPage.html?id=usuario#">Action</a></li>
+			            <li><a href="http://localhost:8000/view/html/userPage.html?id=usuario#">Another action</a></li>
+			            <li><a href="http://localhost:8000/view/html/userPage.html?id=usuario#">Something else here</a></li>
+			            <li role="separator" class="divider"></li>
+			            <li><a href="http://localhost:8000/view/html/userPage.html?id=usuario#">Separated link</a></li>
+			            <li role="separator" class="divider"></li>
+			            <li><a href="http://localhost:8000/view/html/userPage.html?id=usuario#">One more separated link</a></li>
+			          </ul>
+			        </li>
+
+
+			        <!-- Dropdown de Mujeres-->
+			        <li class="dropdown">
+			          <a href="http://localhost:8000/view/html/categories.html?id=mujeres" class="dropdown-toggle" role="button" aria-haspopup="true" aria-expanded="false">Mujeres <span class="caret"></span></a>
+			          <ul class="dropdown-menu">
+			            <li><a href="http://localhost:8000/view/html/userPage.html?id=usuario#">Action</a></li>
+			            <li><a href="http://localhost:8000/view/html/userPage.html?id=usuario#">Another action</a></li>
+			            <li><a href="http://localhost:8000/view/html/userPage.html?id=usuario#">Something else here</a></li>
+			            <li role="separator" class="divider"></li>
+			            <li><a href="http://localhost:8000/view/html/userPage.html?id=usuario#">Separated link</a></li>
+			            <li role="separator" class="divider"></li>
+			            <li><a href="http://localhost:8000/view/html/userPage.html?id=usuario#">One more separated link</a></li>
+			          </ul>
+			        </li>
+		        
+			        <!-- Dropdown de infantiles-->
+			        <li class="dropdown">
+			          <a href="http://localhost:8000/view/html/categories.html?id=infantiles" class="dropdown-toggle" role="button" aria-haspopup="true" aria-expanded="false">Infantiles <span class="caret"></span></a>
+			          <ul class="dropdown-menu">
+			            <li><a href="http://localhost:8000/view/html/userPage.html?id=usuario#">Action</a></li>
+			            <li><a href="http://localhost:8000/view/html/userPage.html?id=usuario#">Another action</a></li>
+			            <li><a href="http://localhost:8000/view/html/userPage.html?id=usuario#">Something else here</a></li>
+			            <li role="separator" class="divider"></li>
+			            <li><a href="http://localhost:8000/view/html/userPage.html?id=usuario#">Separated link</a></li>
+			            <li role="separator" class="divider"></li>
+			            <li><a href="http://localhost:8000/view/html/userPage.html?id=usuario#">One more separated link</a></li>
+			          </ul>
+			        </li>
+
+			      </ul>
+
+			      <ul class="nav navbar-nav navbar-right">
+
+			        <!-- Carrito -->
+			        <li class="dropdown">
+			          <a href="http://localhost:8000/view/html/userPage.html?id=carrito" class="dropdown-toggle" role="button" aria-haspopup="true" aria-expanded="false">
+			          	<i class="glyphicon glyphicon-shopping-cart"></i>
+			          	<span class="caret"></span>
+			          </a>
+			          <ul class="dropdown-menu">
+			            <li><a href="http://localhost:8000/view/html/userPage.html?id=usuario#">Action</a></li>
+			            <li><a href="http://localhost:8000/view/html/userPage.html?id=usuario#">Another action</a></li>
+			            <li><a href="http://localhost:8000/view/html/userPage.html?id=usuario#">Something else here</a></li>
+			            <li role="separator" class="divider"></li>
+			            <li><a href="http://localhost:8000/view/html/userPage.html?id=usuario#">Separated link</a></li>
+			          </ul>
+			        </li>
+
+			        <!-- Favoritos -->
+			        <li class="dropdown">
+			          <a href="http://localhost:8000/view/html/userPage.html?id=favoritos" class="dropdown-toggle" role="button" aria-haspopup="true" aria-expanded="false">
+			          	<i class="glyphicon glyphicon-heart"></i>
+			          	<span class="caret"></span>
+			          </a>
+			          <ul class="dropdown-menu">
+			            <li><a href="http://localhost:8000/view/html/userPage.html?id=usuario#">Action</a></li>
+			            <li><a href="http://localhost:8000/view/html/userPage.html?id=usuario#">Another action</a></li>
+			            <li><a href="http://localhost:8000/view/html/userPage.html?id=usuario#">Something else here</a></li>
+			            <li role="separator" class="divider"></li>
+			            <li><a href="http://localhost:8000/view/html/userPage.html?id=usuario#">Separated link</a></li>
+			          </ul>
+			        </li>
+
+
+
+			        <!-- Cuenta -->
+			        <li class="dropdown">
+			          <a href="./User Page_files/User Page.html" class="dropdown-toggle" role="button" aria-haspopup="true" aria-expanded="false">
+			          	<i class="glyphicon glyphicon-user"></i> Ingresar
+			          	<span class="caret"></span>
+			          </a>
+			          <ul class="dropdown-menu">
+			            <li><a href="http://localhost:8000/view/html/userPage.html?id=usuario#">Ingresar</a></li>
+			            <li><a href="http://localhost:8000/view/html/userPage.html?id=usuario#">Registrarse</a></li>
+			          </ul>
+			        </li>
+
+
+			      </ul>
+			    </div><!-- /.navbar-collapse -->
+			  </div><!-- /.container-fluid -->
+			</nav>
+		</div></div> <!-- Import's header -->
+		</div>
+
+		<ol class="breadcrumb">
+  			<li><a href="http://localhost:8000/view/html/home.html">Home</a></li>
+ 			<li class="active">Carrito</li>
+		</ol>
+
+		<!-- Body Page -->
+
+		<div class="container-fluid">
+			
+			<div class="col-md-1">
+				
+			</div>
+
+			<div class="col-md-9">
+				<div class="container-fluid">
+					<!-- Aca empiezan las tabs-->
+					<ul class="nav nav-tabs">
+					  	<li class=""><a href="http://localhost:8000/view/html/userPage.html?id=usuario#Carrito" data-toggle="tab" aria-expanded="false"> <i class="glyphicon glyphicon-shopping-cart"></i> Carrito</a></li>
+					 	<li><a href="http://localhost:8000/view/html/userPage.html?id=usuario#Favoritos" data-toggle="tab"><i class="glyphicon glyphicon-heart"></i> Favoritos</a></li>
+					  	<li class="active"><a href="http://localhost:8000/view/html/userPage.html?id=usuario#Cuenta" data-toggle="tab" aria-expanded="true"><i class="glyphicon glyphicon-user"></i> Cuenta</a></li>
+					</ul>
+				
+				
+					<div class="tab-content">
+						<div class="tab-pane fade generalTabPane" id="Carrito">
+
+							<div ng-controller="cartController" class="ng-scope">
+								<p>Este es el cart
+								</p><p> Aca van a estar las funcionalidades del carrito, traidas mediante angular por un controller
+								</p><p class="ng-binding"> Ejemplo de uso: John Doe
+							</p></div>
+
+						</div>	
+
+						<div class="tab-pane fade generalTabPane" id="Favoritos">
+							<p>Esta es la wish list
+						</p></div>
+
+						<div class="tab-pane fade generalTabPane ng-scope active in" id="Cuenta" ng-controller="cartController">
+							<div class="container-fluid" ng-init="user=get_user()">
+							  	<ul class="nav nav-pills myPills">
+							    	<li role="presentation" class="active"><a href="http://localhost:8000/view/html/userPage.html?id=usuario#Personales" data-toggle="pill">Datos Personales</a></li>
+							    	<li role="presentation"><a href="http://localhost:8000/view/html/userPage.html?id=usuario#InfoCuenta" data-toggle="pill">Información de cuenta</a></li>
+							    	<li role="presentation"><a href="http://localhost:8000/view/html/userPage.html?id=usuario#Direcciones" data-toggle="pill">Direcciones</a></li>
+							  	</ul>
+								<div class="tab-content">
+							    	<div class="tab-pane fade active in" id="Personales">
+							        		<p class="ng-binding">Nombre: </p>
+          									<p>Apellido: Bellini</p>
+									        <p>Fecha de nacimiento: 06/10/1991</p>
+									        <p>Sexo: Hombre</p>
+							        </div>
+							        <div class="tab-pane fade" id="InfoCuenta">
+							    		<p>Usuario: jbellini</p>
+							    		<p>Email: juanmbellini@hotmail.com</p>
+							    		<p>Contraseña: XXXXXXXX</p>
+							        </div>
+							        <div class="tab-pane fade" id="Direcciones">
+							        		sad
+							        </div>
+							    </div>
+							</div>
+						</div>
+					</div>
+
+				</div>
+			</div>
+
+			<div class="col-md-2">
+				<div ng-app="">
+					<!-- ngInclude: 'recommendations.html' --><div ng-include="&#39;recommendations.html&#39;" class="ng-scope">
+<div class="ng-scope">
+	Aca van los productos recomendados
+</div></div> <!-- Import's recommendations -->
+				</div>
+			</div>
+		</div>
+
+
+
+
+
+
+	
+</body></html>
