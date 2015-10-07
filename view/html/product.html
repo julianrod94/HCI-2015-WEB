@@ -48,22 +48,22 @@
                 <li><a ng-href="categories.html?id={{product().gender.toLowerCase()}}">{{product().gender}}</a></li>
                 <li><a ng-href="{{createBackLinkCategory()}}">{{product().category}}</a></li>
                 <li><a ng-href="{{createBackLinkSubCategory()}}">{{product().sub}}</a></li>
-                <li class="active">Sapatisha</li>
+                <li class="active">{{product().brand + " | " + product().name}}</li>
             </ol>
 
 
             <!-- Body Page -->
-            <div class="container-fluid">
-                <div class="content-wrapper"> 
+            <div class="container-fluid myContainerFLuid">
+                <div class="content-wrapper myContentWrapper"> 
                     <div class="item-container">  
-                        <div class="container"> 
-                            <div class="row">
+                        <div class="container myContainer"> 
+                            <div class="row central-part">
                                 <div class="col-md-8">
                                     <div class="product col-md-5 service-image-left">
                                         <img id="item-display" src={{product_images()[0]}} alt={{product().name}}></img>
                                     </div>
 
-                                    <div class="container service1-items col-sm-2 col-md-2 pull-left">
+                                    <div class="myContainer service-items col-sm-2 col-md-2 pull-left">
                                         <div ng-repeat="i in product_images()" 
                                             <a class="service1-item">
                                                 <img src="{{i}}" alt=""></img>
@@ -85,9 +85,9 @@
                                     </div>
                                     <hr>
                                     <div class="product-price">{{'$' + product().price}}</div>
-                                    <div class="product-stock">In Stock</div>
+                                    <div class="product-stock">Disponible!</div>
                                     <hr>
-                                    <div class="container">
+                                    <div class="myContainer">
                                         <div class="btn-group">
                                             <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                                 Talles
@@ -111,14 +111,14 @@
                                                 </div>
                                                 <div class="row">
                                                     <div class="col-md-3" ng-repeat="i in other">
-                                                        <a href="#"><img class="other-colors" src="{{get_first_picture(i.id)}}"/></a>
+                                                        <a href="{{product_variants_links(i.id)}}"><img class="other-colors" src="{{get_first_picture(i.id)}}"/></a>
                                                     </div>
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
                                     <hr>
-                                    <div class="btn-group cart container myButtons">
+                                    <div class="btn-group cart myContainer myButtons">
                                         <div class="row">
                                             <button type="button" class="btn btn-success">
                                                 <i class="glyphicon glyphicon-shopping-cart"></i>
@@ -136,79 +136,40 @@
                     </div> 
                 </div>
             </div>
+            <div class="bottom-tabs">
 
-            <!--
-            <div class="container-fluid">   
-                <div class="col-md-12 product-info">
-                    <ul id="myTab" class="nav nav-tabs nav_tabs">
-                        <li class="active"><a href="#service-one" data-toggle="tab">Descripcion</a></li>
-                        <li><a href="#service-two" data-toggle="tab">Informacion de Producto</a></li>
-                        <li><a href="#service-three" data-toggle="tab">Rese(enie)as</a></li>
+                    <ul class="nav nav-tabs">
+                        <li class="active"><a href="#Descripcion"data-toggle="tab">Descripción</a></li>
+                        <li><a href="#Resenias" data-toggle="tab">Reseñas</a></li>
                     </ul>
-                    <div id="myTabContent" class="tab-content">
-                        <div class="tab-pane fade in active" id="service-one">
 
-                            <section class="container product-info">
-                                Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem. Nulla consequat massa quis enim. Donec pede justo, fringilla vel, aliquet nec, vulputate eget, arcu. In enim justo, rhoncus ut, imperdiet a, venenatis vitae, justo. Nullam dictum felis eu pede mollis pretium. Integer tincidunt.
+                <div class="tab-content">
+                    <div class="tab-pane fade active in" id="Descripcion">
+                        <br>
+                        <ul>
+                            <li>Marca: {{product().brand}}</li>
+                            <li>Color: {{product().color}}</li>
+                            <li ng-repeat="i in product().descriptions"> {{i}}</li>
+                    </div>  
 
-                                <h3> Nullam dictum felis eu pede:</h3>
-                                <li>Vivamus elementum semper nisi. Aenean vulputate eleifend tellus</li>
-                                <li>Nullam quis ante. Etiam sit amet orci eget eros faucibus tincidunt</li>
-                                <li>Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem. Nulla consequat massa quis enim. Donec pede justo, fringilla vel, aliquet nec</li>
-                                <li>Aliquam lorem ante, dapibus in, viverra quis, feugiat a, tellus. Phasellus viverra nulla ut metus varius laoreet. Quisque rutrum</li>
-                                <li>uctus pulvinar, hendrerit id, lorem. Maecenas nec odio et ante tincidunt tempus</li>
-                            </section>
+                    <div class="tab-pane fade" id="Resenias">
+                        <br>
+                        <div class="row resenia">
+                            <h5>Julian </h5>
+                            <hr>
+                            Muy buen producto! Lo recomiendo
                         </div>
-                        
-                        <div class="tab-pane fade" id="service-two">
-
-                            <section class="container">
-
-                            </section>
-
-                        </div>
-                        
-                        <div class="tab-pane fade" id="service-three">
-
+                        <br>
+                        <div class="row resenia">
+                            <h5>Andrea </h5>
+                            <hr>
+                            No me gustó mucho
                         </div>
                     </div>
-                    <hr>
+
                 </div>
-            </div> -->
-                <div class="container-fluid">
-
-                        <ul class="nav nav-tabs">
-                            <li class="active"><a href="#Descripcion"data-toggle="tab">Descripción</a></li>
-                            <li><a href="#Resenias" data-toggle="tab">Reseñas</a></li>
-                        </ul>
-
-                    <div class="tab-content">
-                        <div class="tab-pane fade active in" id="Descripcion">
-                            <br>
-                            <ul>
-                                <li>Marca: {{product().brand}}</li>
-                                <li>Color: {{product().color}}</li>
-                                <li ng-repeat="i in product().descriptions"> {{i}}</li>
-                        </div>  
-
-                        <div class="tab-pane fade" id="Resenias">
-                            <br>
-                            <div class="row resenia">
-                                <h5>Julian </h5>
-                                <hr>
-                                Muy buen producto! Lo recomiendo
-                            </div>
-                            <br>
-                            <div class="row resenia">
-                                <h5>Andrea </h5>
-                                <hr>
-                                No me gustó mucho
-                            </div>
-                        </div>
-
-                    </div>
-                </div>
-                <br>
+            </div>
+            <br>
         </div>
     </body>
 </html>

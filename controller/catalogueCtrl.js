@@ -296,7 +296,7 @@ angular.module('catalogueApp', []).controller('catalogueController', function($s
     },
 
     $scope.getProductLink = function(id) {
-        return "product.html?id=" + id +"&filters=" + encodeURIComponent(JSON.stringify(JSONFilters));
+        return "product.html?id=" + id; //+"&filters=" + encodeURIComponent(JSON.stringify(JSONFilters));
     }
 
 

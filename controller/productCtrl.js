@@ -1,49 +1,4 @@
 
-// Creates a JSON Object that contains filter names and values to filter
-// Based on 'filters' query string parameter
-// In case it wasn't a valid query string, returns null
-function createJSONFilterObject() {
-
-    var result = getParameterByName('filters');
-    result = decodeURIComponent(result);
-    try {
-        result = JSON.parse(result);
-    } catch (e) {
-        return null;
-    }
-    result = eval(result);
-
-    if (result.length == undefined) {
-        return null;
-    }
-
-    var i, flag = false;
-    for (i = 0 ; i < result.length & !flag ; i++) {
-        var j;
-        for (j = 0 ; j < getFieldsForFilters().length &!flag; j++) {
-            flag = result[i].name == getFieldsForFilters()[j];
-        }
-    }
-    if (!flag) {
-        return null;
-    }
-
-    return result;
-
-}
-
-// Field that contains the JSON Filter Object (we create it only once)
-var JSONFilters = createJSONFilterObject();
-
-// Returns how many filters there are (used to load a proper breadcrumb)
-function  getComponentsOfFilter() {
-    var result = JSONFilters;
-    if (result == null) {
-        return 0;
-    }
-    return result.length;
-}
-
 
 
 function getProduct() {
@@ -93,6 +48,10 @@ angular.module('productApp', []).controller('productController', function($scope
 
 	$scope.product_variants = function() {
 		return list_of_products_with_same_color
+	}
+
+	$scope.product_variants_links = function(id) {
+		return "product.html?id=" + id;
 	}
 
 	$scope.product_images = function() {

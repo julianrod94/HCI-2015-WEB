@@ -46,7 +46,7 @@
 					VIEW
 *********************************************/
 
-.content-wrapper {
+.myContentWrapper {
 	max-width: 1140px;
 	background: #fff;
 	margin: 0 auto;
@@ -56,7 +56,7 @@
 	border-radius: 0px;
 }
 
-.container-fluid{
+.myContainerFluid {
 	max-width: 1140px;
 	margin: 0 auto;
 }
@@ -67,15 +67,24 @@
 	margin-top: 25px;
 }
 
-.container {
+.myContainer {
 	padding-left: 0px;
 	padding-right: 0px;
 	max-width: 100%;
 }
 
+.bottom-tabs {
+
+	padding-left: 70px;
+}
+
 /*********************************************
 				ITEM 
 *********************************************/
+
+.central-part {
+	padding-bottom: 2em;
+}
 
 .service1-items {
 	padding: 0px 0 0px 0;
@@ -88,12 +97,12 @@
 }
 
 .service1-item {
-	height: 107px;
-	width: 120px;
+	height: 25%;
+	padding-left: 2em;
+	padding-right: 2em;
 	display: block;
 	float: left;
 	position: relative;
-	padding-right: 20px;
 	border-right: 1px solid #DDD;
 	border-top: 1px solid #DDD;
 	border-bottom: 1px solid #DDD;
@@ -116,6 +125,17 @@
 
 .service-image-left {
 	padding-right: 50px;
+}
+
+.service-image-left {
+	
+	padding-bottom: 5px;
+	padding-right: 500px;
+	height: 100%;
+}
+
+.service-image-left > img {
+	max-width: 500px;
 }
 
 .service-image-right {
@@ -143,6 +163,7 @@
 }
 
 .resenia {
+	padding-left: 50px;
 	padding-bottom: 5em;
 	border: 3px;
 	width: 50em;
