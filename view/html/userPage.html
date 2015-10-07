@@ -71,15 +71,171 @@
 						<div class="tab-pane fade active in generalTabPane" id="Carrito">
 
 							<div ng-controller="cartController">
-								<p>Este es el cart
-								<p> Aca van a estar las funcionalidades del carrito, traidas mediante angular por un controller
-								<p> Ejemplo de uso: {{ fullName() }}
-							</div>
+								
+								<div class="contaiiner-fluid">
+								    <div class="row">
+
+								     <div class ="col-md-2">
+
+								     </div>
+
+								     <div class ="col-md-2">
+								      <p>Producto</p>
+								    </div> 
+								    <div class="col-md-2">
+								      <p>Colores</p>
+								    </div>
+								    <div class="col-md-1">
+								      <p>Talle</p>
+								    </div>
+								    <div class="col-md-2">
+								      <p>Cantidad</p>
+								    </div>
+								    <div class="col-md-2">
+								      <p>Precio</p>
+								    </div>
+
+								  </div>
+								  <br>
+								  <br>
+								  <div class="row">
+
+								   <div class ="col-md-2">
+								   		<img src="../../assets/clothes/t-shirts/dc_brickline_black_1.jpg" class="cart-image"/>
+								   </div>
+								   
+								   <div class ="col-md-2">
+								    <p>DC - Brickline</p>
+								    <br>
+								    <div class="btn-group cart">
+								      
+								      <div class="row" id="my-cart-buttons">
+								        <button type="button" class="btn btn-warning">
+								          <i class="glyphicon glyphicon-heart"></i>
+								        </button>
+
+								        <button type="button" class="btn btn-danger">
+								          <i class="glyphicon glyphicon-remove"></i>
+								        </button>
+								      </div>
+
+								    </div>
+								  </div> 
+								  <div class="col-md-2">
+								    <img src="../../assets/clothes/t-shirts/dc_brickline_black_1.jpg" class="cart-image-colors"/>
+								    <img src="../../assets/clothes/t-shirts/dc_brickline_white_1.jpg" class="cart-image-colors"/>
+								  </div>
+								  <div class="col-md-1">      
+								    <div class="btn-group">
+								      <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+								        Talle
+								        <span class="caret"></span>
+								      </button>
+								      <ul class="dropdown-menu">
+								        <li><a href="#">S</a></li>
+								        <li><a href="#">M</a></li>
+								        <li><a href="#">L</a></li>
+								      </ul>
+								    </div>
+								  </div>
+								  <div class="col-md-2">
+								     
+
+								      <input type="number" name="display_name" id="display_name" class="form-control input-lg" placeholder="2" tabindex="5">
+
+								      
+								  </div>
+								  <div class="col-md-2">
+								  	<p> 2 x $99.99
+								    <h3>$199.98</h3>
+								  </div>
+
+								</div>
+
+								</div>
+
+
+									</div>
 
 						</div>	
 
 						<div class="tab-pane fade generalTabPane" id="Favoritos">
-							<p>Esta es la wish list
+							
+
+							<div ng-controller="cartController">
+								
+								<div class="contaiiner-fluid">
+								    <div class="row">
+
+								     <div class ="col-md-2">
+
+								     </div>
+
+								     <div class ="col-md-2">
+								      <p>Producto</p>
+								    </div> 
+								    <div class="col-md-3">
+								      <p>Colores</p>
+								    </div>
+								    <div class="col-md-3">
+								      <p>Talle</p>
+								    </div>
+								    <div class="col-md-2">
+								      <p>Precio</p>
+								    </div>
+
+								  </div>
+								  <br>
+								  <br>
+								  <div class="row">
+
+								   <div class ="col-md-2">
+								   		<img src="../../assets/clothes/t-shirts/dc_brickline_black_1.jpg" class="cart-image"/>
+								   </div>
+								   
+								   <div class ="col-md-2">
+								    <p>DC - Brickline</p>
+								    <br>
+								    <div class="btn-group cart">
+								      
+								      <div class="row" id="my-cart-buttons">
+								        <button type="button" class="btn btn-success">
+								          <i class="glyphicon glyphicon-shopping-cart"></i>
+								        </button>
+
+								        <button type="button" class="btn btn-danger">
+								          <i class="glyphicon glyphicon-remove"></i>
+								        </button>
+								      </div>
+
+								    </div>
+								  </div> 
+								  <div class="col-md-3">
+								    <img src="../../assets/clothes/t-shirts/dc_brickline_black_1.jpg" class="cart-image-colors"/>
+								    <img src="../../assets/clothes/t-shirts/dc_brickline_white_1.jpg" class="cart-image-colors"/>
+								  </div>
+								  <div class="col-md-3">      
+								    	<h4>M</h4>
+								  </div>
+								  
+								  <div class="col-md-2">
+								    <h3>$199.98</h3>
+								  </div>
+
+								</div>
+
+								</div>
+
+
+									</div>
+
+
+
+
+
+
+
+
 						</div>
 
 						<div class="tab-pane fade generalTabPane" id="Cuenta" >

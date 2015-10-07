@@ -15,3 +15,15 @@
 .myPills {
 	padding-bottom: 30px; 
 }
+
+.cart-image {
+	max-width: 100px;
+}
+.cart-image-colors {
+	max-width: 50px;
+	padding-top: 1em;
+}
+
+#my-cart-buttons {
+	padding-left: 16px;
+}
