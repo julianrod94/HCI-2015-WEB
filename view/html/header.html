@@ -133,16 +133,17 @@
 
 
 		        			var aux = getParameterByName('user_id');
-		        			if (aux == null || aux == '') {	
+		        			if (aux != null && aux != '') {	
 		        				$('#user-link #user-logged').hide();
 		        				$('#user-link #user-not-logged').show();
 		        				var str = "asdasd";
-		        				str = "Hola " + str;
+		        				str = " Hola " + str;
 		        				$('#user-logged .dropdown-toggle #user-name-display').text(str);
 
 		        			} else {
 		        				$('#user-link #user-logged').show();
 		        				$('#user-link #user-not-logged').hide();
+		        				$('#user-logged .dropdown-toggle #user-name-display').text(" Ingresar");
 		        			}
 
 
@@ -188,7 +189,7 @@
 						    }
 						)});
 			        </script>
-					        <li class="dropdown" id="user-not-logged">
+					        <li class="dropdown" id="user-logged">
 					          	<a href="userPage.html?id=usuario" class="dropdown-toggle" role="button" aria-haspopup="true" aria-expanded="false">
 					          		<i class="glyphicon glyphicon-user"></i><span id="user-name-display"/>
 					          		<span class="caret"></span>
@@ -214,9 +215,6 @@
 									</div>
 					          	</ul>
 					        </li>
-					    <li class="dropdown" id="user-logged">
-					    	asdasd
-					    </li>
 
 
 			      </ul>
