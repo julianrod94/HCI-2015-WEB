@@ -140,10 +140,10 @@
 						        var email = $("#login-form .container-fluid #e-mail-input").val();
 						        var password = $("#login-form .container-fluid #password-input").val()
 						        var user_id = login(email,password);
-						        /*if (user_id == null) {
+						        if (user_id == null) {
 						            console.log("Error");
 						            return;
-						        }*/
+						        }
 						        var query = getParameterByName('filters');
 						        if (query != null && query != '') {
 						        	if (str[str.length - 1] != '?') {
@@ -168,47 +168,50 @@
 							    if (str[str.length - 1] != '?') {
 						        		str = str + '&';
 						        	}
-							        str += 'user_id=' + query;
+							        str += 'user_id=' + user_id;
 
-							    console.log(str);
+							    window.location.replace(str);
 						    }
 						)});
 			        </script>
-			        
-			        <li class="dropdown">
-			          <a href="userPage.html?id=usuario" class="dropdown-toggle" role="button" aria-haspopup="true" aria-expanded="false">
-			          	<i class="glyphicon glyphicon-user"></i> Ingresar
-			          	<span class="caret"></span>
-			          </a>
-			          <ul class="dropdown-menu" id="login-form">
+			        <div ng-app="AccountApp">
+				        <div ng-init="user_logged=check_if_logged_in()">
+				        	<div ng-switch on="user_logged">
+						        <div ng-switch-when="true">
+							        <li class="dropdown" ng-init="user=get_user()">
+							          	<a href="userPage.html?id=usuario" class="dropdown-toggle" role="button" aria-haspopup="true" aria-expanded="false">
+							          		<i class="glyphicon glyphicon-user"></i> Hola {{user.name}}
+							          		<span class="caret"></span>
+							          	</a>
+							          	<ul class="dropdown-menu" id="login-form">
 
-			          	<div class="container-fluid">
-						  	<div class="form-group">
-						    	<label>Usuario</label>
-						    	<input type="email" class="form-control" id="e-mail-input" placeholder="Email">
-						  	</div>
-						  	<div class="form-group">
-						    	<label>Contraseña</label>
-						    	<input type="password" class="form-control" id="password-input" placeholder="Password">
-						  	</div>
-						  	<div>
-						  		<a href="#">Crear cuenta nueva</a>
-						  	</div>
-						  	<div>
-						  		<a href="#">Olvidé mi contraseña</a>
-						  	</div>
-						  	<button type="submit" class="btn btn-default">Ingresar</button>
-						</div>
+							          		<div class="container-fluid">
+										  		<div class="form-group">
+										    		<label>Usuario</label>
+										    		<input type="email" class="form-control" id="e-mail-input" placeholder="Usuario">
+										  		</div>
+										  		<div class="form-group">
+										    		<label>Contraseña</label>
+										    		<input type="password" class="form-control" id="password-input" placeholder="Contraseña">
+										  		</div>
+										  		<div>
+										  			<a href="#">Crear cuenta nueva</a>
+										  		</div>
+										  		<div>
+										  			<a href="#">Olvidé mi contraseña</a>
+										  		</div>
+										  		<button type="submit" class="btn btn-default">Ingresar</button>
+											</div>
+							          	</ul>
+							        </li>
+							    </div>
+							    <div ng-switch-default>
+							    	puto
+							    </div>
 
-
-
-
-
-
-
-
-			          </ul>
-			        </li>
+						    </div>
+					    </div>
+					</div>
 
 
 			      </ul>

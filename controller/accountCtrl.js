@@ -3,7 +3,7 @@
 var listOfTestUsers = [
 
     {
-        user_id: 1,
+        user_id: 0,
         first_name: 'Juan Marcos',
         last_name: 'Bellini',
         birth: '06/10/1991',
@@ -38,7 +38,7 @@ var listOfTestUsers = [
         telephone: '1544484848'
     },
     {
-        user_id: 2,
+        user_id: 1,
         first_name: 'Mateo',
         last_name: 'Bellini',
         birth: '06/09/1994',
@@ -62,7 +62,7 @@ var listOfTestUsers = [
         telephone: '1531741498'
     },
     {
-        user_id: 3,
+        user_id: 2,
         first_name: 'Julian',
         last_name: 'Rodriguez Nicastro',
         birth: '20/11/1994',
@@ -128,6 +128,11 @@ angular.module('AccountApp', []).controller('accountController', function($scope
 
     $scope.get_user = function() {
         return get_user();
+    }
+
+    $scope.check_if_logged_in = function() {
+         var user = getParameterByName('user_id');
+         return user == null;
     }
     
 

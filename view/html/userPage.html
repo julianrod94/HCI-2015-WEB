@@ -105,9 +105,8 @@
 							        <div class="tab-pane fade" id="Direcciones">
 						        		<div ng-repeat="i in user.addresses">
 						        			<hr>
-						        			<p> Calle: {{i.street + " " + i.number }} {{(i.floor != null)?floor:'' + " - " + (i.apartment != null)?floor:''}}</p>
-						        			<p> {{"Ciudad: " + i.city + " " }}</p>
-						        			<p> Código postal: {{i.zip_code}}</p>
+						        			<p> {{i.street + " " + i.number }} {{((i.floor != null)?' | ' + i.floor:'') + ((i.apartment != null)?i.apartment:'')}}</p>
+						        			<p> {{i.city + " - CP: " + i.zip_code }}</p>
 						        			<hr>
 						        		</div>
 							        </div>
