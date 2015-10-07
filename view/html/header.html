@@ -132,6 +132,20 @@
 			        	$(document).ready(function() {
 
 
+		        			var aux = getParameterByName('user_id');
+		        			if (aux == null || aux == '') {	
+		        				$('#user-link #user-logged').hide();
+		        				$('#user-link #user-not-logged').show();
+		        				var str = "asdasd";
+		        				str = "Hola " + str;
+		        				$('#user-logged .dropdown-toggle #user-name-display').text(str);
+
+		        			} else {
+		        				$('#user-link #user-logged').show();
+		        				$('#user-link #user-not-logged').hide();
+		        			}
+
+
 						    $('#login-form .container-fluid .btn').click(function() {
 
 						        var str = document.location.pathname;
@@ -174,44 +188,35 @@
 						    }
 						)});
 			        </script>
-			        <div ng-app="AccountApp">
-				        <div ng-init="user_logged=check_if_logged_in()">
-				        	<div ng-switch on="user_logged">
-						        <div ng-switch-when="true">
-							        <li class="dropdown" ng-init="user=get_user()">
-							          	<a href="userPage.html?id=usuario" class="dropdown-toggle" role="button" aria-haspopup="true" aria-expanded="false">
-							          		<i class="glyphicon glyphicon-user"></i> Hola {{user.name}}
-							          		<span class="caret"></span>
-							          	</a>
-							          	<ul class="dropdown-menu" id="login-form">
+					        <li class="dropdown" id="user-not-logged">
+					          	<a href="userPage.html?id=usuario" class="dropdown-toggle" role="button" aria-haspopup="true" aria-expanded="false">
+					          		<i class="glyphicon glyphicon-user"></i><span id="user-name-display"/>
+					          		<span class="caret"></span>
+					          	</a>
+					          	<ul class="dropdown-menu" id="login-form">
 
-							          		<div class="container-fluid">
-										  		<div class="form-group">
-										    		<label>Usuario</label>
-										    		<input type="email" class="form-control" id="e-mail-input" placeholder="Usuario">
-										  		</div>
-										  		<div class="form-group">
-										    		<label>Contraseña</label>
-										    		<input type="password" class="form-control" id="password-input" placeholder="Contraseña">
-										  		</div>
-										  		<div>
-										  			<a href="#">Crear cuenta nueva</a>
-										  		</div>
-										  		<div>
-										  			<a href="#">Olvidé mi contraseña</a>
-										  		</div>
-										  		<button type="submit" class="btn btn-default">Ingresar</button>
-											</div>
-							          	</ul>
-							        </li>
-							    </div>
-							    <div ng-switch-default>
-							    	puto
-							    </div>
-
-						    </div>
-					    </div>
-					</div>
+					          		<div class="container-fluid">
+								  		<div class="form-group">
+								    		<label>Usuario</label>
+								    		<input type="email" class="form-control" id="e-mail-input" placeholder="Usuario">
+								  		</div>
+								  		<div class="form-group">
+								    		<label>Contraseña</label>
+								    		<input type="password" class="form-control" id="password-input" placeholder="Contraseña">
+								  		</div>
+								  		<div>
+								  			<a href="#">Crear cuenta nueva</a>
+								  		</div>
+								  		<div>
+								  			<a href="#">Olvidé mi contraseña</a>
+								  		</div>
+								  		<button type="submit" class="btn btn-default">Ingresar</button>
+									</div>
+					          	</ul>
+					        </li>
+					    <li class="dropdown" id="user-logged">
+					    	asdasd
+					    </li>
 
 
 			      </ul>
