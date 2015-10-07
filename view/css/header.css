@@ -16,10 +16,14 @@
   }
 }
 
-
+#logoImg{
+    padding-top: 3px;
+    padding-bottom: 3px;
+    max-height: 90px;
+}
 
 #custom-search-input{
-    padding: 3px;
+    padding-bottom: 30px
     border: solid 1px #E4e4e4
     border-radius: 6px;
     background-color: #fff;
@@ -31,7 +35,6 @@
 }
 
 #custom-search-input button{
-    margin: 2px 0 0 0;
     background: none;
     box-shadow: none;
     border: 0;
