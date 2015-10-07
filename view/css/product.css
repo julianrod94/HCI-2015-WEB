@@ -125,3 +125,25 @@
 .service-image-left > center > img,.service-image-right > center > img{
 	max-height: 180px;
 }
+
+.other-colors {
+	max-width: 100px;
+	padding: 1em;
+}
+
+.myButtons > div {
+	margin-left: 2em;
+	width: 10em;
+}
+
+
+.myButtons > div > button{
+	margin-bottom: 1em;
+	width: 13em;
+}
+
+.resenia {
+	padding-bottom: 5em;
+	border: 3px;
+	width: 50em;
+}

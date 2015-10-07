@@ -153,7 +153,7 @@ function getParameterByName(name) {
 	return results === null ? "" : decodeURIComponent(results[1].replace(/\+/g, " "));
 }
 
-var categories = ['Indumentaria','Calzado', 'Accesorios'];
+var categories = ['Indumentaria','Calzado','Accesorios'];
 
 
 
@@ -174,8 +174,25 @@ angular.module('categoriesApp', []).controller('categoriesController', function(
 
     $scope.sub_categories = function() {
         return getSubcategories(pageId);
-    }
+    },
 
+    $scope.categories_link = function(gender, cat) {
+
+      var str = '[{"name":"gender", "values":["' + gender + '"]}, {"name":"category", "values":["' + cat + '"]}]';
+      str = JSON.stringify(str);
+      str = encodeURIComponent(str);
+      return "catalogue.html?filters=" + str;
+      
+    },
+
+    $scope.sub_categories_link = function(gender, cat, sub) {
+
+      var str = '[{"name":"gender", "values":["' + gender + '"]}, {"name":"category", "values":["' + cat + '"]}, {"name":"sub", "values":["' + sub + '"]}]';
+      str = JSON.stringify(str);
+      str = encodeURIComponent(str);
+      return "catalogue.html?filters=" + str;
+      
+    }
 })
 
 
