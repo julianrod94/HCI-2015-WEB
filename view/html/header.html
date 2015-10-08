@@ -143,6 +143,8 @@
 		        			} else {
 		        				$('#user-logged .dropdown-toggle #user-name-display').text(" Ingresar");
 		        				$('#user-logged-dropdown').hide();
+		        				$('#ir-a-pagina-de-usuario').attr("href","");
+
 		        			}
 
 
@@ -222,7 +224,7 @@
 			        </script>
 
 					        <li class="dropdown" id="user-logged">
-					          	<a href="userPage.html?id=usuario" class="dropdown-toggle" role="button" aria-haspopup="true" aria-expanded="false">
+					          	<a href="userPage.html?id=usuario" class="dropdown-toggle" role="button" aria-haspopup="true" aria-expanded="false" id="ir-a-pagina-de-usuario">
 					          		<i class="glyphicon glyphicon-user"></i><span id="user-name-display"/>
 					          		<span class="caret"></span>
 					          	</a>
