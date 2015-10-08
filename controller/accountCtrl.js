@@ -69,7 +69,7 @@ var listOfTestUsers = [
         gender: 'Hombre',
         user_name: 'julrodriguez',
         e_mail: 'julrodriguez@itba.edu.ar',
-        password: 'tuvieja',
+        password: 'hola1',
         addresses: [],
         telephone: null,
     }
