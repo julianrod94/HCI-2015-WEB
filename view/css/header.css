@@ -67,3 +67,8 @@
     margin-top: 10px;
 }
 
+.requerido {
+    color: red;
+    text-align: right;
+}
+
