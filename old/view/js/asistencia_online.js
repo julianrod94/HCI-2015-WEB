@@ -9,11 +9,12 @@ function myFunction() {
 
 
     // If x is Not a Number or less than one or greater than 10
-    if (name != "" && email != "" && phone != "" && message !="") {
+    if (name != "" && email != "" &! isNaN(phone) && message !="") {
         text = "Input not valid";
         window.alert("Tu mensaje fue mandado. Respondemos dentro de 5 dias");
     } else {
         text = "Input OK";
+        window.alert("Los campos faltan informacion");
     }
     document.getElementById("demo").innerHTML = text;
 }/**
