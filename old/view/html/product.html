@@ -42,7 +42,7 @@
       <div ng-include="'header.html'"></div> <!-- Import's header -->
   </div>
 
-        <div = ng-controller="productController">
+        <div ng-controller="productController">
             <ol class="breadcrumb">
                 <li><a href="home.html">Home</a></li>
                 <li><a ng-href="categories.html?id={{product().gender.toLowerCase()}}">{{product().gender}}</a></li>
@@ -50,7 +50,6 @@
                 <li><a ng-href="{{createBackLinkSubCategory()}}">{{product().sub}}</a></li>
                 <li class="active">{{product().brand + " | " + product().name}}</li>
             </ol>
-
 
             <!-- Body Page -->
             <div class="container-fluid myContainerFLuid">
@@ -60,13 +59,13 @@
                             <div class="row central-part">
                                 <div class="col-md-8">
                                     <div class="product col-md-5 service-image-left">
-                                        <img id="item-display" src={{product_images()[0]}} alt={{product().name}}></img>
+                                        <img id="item-display" src={{product_images()[0]}} alt={{product().name}}>
                                     </div>
 
                                     <div class="myContainer service-items col-sm-2 col-md-2 pull-left">
-                                        <div ng-repeat="i in product_images()" 
+                                        <div ng-repeat="i in product_images()">
                                             <a class="service1-item">
-                                                <img src="{{i}}" alt=""></img>
+                                                <img src="{{i}}" alt="">
                                             </a>
                                         </div>
                                     </div>
@@ -150,6 +149,7 @@
                             <li>Marca: {{product().brand}}</li>
                             <li>Color: {{product().color}}</li>
                             <li ng-repeat="i in product().descriptions"> {{i}}</li>
+                        </ul>
                     </div>  
 
                     <div class="tab-pane fade" id="Resenias">

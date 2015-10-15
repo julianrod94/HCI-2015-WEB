@@ -18,7 +18,7 @@
 					<div class="row">
 						<div id="custom-search-input">
 							<div id="search-bar" class="input-group col-md-8">
-								<input type="text" class="form-control input-lg" placeholder="Buscar..." />
+								<input  type="text" class="form-control input-lg" placeholder="Buscar..." />
                  							<span class="input-group-btn">
 	                    						<button class="btn btn-info btn-lg" type="button">
 													<i class="glyphicon glyphicon-search"></i>
@@ -69,7 +69,8 @@
 								</div>
 								<div class="col-sm-6">
 									<ul class="multi-column-dropdown">
-										<li class="dropdown-header">Brand</li>
+										<li class="dropdown-header">Marca</li>
+										<li ng-repeat="i in product().brand"><a href="#">{{i}}</a></li>
 										<li><a href="#">Adidas</a></li>
 										<li><a href="#">Björn Borg</a></li>
 									</ul>
@@ -100,7 +101,7 @@
 								</div>
 								<div class="col-sm-6">
 									<ul class="multi-column-dropdown">
-										<li class="dropdown-header">Brand</li>
+										<li class="dropdown-header">Marca</li>
 										<li><a href="#">Adidas</a></li>
 										<li><a href="#">Björn Borg</a></li>
 									</ul>
@@ -131,7 +132,7 @@
 								</div>
 								<div class="col-sm-6">
 									<ul class="multi-column-dropdown">
-										<li class="dropdown-header">Brand</li>
+										<li class="dropdown-header">Marca</li>
 										<li><a href="#">Adidas</a></li>
 										<li><a href="#">Björn Borg</a></li>
 									</ul>
@@ -316,7 +317,7 @@
 			<div class="modal-content">
 				<div class="modal-header">
 					<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-					<h4 class="modal-title" id="myModalLabel">Ingrese sus datos...</h4>
+					<h4 class="modal-title myModalLabel">Ingrese sus datos...</h4>
 				</div>
 				<div class="modal-body">
 					<span class="explicacion" style="color: grey">* campos requeridos</span>
@@ -328,27 +329,27 @@
 						</div>
 						<div class="form-group">
 							<label>Apellido <span class="requerido">*</span></label>
-							<input class="form-control" id="last-name-input" placeholder="Apellido">
+							<input class="form-control last-name-input" placeholder="Apellido">
 						</div>
 						<div class="form-group">
 							<label>Fecha de nacimiento <span class="requerido">*</span></label>
-							<input class="form-control" id="last-name-input" placeholder="Formato DD/MM/AAAA">
+							<input class="form-control last-name-input" placeholder="Formato DD/MM/AAAA">
 						</div>
 						<div class="form-group">
 							<label>e-Mail <span class="requerido">*</span></label>
-							<input type="email" class="form-control" id="last-name-input" placeholder="e-Mail">
+							<input type="email" class="form-control last-name-input" placeholder="e-Mail">
 						</div>
 						<div class="form-group">
 							<label>Contraseña <span class="requerido">*</span></label>
-							<input type="password" class="form-control" id="last-name-input" placeholder="Contraseña">
+							<input type="password" class="form-control last-name-input" placeholder="Contraseña">
 						</div>
 						<div class="form-group">
 							<label>Repetir contraseña <span class="requerido">*</span></label>
-							<input type="password" class="form-control" id="last-name-input" placeholder="Repetir contraseña">
+							<input type="password" class="form-control last-name-input" placeholder="Repetir contraseña">
 						</div>
 						<div class="form-group">
 							<label>Teléfono</label>
-							<input class="form-control" id="last-name-input" placeholder="Teléfono">
+							<input class="form-control last-name-input" placeholder="Teléfono">
 						</div>
 						<div class="checkbox">
 							<label>

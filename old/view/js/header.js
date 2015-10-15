@@ -3,7 +3,7 @@ $(document).ready(function() {
 	$("#login-form .container-fluid .btn").click(function() {
 
 		alert("Click!")
-	}
+	})
 })
 	$(function () {
     $('.button-checkbox').each(function () {

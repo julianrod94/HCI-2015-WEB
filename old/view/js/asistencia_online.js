@@ -17,6 +17,4 @@ function myFunction() {
         window.alert("Los campos faltan informacion");
     }
     document.getElementById("demo").innerHTML = text;
-}/**
- * Created by Sofia on 2015-10-14.
- */
+}

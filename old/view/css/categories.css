@@ -49,4 +49,4 @@
 
 #sub-categories > ul > li > ul > li:before {
 		content: '– ';
-	};
+}
