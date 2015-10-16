@@ -23,3 +23,32 @@
 	text-align: right;
 }
 
+.btn_choice{
+	height: 15px;
+	width: 15px;
+	border: white;
+	padding: 0px;
+	font-size: x-small;
+}
+:hover{
+	border-color: black;
+}
+
+#button{
+	margin-bottom: 10px;
+}
+
+.btn_glyph{
+	padding: inherit;
+	max-width: 110%;
+	width: 100%;
+}
+
+.talle_color{
+	font-size: x-small;
+	margin-top: 4.5px;
+}
+.add_to{
+	text-align: center;
+
+}
