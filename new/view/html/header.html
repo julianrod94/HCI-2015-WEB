@@ -1,0 +1,398 @@
+<!--<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+<script src="../js/header.js"></script>
+-->
+<div id="Header">
+	<div id="Upper zone">
+		<div class="container-fluid">
+
+			<div class ="row-fluid">
+
+				<div class="col-md-3" id='logo'>
+					<a href="./home.html">
+						<img id="logoImg" src="../../assets/logo2.jpg" alt="Best Clothes"/>
+					</a>
+				</div>
+
+				<!-- ver que poner para que baje todo un poco -->
+				<div class="col-md-8">
+					<div class="row">
+						<div id="custom-search-input">
+							<div id="search-bar" class="input-group col-md-8">
+								<input type="text" class="form-control input-lg" placeholder="Buscar..." />
+                 							<span class="input-group-btn">
+	                    						<button class="btn btn-info btn-lg" type="button">
+													<i class="glyphicon glyphicon-search"></i>
+												</button>
+                  							</span>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<nav class="navbar navbar-inverse">
+		<div class="container-fluid">
+			<!-- Brand and toggle get grouped for better mobile display -->
+			<div class="navbar-header">
+				<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+					<span class="sr-only">Toggle navigation</span>
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+				</button>
+			</div>
+
+			<!-- Collect the nav links, forms, and other content for toggling -->
+			<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+				<ul class="nav navbar-nav">
+
+					<!-- Dropdown de hombres-->
+					<li class="dropdown">
+						<a href="categories.html?id=1" class="dropdown-toggle" role="button" aria-haspopup="true" aria-expanded="false">HOMBRES <span class="caret"></span></a>
+						<ul class="dropdown-menu multi-column columns-2">
+							<div class="row">
+								<div class="col-sm-6">
+									<ul class="multi-column-dropdown">
+										<li><a href="#">Novedades</a></li>
+										<li><a href="#" id="sale_btn">Sale</a></li>
+										<br>
+										<li><a href="#">Vestidos</a></li>
+										<li><a href="#">Camisas</a></li>
+										<li><a href="#">Pantalones</a></li>
+										<li><a href="#">Jeans</a></li>
+										<li><a href="#">Abrigos</a></li>
+										<li><a href="#">Calzados</a></li>
+										<li><a href="#">Accesarios</a></li>
+									</ul>
+								</div>
+								<div class="col-sm-6">
+									<ul class="multi-column-dropdown">
+										<li class="dropdown-header">Brand</li>
+										<li><a href="#">Adidas</a></li>
+										<li><a href="#">Björn Borg</a></li>
+									</ul>
+								</div>
+							</div>
+						</ul>
+					</li>
+
+
+					<!-- Dropdown de Mujeres-->
+					<li class="dropdown">
+						<a href="categories.html?id=2" class="dropdown-toggle" role="button" aria-haspopup="true" aria-expanded="false">MUJERES <span class="caret"></span></a>
+						<ul class="dropdown-menu multi-column columns-2">
+							<div class="row">
+								<div class="col-sm-6">
+									<ul class="multi-column-dropdown">
+										<li><a href="#">Novedades</a></li>
+										<li><a href="#" id="sale_btn">Sale</a></li>
+										<br>
+										<li><a href="#">Vestidos</a></li>
+										<li><a href="#">Camisas</a></li>
+										<li><a href="#">Pantalones</a></li>
+										<li><a href="#">Jeans</a></li>
+										<li><a href="#">Abrigos</a></li>
+										<li><a href="#">Calzados</a></li>
+										<li><a href="#">Accesarios</a></li>
+									</ul>
+								</div>
+								<div class="col-sm-6">
+									<ul class="multi-column-dropdown">
+										<li class="dropdown-header">Brand</li>
+										<li><a href="#">Adidas</a></li>
+										<li><a href="#">Björn Borg</a></li>
+									</ul>
+								</div>
+							</div>
+						</ul>
+					</li>
+
+
+					<!-- Dropdown de infantiles-->
+					<li class="dropdown">
+						<a href="categories.html?id=3" class="dropdown-toggle" role="button" aria-haspopup="true" aria-expanded="false">INFANTILES <span class="caret"></span></a>
+						<ul class="dropdown-menu multi-column columns-2">
+							<div class="row">
+								<div class="col-sm-6">
+									<ul class="multi-column-dropdown">
+										<li><a href="#">Novedades</a></li>
+										<li><a href="#" id="sale_btn">Sale</a></li>
+										<br>
+										<li><a href="#">Vestidos</a></li>
+										<li><a href="#">Camisas</a></li>
+										<li><a href="#">Pantalones</a></li>
+										<li><a href="#">Jeans</a></li>
+										<li><a href="#">Abrigos</a></li>
+										<li><a href="#">Calzados</a></li>
+										<li><a href="#">Accesarios</a></li>
+									</ul>
+								</div>
+								<div class="col-sm-6">
+									<ul class="multi-column-dropdown">
+										<li class="dropdown-header">Brand</li>
+										<li><a href="#">Adidas</a></li>
+										<li><a href="#">Björn Borg</a></li>
+									</ul>
+								</div>
+							</div>
+						</ul>
+					</li>
+
+
+				</ul>
+
+				<ul class="nav navbar-nav navbar-right">
+
+					<!-- Carrito -->
+					<li class="dropdown">
+						<a href="userPage.html?id=carrito" class="dropdown-toggle" role="button" aria-haspopup="true" aria-expanded="false">
+							<i class="glyphicon glyphicon-shopping-cart"></i>
+							<span class="caret"></span>
+						</a>
+						<ul class="dropdown-menu">
+							<li><a href="#">Action</a></li>
+							<li><a href="#">Another action</a></li>
+							<li><a href="#">Something else here</a></li>
+							<li role="separator" class="divider"></li>
+							<li><a href="#">Separated link</a></li>
+						</ul>
+					</li>
+
+					<!-- Favoritos -->
+					<li class="dropdown">
+						<a href="userPage.html?id=favoritos" class="dropdown-toggle" role="button" aria-haspopup="true" aria-expanded="false">
+							<i class="glyphicon glyphicon-heart"></i>
+							<span class="caret"></span>
+						</a>
+						<ul class="dropdown-menu">
+							<li><a href="#">Action</a></li>
+							<li><a href="#">Another action</a></li>
+							<li><a href="#">Something else here</a></li>
+							<li role="separator" class="divider"></li>
+							<li><a href="#">Separated link</a></li>
+						</ul>
+					</li>
+
+
+
+					<!-- Cuenta -->
+					<script type="text/javascript">
+						$(document).ready(function() {
+
+
+							var aux = getParameterByName('user_id');
+							if (aux != null && aux != '') {
+
+								var str = get_user();
+								str = " Hola, " + str.first_name;
+								$('#user-logged .dropdown-toggle #user-name-display').text(str);
+								$('#login-form').hide();
+
+							} else {
+								$('#user-logged .dropdown-toggle #user-name-display').text(" Ingresar");
+								$('#user-logged-dropdown').hide();
+								$('#ir-a-pagina-de-usuario').attr("href","");
+
+							}
+
+
+							$('#login-form .container-fluid .btn').click(function() {
+
+								var str = document.location.pathname;
+								str += '?';
+
+								var email = $("#login-form .container-fluid #e-mail-input").val();
+								var password = $("#login-form .container-fluid #password-input").val()
+								var user_id = login(email,password);
+								if (user_id == null) {
+									console.log("Error");
+									return;
+								}
+								var query = getParameterByName('filters');
+								if (query != null && query != '') {
+									if (str[str.length - 1] != '?') {
+										str = str + '&';
+									}
+									str += 'filters=' + encodeURIComponent(query);
+								}
+								query = getParameterByName('id');
+								if (query != null && query != '') {
+									if (str[str.length - 1] != '?') {
+										str = str + '&';
+									}
+									str += 'id=' + query;
+								}
+								query = getParameterByName('search');
+								if (query != null && query != '') {
+									if (str[str.length - 1] != '?') {
+										str = str + '&';
+									}
+									str += 'search=' + query;
+								}
+								if (str[str.length - 1] != '?') {
+									str = str + '&';
+								}
+								str += 'user_id=' + user_id;
+
+								window.location.replace(str);
+							});
+
+							$('#user-logged-dropdown #bye-bye').click(function() {
+
+								var str = document.location.pathname;
+								str += '?';
+
+								var query = getParameterByName('filters');
+								if (query != null && query != '') {
+									if (str[str.length - 1] != '?') {
+										str = str + '&';
+									}
+									str += 'filters=' + encodeURIComponent(query);
+								}
+								query = getParameterByName('id');
+								if (query != null && query != '') {
+									if (str[str.length - 1] != '?') {
+										str = str + '&';
+									}
+									str += 'id=' + query;
+								}
+								query = getParameterByName('search');
+								if (query != null && query != '') {
+									if (str[str.length - 1] != '?') {
+										str = str + '&';
+									}
+									str += 'search=' + query;
+								}
+								window.location.replace(str);
+
+							})
+
+
+						});
+					</script>
+
+					<li class="dropdown" id="user-logged">
+						<a href="userPage.html?id=usuario" class="dropdown-toggle" role="button" aria-haspopup="true" aria-expanded="false" id="ir-a-pagina-de-usuario">
+							<i class="glyphicon glyphicon-user"></i><span id="user-name-display"/>
+							<span class="caret"></span>
+						</a>
+						<ul class="dropdown-menu" id="login-form">
+
+							<div class="container-fluid">
+								<div class="form-group">
+									<label>Usuario</label>
+									<input type="email" class="form-control" id="e-mail-input" placeholder="Usuario">
+								</div>
+								<div class="form-group">
+									<label>Contraseña</label>
+									<input type="password" class="form-control" id="password-input" placeholder="Contraseña">
+								</div>
+								<div>
+									<a href='' data-toggle="modal" data-target="#myModal">Crear cuenta nueva</a>
+								</div>
+								<div>
+									<a href="#">Olvidé mi contraseña</a>
+								</div>
+								<button type="submit" class="btn btn-default">Ingresar</button>
+							</div>
+						</ul>
+						<ul class="dropdown-menu" id='user-logged-dropdown'>
+							<li><a id="bye-bye" href="">Cerrar Sesión</a></li>
+						</ul>
+					</li>
+					<!-- 										  		<button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#myModal">Registrarse</button> -->
+
+
+				</ul>
+			</div><!-- /.navbar-collapse -->
+		</div><!-- /.container-fluid -->
+	</nav>
+
+	<!-- Modal -->
+	<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+		<div class="modal-dialog" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+					<h4 class="modal-title" id="myModalLabel">Ingrese sus datos...</h4>
+				</div>
+				<div class="modal-body">
+					<span class="explicacion" style="color: grey">* campos requeridos</span>
+
+					<div class="container-fluid">
+						<div class="form-group">
+							<label>Nombre <span class="requerido">*</span></label>
+							<input class="form-control" id="first-name-input" placeholder="Nombre">
+						</div>
+						<div class="form-group">
+							<label>Apellido <span class="requerido">*</span></label>
+							<input class="form-control" id="last-name-input" placeholder="Apellido">
+						</div>
+						<div class="form-group">
+							<label>Fecha de nacimiento <span class="requerido">*</span></label>
+							<input class="form-control" id="last-name-input" placeholder="Formato DD/MM/AAAA">
+						</div>
+						<div class="form-group">
+							<label>e-Mail <span class="requerido">*</span></label>
+							<input type="email" class="form-control" id="last-name-input" placeholder="e-Mail">
+						</div>
+						<div class="form-group">
+							<label>Contraseña <span class="requerido">*</span></label>
+							<input type="password" class="form-control" id="last-name-input" placeholder="Contraseña">
+						</div>
+						<div class="form-group">
+							<label>Repetir contraseña <span class="requerido">*</span></label>
+							<input type="password" class="form-control" id="last-name-input" placeholder="Repetir contraseña">
+						</div>
+						<div class="form-group">
+							<label>Teléfono</label>
+							<input class="form-control" id="last-name-input" placeholder="Teléfono">
+						</div>
+						<div class="checkbox">
+							<label>
+								<input type="checkbox"/>
+							</label>
+							Acepto los <a href="" data-toggle="modal" data-target="#terms-and-conditions">Términos y condiciones</a>
+						</div>
+					</div>
+
+
+
+
+
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-primary">Aceptar</button>
+				</div>
+
+
+
+
+			</div>
+		</div>
+	</div>
+
+	<div class="modal fade" id="terms-and-conditions" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+		<div class="modal-dialog modal-lg">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+					<h4 class="modal-title" id="myModalLabel">Terminos y Condiciones</h4>
+				</div>
+				<div class="modal-body">
+					<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Similique, itaque, modi, aliquam nostrum at sapiente consequuntur natus odio reiciendis perferendis rem nisi tempore possimus ipsa porro delectus quidem dolorem ad.</p>
+					<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Similique, itaque, modi, aliquam nostrum at sapiente consequuntur natus odio reiciendis perferendis rem nisi tempore possimus ipsa porro delectus quidem dolorem ad.</p>
+					<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Similique, itaque, modi, aliquam nostrum at sapiente consequuntur natus odio reiciendis perferendis rem nisi tempore possimus ipsa porro delectus quidem dolorem ad.</p>
+					<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Similique, itaque, modi, aliquam nostrum at sapiente consequuntur natus odio reiciendis perferendis rem nisi tempore possimus ipsa porro delectus quidem dolorem ad.</p>
+					<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Similique, itaque, modi, aliquam nostrum at sapiente consequuntur natus odio reiciendis perferendis rem nisi tempore possimus ipsa porro delectus quidem dolorem ad.</p>
+					<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Similique, itaque, modi, aliquam nostrum at sapiente consequuntur natus odio reiciendis perferendis rem nisi tempore possimus ipsa porro delectus quidem dolorem ad.</p>
+					<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Similique, itaque, modi, aliquam nostrum at sapiente consequuntur natus odio reiciendis perferendis rem nisi tempore possimus ipsa porro delectus quidem dolorem ad.</p>
+				</div>
+			</div><!-- /.modal-content -->
+		</div><!-- /.modal-dialog -->
+	</div><!-- /.modal -->
+
+
+</div>

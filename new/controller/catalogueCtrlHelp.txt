@@ -1,0 +1,53 @@
+
+displaying options:
+	0: Something gone wrong --> display all catalog or show error message
+	1: Get Products by Category Id
+	2: Get Products by Sub-Category Id
+	3: Get Products by Brand
+	4: Get products by new releases
+	5: Get products by search
+
+
+sorting keys:
+	1: nombre
+	2: precio
+	3: marca
+
+
+Filters
+	
+	1: genero						--
+	2: edad							--
+	3: ocasion
+	4: color
+	5: oferta						-
+	6: novedades					-
+	7: talle calzado
+	8: material calzado
+	9: marca						-
+	10: material blazers
+	11: talle blazers
+	12: material chalecos
+	13: material buzos
+	14: talle buzsos
+	15: material calzas
+	16: talle calzas
+	17: material camperas
+	18: talle camperas
+	19: material cardigans
+	20: talle cardigans
+	22: talle chalecos
+	23: material camisas
+	24: talle camisas
+	26: material jeans
+	27: talle jeans
+	28: estilo jeans
+	34: material polleras
+	35: talle polleras
+	29: material pantalones
+	30: talle pantalones
+	31: estilo pantalones
+	32: material pilotos
+	33: talle pilotos
+	36: material accesorios
+

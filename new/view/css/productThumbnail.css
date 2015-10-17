@@ -1,0 +1,33 @@
+
+.thumbnail {
+
+	border-radius: none;
+	padding: 1em;
+	margin-right: 0;
+}
+
+#product_image {
+
+	border: 1px solid #ddd;
+	max-width: 200px;
+
+
+}
+
+#product_text {
+
+	padding: 2em;
+	font-weight: bold;
+}
+
+#product_title {
+
+	text-align: left;
+	padding-left: 0;
+}
+
+#product_price {
+
+	text-align: right;
+	padding-right: 0;
+}

@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+
+	<head>
+		<meta charset="utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		
+		<title>User Page</title>
+
+		<!-- Bootstrap stuff -->
+		<script src="http://code.jquery.com/jquery-latest.min.js"></script>
+		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap-theme.min.css">
+		
+
+		<!-- My stylesheets -->
+		<link rel="stylesheet" type="text/css" href="../css/common.css">
+		<link rel="stylesheet" type="text/css" href="../css/header.css">
+		<link rel="stylesheet" type="text/css" href="../css/catalogue.css">
+		<link rel="stylesheet" type="text/css" href="../css/productThumbnail.css">
+		
+
+		<!-- Angular stuff -->
+		<script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.3.15/angular.min.js"></script>
+
+		<!-- My code -->
+		<script src="../js/list_of_products.js"></script>
+		<script src="../../controller/catalogueCtrl.js"></script>
+		<script src="../../controller/categoriesCtrl.js"></script>
+		<script src="../../controller/cartCtrl.js"></script>
+		<script src="../../controller/accountCtrl.js"></script>
+		
+		<script src="../js/catalogue.js"></script>
+
+
+	</head>
+
+
+	<body>
+
+		<div ng-app=""> 
+			<div ng-include="'header.html'"></div> <!-- Import's header -->
+		</div>
+
+		<div ng-controller="catalogueController" ng-init="how_many_filters=how_many_filters()">
+
+			<!-- Loads proper breadcrumb -->
+			<div ng-switch="how_many_filters">
+				<div ng-switch-when="0">
+					<ol class="breadcrumb">
+			  			<li><a href="home.html">Home</a></li>
+			  			<li class="active">Catálogo</li>
+			  		</ol>
+				</div>
+				<div ng-switch-when="2">
+					<ol class="breadcrumb">
+					  	<li><a href="home.html">Home</a></li>
+			  			<li><a ng-href="categories.html?id={{gender().toLowerCase()}}">{{ gender() }}</a></li>
+			 			<li class="active"> {{ category() }} </li>
+					</ol>
+				</div>
+				<div ng-switch-default>
+					<ol class="breadcrumb">
+			  			<li><a href="home.html">Home</a></li>
+			  			<li><a ng-href="categories.html?id={{gender().toLowerCase()}}">{{ gender() }}</a></li>
+			  			<li><a ng-href="{{ categories_link(gender(), category()) }}">{{ category() }}</a></li>
+			 			<li class="active"> {{sub_category()}} </li>
+					</ol>
+				</div>
+			</div>
+
+
+			<!-- Body part -->
+			<div class="container-fluid">
+				<div class="col-md-2" ng-init="filters=filters(); i = 0">
+					<div ng-repeat="each in filters">
+						<div ng-init="panelIdWithHash='#' + each;panelId='' + each">
+							<div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
+		  						<div class="panel panel-default">
+		    						<div class="panel-heading" role="tab" id="headingOne">
+		      							<h4 class="panel-title">
+		        							<a role="button" data-toggle="collapse" data-parent="#accordion" href={{panelIdWithHash}} aria-expanded="true" aria-controls="collapseOne">
+		          								{{ each }}
+		        							</a>
+		     							</h4>
+		    						</div>
+			    					<div id={{panelId}} class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingOne">
+			        					<div class="panel-body" ng-repeat="filter_fields in getAll(transformFilter(each))">
+			        						
+			        						{{filter_fields}}
+			        					
+			      						</div>
+			   						</div>
+		 						</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="col-md-8">
+					<div ng-init="products=products()">
+						<div ng-repeat="prod in products">
+							<div class="col-md-4">
+								<div ng-include="'productThumbnail.html'"></div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="col-md-2">
+					<div ng-include="'recommendations.html'"></div> <!-- Import's recommendations -->
+				</div>
+			</div>
+
+
+		</div>
+
+		<br>
+		<br>
+		<br>
+		<div ng-app=""> 
+    		<div ng-include="'footer.html'"></div> <!-- Import's footer -->
+  		</div>
+
+	</body>
+</html>
