@@ -1,12 +1,16 @@
 
 var gender = getGender()
-var comes_from = comesFrom()
-var display_options = displayOptions(comes_from, gender);
+var category = getCategory();
+var sub_category = getSubCategory();
+var brand = getBrand();
+var search_string = SearchString();
+var display_options = displayOptions(); // Tells how the catalogue must be displayed
 var page_number = pageNumber();
 var products_per_page = productsPerPage();
 var sorting_key = sortingKey();
+var sort_order = sortOrder();
 var filters = getFilters();
-var requestURL = generateRequestURL(gender, comes_from, display_options, page_number, sorting_key, filters);
+var requestURL = generateRequestURL(gender, category, sub_category, brand, search_string, display_options, page_number, products_per_page, sorting_key, sort_order, filters)
 
 
 
@@ -17,27 +21,41 @@ function getGender() {
     return isNaN(aux) ? null : aux;
 }
 
-function comesFrom() {
+function getCategory() {
 
-    var aux = getParameterByName('comes_from');
+    var aux = getParameterByName('category');
+    aux = parseInt(aux);
+    return isNaN(aux) ? null : aux;
+}
+
+function getSubCategory() {
+
+    var aux = getParameterByName('sub_category');
     aux = parseInt(aux);
     return isNaN(aux) ? null : aux;
 }
 
 
-function displayOptions(comes_from_id, gender_id) {
+function getBrand() {
 
-    // Checks if gender is specified (if not, error code will be returned)
-    if (gender_id == null) {
-        return 0;
-    }
+    var aux = getParameterByName('brand');
+    aux = parseInt(aux);
+    return isNaN(aux) ? null : aux;
+}
+
+function SearchString() {
+    return getParameterByName('search_string')
+}
+
+
+function displayOptions() {
 
     var calling_option = getParameterByName('calling_option');
     calling_option = parseInt(calling_option);
 
-    // If url was not well typed in address bar, or calling_option wasn't well specified, error code will be returned
+    // If url was not well typed in address bar, or calling_option wasn't well specified, null is returned
     if (isNaN(calling_option) || calling_option < 1 || calling_option > 5) {
-        return 0;
+        return null;
     }
     return calling_option;
 }
@@ -46,8 +64,7 @@ function pageNumber() {
 
     var aux = getParameterByName('page');
     aux = parseInt(aux);
-    return isNaN(aux) ? 1 : aux;
-
+    return isNaN(aux) ? null : aux;
 }
 
 
@@ -56,16 +73,25 @@ function productsPerPage() {
     var aux = getParameterByName('page_size');
     aux = parseInt(aux);
     if (isNaN(aux) || (aux != 24 && aux != 48 && aux != 96)) {
-        return 24;
+        return null;
     }
     return aux;
 }
 
 function sortingKey() {
 
-    var aux = getParameterByName('sort');
+    var aux = getParameterByName('sort_key');
     aux = parseInt(aux);
     if (isNaN(aux) || (aux != 1 && aux != 2 && aux != 3)) {
+        return null;
+    }
+    return aux;
+}
+
+function sortOrder() {
+
+    var aux = getParameterByName('sort_order');
+    if (aux != "asc" && aux != "desc") {
         return null;
     }
     return aux;
@@ -84,140 +110,83 @@ function getFilters() {
 }
 
 
-
-function generateRequestURL(gender, comes_from, display_options, page_number, sorting_key, filters) {
+// Generates the url to make the AJAX call
+function generateRequestURL(gender, category, sub_category, brand, search_string, display_options, page_number, products_per_page, sorting_key, sort_order, filters) {
 
     var base_url = 'http://eiffel.itba.edu.ar/hci/service3/Catalog.groovy?method=';
+
+    var filterJSON = (filters == null) ? [] : filters;
+
+    // Adds gender filter
+    switch (gender) {
+        case 1:
+            filterJSON.push({"id":1, "value": "Masculino"});
+            filterJSON.push({"id":2, "value": "Adulto"});
+            break;
+        case 2:
+            filterJSON.push({"id":1, "value": "Femenino"});
+            filterJSON.push({"id":2, "value": "Adulto"});
+            break;
+        case 3:
+            filterJSON.push({"id":2, "value":"Infantil"});
+            filterJSON.push({"id":2, "value":"Bebe"});
+            break;
+        default:
+            //Don't add anything (this means that a search was made, or that the page wasn't load well)
+    }
     
-    switch (comes_from) {
+    switch (display_options) {
 
-        case 1: //Comes from categories page (Has two options: get products by category or get products by sub-category )
-            switch(gender) {
-                case 1: //Men
+        case 1:  //Display by category
+            base_url += "GetProductsByCategoryId&id=" + category + "&filters=" + encodeURIComponent(JSON.stringify(filterJSON));
+            break;
 
-                case 2: //Women
+        case 2: //Display by subcategory
+            base_url += "GetProductsBySubcategoryId&id=" + sub_category + "&filters=" + encodeURIComponent(JSON.stringify(filterJSON));
+            break;
 
-                case 3: //Kids
+        case 3: //Display by brand
+            filterJSON.push({"id": 9, "value": brand}) // Adds the brand filter
+            base_url += "GetAllProducts&filters=" + encodeURIComponent(JSON.stringify(filterJSON));
+            break;
 
-                default: //Whatever
-            }
+        case 4: //Display by news
+            filterJSON.push({"id": 6, "value": "Nuevo"}) // Adds the news filter
+            base_url += "GetAllProducts&filters=" + encodeURIComponent(JSON.stringify(filterJSON));
+            break;
 
-
-
-        case 2: //Comes from header dropdown  (Has three options: get products by category, get products by brand or get products by new releases)
-
-
-
-
-        case 3: //Comes from searchbar (Has one option: get products by name)
-
-
-
+        case 5: // Display by search result
+            base_url += "GetProductsByName&name=" + search_string; + "&filters=" + encodeURIComponent(JSON.stringify(filterJSON));
+            break;
 
         case null:  //Comes from nowhere. For example, typed down url in address bar. Has two options: if gender is not specified, get all products and
                     // if gender is specified, get all products by gender ; or just display an error message
 
         default: //Any other option
-
-
+            base_url += "GetAllProducts"
+            return base_url;
     }
 
+    if (page_number != null) {
+        base_url += "&page=" + page_number;
+    }
+    if (products_per_page != null) {
+        base_url += "&page_size=" + products_per_page;
+    }
+    if (sorting_key != null) {
+        base_url += "&sort_key=" + sorting_key;
+    }
+    if (sort_order != null) {
+        base_url += "&sort_order=" + sort_order;
+    }
 
-
+    return base_url;
 
 }
 
 
+//**********************************************************************************************************************************
 
-
-// Creates a JSON Object that contains filter names and values to filter
-// Based on 'filters' query string parameter
-// In case it wasn't a valid query string, returns null
-function createJSONFilterObject() {
-
-    var result = getParameterByName('filters');
-    result = decodeURIComponent(result);
-    try {
-        result = JSON.parse(result);
-    } catch (e) {
-        return null;
-    }
-    result = eval(result);
-
-    if (result == null || result.length == undefined) {
-        return null;
-    }
-
-    var i, flag = false;
-    for (i = 0 ; i < result.length & !flag ; i++) {
-        var j;
-        for (j = 0 ; j < getFieldsForFilters().length &!flag; j++) {
-            flag = result[i].name == getFieldsForFilters()[j];
-        }
-    }
-    if (!flag) {
-        return null;
-    }
-
-    return result;
-
-}
-
-// Field that contains the JSON Filter Object (we create it only once)
-var JSONFilters = createJSONFilterObject();
-
-// Returns how many filters there are (used to load a proper breadcrumb)
-function  getComponentsOfFilter() {
-    var result = JSONFilters;
-    if (result == null) {
-        return 0;
-    }
-    return result.length;
-}
-
-// Creates a boolean expression to use as a query
-function createCodeForQuery() {
-    var result = getParameterByName('filters');
-    result = decodeURIComponent(result);
-    result = JSON.parse(result);  // Gets an array of objects with a name propery 
-                                    //and a value property which is an array of values to filter
-    if (result == '') {
-        return '';
-    }
-    result = eval(result);
-    var i;
-    var prod = 'prod';
-    var code = '';
-
-    for (i = 0 ; i < result.length ; i++) {
-        var aux = prod + '.' + result[i].name;
-        var j;
-        for (j = 0 ; j < result[i].values.length ; j++) {
-            if (j == 0) {
-                code += '(';
-            }
-            code = code + '(' + aux + '==' + '\'' + result[i].values[j] + '\'' + ')';
-            if (j + 1 < result[i].values.length) {
-                code += '||';
-            } else {
-                code += ')';
-            }
-        }
-        if (i + 1 < result.length) {
-            code += '&&';
-        }
-    }
-    return code;
-}
-
-// Creates the function that has boolean expression
-function createFunctionToQuery() {
-
-    return function(prod) {
-        var condition = createCodeForQuery();
-        return eval(condition);
-    }
-}
 
 
 // Gets the specified query string parameter
@@ -228,114 +197,90 @@ function getParameterByName(name) {
 	return results === null ? null : decodeURIComponent(results[1].replace(/\+/g, " "));
 }
 
-// Function that returns breadcrumbs filter values (gender, category and sub_category)
-function getBreadcrumbValue(filter_name) {
 
-    var i, flag = false, result = null;
-        for (i = 0 ; i < JSONFilters.length && !flag ; i++) {
-            if (JSONFilters[i].name == filter_name) {
-                flag = true;
-                if (JSONFilters[i].values.length == 1) {
-                    result = JSONFilters[i].values[0];
-                }
-            }
-        }
-    return result;
 
-}
+//**********************************************************************************************************************************
+
+
+//return category.charAt(0).toUpperCase() + category.slice(1);
 
 // Controller for catalogue
-angular.module('catalogueApp', []).controller('catalogueController', function($scope) {
-	var brand = getParameterByName('brand');
-	var color = getParameterByName('color');
-	var sizes = getParameterByName('sizes');
-	var ocassion = getParameterByName('ocassion');
-	var minPrice = getParameterByName('min-price');
-	var maxPrice = getParameterByName('max-price');
+angular.module('catalogueApp', []).controller('catalogueController', function($scope, $http) {
+
 
 	$scope.gender = function() {
-        return getBreadcrumbValue('gender');
-	},
+        var result;
+        switch(gender) {
+            case 1:
+                result = {id:1, name:"Hombres"};
+                break;
+            case 2:
+                result = {id:2, name:"Mujeres"};
+                break;
+            case 3:
+                result = {id:3, name:"Infantiles"};
+                break;
+            default:
+                result = null;
+        }
+        return result;
+	}
 
-	$scope.category = function() {
-		//return category.charAt(0).toUpperCase() + category.slice(1);
-        return getBreadcrumbValue('category');
+    function getCategoryByAJAX() {
 
-	},
+        if (category != null) {
+            var url = "http://eiffel.itba.edu.ar/hci/service3/Catalog.groovy?method=GetCategoryById&id=" + category;
+            $http.get(url, {cache: true, timeout: 10000}).then(function(response) {
+                 $scope.category = response.data.category;
+            });
+        }
+    }
 
-	$scope.sub_category = function() {
-		return getBreadcrumbValue('sub');
-	},
+    function getSubCategoryByAJAX() {
 
-	$scope.corruptedQueryString = function() {
+        if (sub_category != null) {
+            var url = "http://eiffel.itba.edu.ar/hci/service3/Catalog.groovy?method=GetSubcategoryById&id=" + sub_category;
+            $http.get(url, {cache: true, timeout: 10000}).then(function(response) {
+                 $scope.sub_category = response.data.subcategory;
+            });
+        }
+    }
 
-		return (gender == null || category == null || sub_category == null); // These are the three parameters that must be completed
-	},
+    function getProductsAndFiltersByAJAX() {
 
-	$scope.fullCatalogue = function() {
+        $http.get(requestURL, {cache: true, timeout: 10000}).then(function(response) {
+            $scope.products = response.data.products;
+            $scope.filters = response.data.filters;
+        });
+    }
 
-		return selectItemsBy(
-			function(prod) {
-				return true;
-			});
-	},
+	$scope.category = null;
+    $scope.sub_category = null;
+    $scope.brand = brand;
+    $scope.search_string = search_string;
+	$scope.products = null;
+    $scope.filters = null;
 
-	$scope.products = function() {
-
-        return selectItemsBy(createFunctionToQuery()); // Returns a list of products based on the query string filter parameter
-	},
-
-	$scope.reloadFilters = function() {
-
-		return getFieldsForFilters(); // Returns filters used to query
-	},
-
-    $scope.transformFilter = function(filter) {
-
-        return $scope.reloadFilters()[$scope.filters.indexOf(filter)];
-    },
 
     $scope.getProductLink = function(id) {
-        return "product.html?id=" + id; //+"&filters=" + encodeURIComponent(JSON.stringify(JSONFilters));
+        return "product.html?product_id=" + id;
     }
-
-
-    // FiltersUI methods
-	$scope.filters = function() {
-
-		return ['Géneros', 'Categorias', 'Sub-Categorias', 'Marcas', 'Colores', 'Talles', 'Ocasiones', 'Precio']; // Returns filters names
-	},
-
-	$scope.getAll = function(field) {
-
-		return getAll(field); // Returns filters values
-	},
-
 	
 
-    $scope.categories_link = function(gend, cat) {
+    $scope.categories_link = function() {
 
-        var str = '[{"name":"gender", "values":["' + gend + '"]}, {"name":"category", "values":["' + cat + '"]}]';
-        str = JSON.stringify(str);
-        str = encodeURIComponent(str);
-        return "catalogue.html?filters=" + str;
-      
-    },
-
-    $scope.sub_categories_link = function(gend, cat, sub) {
-
-
-        var str = '[{"name":"gender", "values":["' + gend + '"]}, {"name":"category", "values":["' + cat + '"]}, {"name":"sub", "values":["' + sub + '"]}]';
-        str = JSON.stringify(str);
-        str = encodeURIComponent(str);
-        return "catalogue.html?filters=" + str;
-      
-    }, 
-
-    $scope.how_many_filters = function() {
-
-        return getComponentsOfFilter();
+        return "catalogue.html?calling_option=1&gender=" + gender + "&category=" + category;
     }
+
+
+    $scope.breadcrumb_type = function() {
+
+        return display_options;
+    }
+
+    getCategoryByAJAX();
+    getSubCategoryByAJAX();
+    getProductsAndFiltersByAJAX();
 })
 
 

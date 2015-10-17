@@ -1,4 +1,14 @@
 
+gender:
+	1: Hombre
+	2: Mujer
+	3: Infantiles
+
+category:
+	1: Calzado
+	2: Indumentaria
+	3: Accesorios
+
 displaying options:
 	0: Something gone wrong --> display all catalog or show error message
 	1: Get Products by Category Id

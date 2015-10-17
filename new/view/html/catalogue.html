@@ -32,6 +32,7 @@
 		<script src="../../controller/categoriesCtrl.js"></script>
 		<script src="../../controller/cartCtrl.js"></script>
 		<script src="../../controller/accountCtrl.js"></script>
+		<script src="../../controller/thumbnailCtrl.js"></script>
 		
 		<script src="../js/catalogue.js"></script>
 
@@ -45,29 +46,50 @@
 			<div ng-include="'header.html'"></div> <!-- Import's header -->
 		</div>
 
-		<div ng-controller="catalogueController" ng-init="how_many_filters=how_many_filters()">
+		<div ng-controller="catalogueController" ng-init="breadcrumb_type=breadcrumb_type()">
 
 			<!-- Loads proper breadcrumb -->
-			<div ng-switch="how_many_filters">
-				<div ng-switch-when="0">
+			<div ng-switch="breadcrumb_type">
+				<div ng-switch-when="1"> <!-- Display by category -->
 					<ol class="breadcrumb">
 			  			<li><a href="home.html">Home</a></li>
-			  			<li class="active">Catálogo</li>
+			  			<li><a ng-href="categories.html?id={{gender().id}}">{{ gender().name }}</a></li>
+			  			<li class="active">{{category.name}}</li>
 			  		</ol>
 				</div>
-				<div ng-switch-when="2">
+				<div ng-switch-when="2"> <!-- Display by subcategory -->
 					<ol class="breadcrumb">
 					  	<li><a href="home.html">Home</a></li>
-			  			<li><a ng-href="categories.html?id={{gender().toLowerCase()}}">{{ gender() }}</a></li>
-			 			<li class="active"> {{ category() }} </li>
+			  			<li><a ng-href="categories.html?id={{gender().id}}">{{ gender().name }}</a></li>
+			  			<li><a ng-href="{{ categories_link(gender(), category.name )}}">{{ category.name }}</a></li>
+			 			<li class="active"> {{ sub_category.name }} </li>
+					</ol>
+				</div>
+				<div ng-switch-when="3"> <!-- Display by brand -->
+					<ol class="breadcrumb">
+					  	<li><a href="home.html">Home</a></li>
+			  			<li><a ng-href="categories.html?id={{gender().id}}">{{ gender().name }}</a></li>
+			 			<li class="active"> {{ brand }} </li>
+					</ol>
+				</div>
+				<div ng-switch-when="4"> <!-- Display by news -->
+					<ol class="breadcrumb">
+					  	<li><a href="home.html">Home</a></li>
+			  			<li><a ng-href="categories.html?id={{gender().id}}">{{ gender().name }}</a></li>
+			 			<li class="active"> Novedades </li>
+					</ol>
+				</div>
+				<div ng-switch-when="5"> <!-- Display by search results -->
+					<ol class="breadcrumb">
+					  	<li><a href="home.html">Home</a></li>
+			  			<li><a ng-href="categories.html?id={{gender().id}}">{{ gender().name }}</a></li>
+			 			<li class="active"> {{ search_string }}  </li>
 					</ol>
 				</div>
 				<div ng-switch-default>
 					<ol class="breadcrumb">
 			  			<li><a href="home.html">Home</a></li>
-			  			<li><a ng-href="categories.html?id={{gender().toLowerCase()}}">{{ gender() }}</a></li>
-			  			<li><a ng-href="{{ categories_link(gender(), category()) }}">{{ category() }}</a></li>
-			 			<li class="active"> {{sub_category()}} </li>
+			 			<li class="active"> Catálogo </li>
 					</ol>
 				</div>
 			</div>
@@ -75,22 +97,24 @@
 
 			<!-- Body part -->
 			<div class="container-fluid">
-				<div class="col-md-2" ng-init="filters=filters(); i = 0">
+
+				<!-- filters -->
+				<div class="col-md-2">
 					<div ng-repeat="each in filters">
-						<div ng-init="panelIdWithHash='#' + each;panelId='' + each">
+						<div ng-init="panelIdWithHash='#' + each.id;panelId='' + each.id">
 							<div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
 		  						<div class="panel panel-default">
 		    						<div class="panel-heading" role="tab" id="headingOne">
 		      							<h4 class="panel-title">
 		        							<a role="button" data-toggle="collapse" data-parent="#accordion" href={{panelIdWithHash}} aria-expanded="true" aria-controls="collapseOne">
-		          								{{ each }}
+		          								{{ each.name }} <!-- filter names -->
 		        							</a>
 		     							</h4>
 		    						</div>
 			    					<div id={{panelId}} class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingOne">
-			        					<div class="panel-body" ng-repeat="filter_fields in getAll(transformFilter(each))">
+			        					<div class="panel-body" ng-repeat="values in each.values">
 			        						
-			        						{{filter_fields}}
+			        						{{values}} <!-- filter values -->
 			        					
 			      						</div>
 			   						</div>
@@ -99,8 +123,10 @@
 						</div>
 					</div>
 				</div>
+
+				<!-- products -->
 				<div class="col-md-8">
-					<div ng-init="products=products()">
+					<div>
 						<div ng-repeat="prod in products">
 							<div class="col-md-4">
 								<div ng-include="'productThumbnail.html'"></div>
