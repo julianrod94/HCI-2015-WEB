@@ -263,7 +263,7 @@ angular.module('catalogueApp', []).controller('catalogueController', function($s
 
 
     $scope.getProductLink = function(prod_id) {
-        return "product.html?product_id=" + id;
+        return "product.html?product_id=" + prod_id;
     }
 	
 

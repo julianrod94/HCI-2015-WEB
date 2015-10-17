@@ -1,7 +1,7 @@
 <div ng-controller="thumbnailController" class="container-fluid :hover" onmouseover="">
     <div class="row" >
         <div class="col-sm-12">
-            <a ng-href="{{getProductLink(prod.id)}}">
+            <a ng-href="#"> <!--{{getProductLink(prod.id)}}-->
                 <div class="thumbnail my_thumbnail">
                     <div id="img_size" ng-init="thumb_image=prod.imageUrl[0]">
                         <img  src={{thumb_image}} alt={{prod.name}} class="product_image"/>
@@ -20,11 +20,11 @@
                             </div>
 
                             <!-- If hovered -->
-                            <div class="hover_actions" ng-init="details=getProductDetails(prod.id)">
+                            <div class="hover_actions"> <!-- ng-init="details=getProductDetails(prod.id)">-->
                                 <div class="row">
                                     <div class="col-md-2">
                                         <p class="talle_color" style="vertical-align: middle">Color</p>
-                                        <p> {{details}}
+                                            
                                     </div>
                                     <div class="col-md-2">
                                         <button class="btn_choice" id="button" onclick = 'mark(this)'>
@@ -60,8 +60,9 @@
                                         <p class="talle_color">Talle</p>
                                     </div>
                                     <div class="col-md-10">
-                                        <div ng-repeat="size in findSizes(details)">
-                                        <button class="btn_choice" onclick = 'mark(this)'> {{size}} </button>
+                                        <div> <!-- ng-repeat="size in findSizes(details)">-->
+
+                                        <button class="btn_choice" onclick = 'mark(this)'> hola </button>
                                         </div>
                                     </div>
                                 </div>

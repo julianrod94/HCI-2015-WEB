@@ -2,23 +2,39 @@
 
 
 // Controller for catalogue
-angular.module('thumbnailApp', []).controller('thumbnailController', function($scope, $http) {
+angular.module('thumbnailApp', []).controller('thumbnailController', function($scope, $http, $q) {
 
 
-	function getProductDetailsByAJAX(prod_id, next_thing) {
+	function callAPIToGetProductById(prod_id) {
 
 		var url = "http://eiffel.itba.edu.ar/hci/service3/Catalog.groovy?method=GetProductById&id=" + prod_id;
 		$http.get(url, {cache: true, timeout: 10000}).then(function(response) {
-            return response.data.product.attributes;
-        });
+			$scope.detailedProduct = response.data.product.attributes;
+		});	
+	}
+
+
+	function getProductDetailsByAJAX(prod_id) {
+
+		return $q(function(resolve, reject){
+					resolve(callAPIToGetProductById(prod_id));
+				})
         
 	}
 
 	$scope.detailedProduct = null;
 	$scope.getProductDetails = function(prod_id) {
-		console.log(getProductDetailsByAJAX(prod_id));
-		// console.log(asd);
-		// return $scope.detailedProduct;
+
+		var promise = getProductDetailsByAJAX(prod_id);
+		promise.then(
+			function() {
+	 			return $scope.detailedProduct;
+		 	},
+		 	function() {
+		 		return null;
+		 	}
+
+		);
 	}
 
 	$scope.findSizes = function(array) {
