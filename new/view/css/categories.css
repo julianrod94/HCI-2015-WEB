@@ -5,31 +5,20 @@
 	vertical-align: top;
 }
 
-#categories-holder {
-
+.selector {
 	padding-bottom: 2.5em;
-
 }
 
-
-
-#categories-holder > div > a > img{
-
-	padding: 0.5em;
+.selector-image {
 	border: solid 1px #E4e4e4;
-
 }
 
-.category-image {
-
-
-}
-
-.category-text {
-		
+.selector-text {		
 	padding: 1em 0 1em;
 	text-align: center;
 }
+
+
 
 #sub-categories {
 	padding: 1em 0 1em;

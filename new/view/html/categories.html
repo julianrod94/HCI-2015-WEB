@@ -6,7 +6,7 @@
 		<meta http-equiv="X-UA-Compatible" content="IE=edge">
 		<meta name="viewport" content="width=device-width, initial-scale=1">
 		
-		<title>User Page</title>
+		<title>Categorias</title>
 
 		<!-- Bootstrap stuff -->
 		<script src="http://code.jquery.com/jquery-latest.min.js"></script>
@@ -54,16 +54,16 @@
 
 		<div class="container-fluid">
 			
-			<!-- filtros -->
+			<!-- list -->
 			<div class="col-md-2" id="sub-categories">
 				<ul>
 					<li ng-repeat="i in categories">
-						<a ng-href="#">
+						<a ng-href="{{categories_link(i.id)}}">
 							{{ i.name }} <!-- Prints category -->
 						</a>
 						<ul>
 							<li ng-repeat="y in (subcategories | filter: {id:i.id})[0].values">
-								<a ng-href="#">
+								<a ng-href="{{sub_categories_link(i.id,y.id)}}">
 									{{y.name}} <!-- Prints sub-categories -->
 								</a>
 							</li>
@@ -79,89 +79,55 @@
 					</div>
 					<hr>
 
-					<div class="central-part" ng-init="genderSpecified=hasGenderSpecified()">
+					<div class="central-part row" ng-init="genderSpecified=hasGenderSpecified()">
 
 						<div ng-switch on="genderSpecified">
 
 							<div ng-switch-when="true">
 
-								<!-- Arrancar aca con el iterator -->
-								<div class="col-md-4" class="genderSelector">
-									<a ng-href="{{categories_link(pageName(), categories[0])}}"> 
-										<img src={{pictures[0]}} alt="Indumentaria" class="img-responsive"/>
-										<div class="category-text">
-											{{categories[0].name}}
-										</div>
-									</a>
+								<div ng-repeat="i in categories">
+									<div class="col-md-4 categories-selector selector">
+										<a ng-href="{{categories_link(i.id)}}">
+											<img ng-src="{{(pictures | filter: {id:i.id})[0].pictures[0]}}" alt={{i.name}} class="img-responsive selector-image"/>
+											<div class="selector-text">
+												{{i.name}}
+											</div>
+										</a>
+									</div>
 								</div>
-
 							</div>
 
 							<!-- Reloads the page in case it wasn't specified gender -->
 							<div ng-switch-default>
 
-								<div class="col-md-4" class="genderSelector">
+								<div class="col-md-4" class="gender-selector selector">
 									<a href="categories.html?id=1"> 
-										<img src="../../assets/genderImages/men.png" alt="Hombres" class="img-responsive"/>
-										<div class="category-text">
+										<img src="../../assets/genderImages/men.png" alt="Hombres" class="img-responsive selector-image"/>
+										<div class="selector-text">
 											Hombres
 										</div>
 									</a>
 								</div>
-								<div class="col-md-4" class="genderSelector">
+								<div class="col-md-4" class="gender-selector selector">
 									<a href="categories.html?id=2"> 
-										<img src="../../assets/genderImages/women.png" alt="Mujeres" class="img-responsive"/>
-										<div class="category-text">
+										<img src="../../assets/genderImages/women.png" alt="Mujeres" class="img-responsive selector-image"/>
+										<div class="selector-text">
 											Mujeres
 										</div>
 									</a>
 								</div>
-								<div class="col-md-4" class="genderSelector">
+								<div class="col-md-4" class="gender-selector selector">
 									<a href="categories.html?id=3"> 
-										<img src="../../assets/genderImages/kids.png" alt="Infantiles" class="img-responsive"/>
-										<div class="category-text">
+										<img src="../../assets/genderImages/kids.png" alt="Infantiles" class="img-responsive selector-image"/>
+										<div class="selector-text">
 											Infantiles
 										</div>
 									</a>
 								</div>
-
 							</div>
-
 						</div>
+					</div> <!-- central part -->
 
-
-
-
-					</div>
-
-
-
-					<!-- <div class="row" ng-init="pictures=pictures()" id="categories-holder">
-						<div class="col-md-4" id="category1">
-							<a ng-href="{{categories_link(pageName(), categories[0])}}"> 
-								<img src={{pictures[0]}} alt="Indumentaria" class="img-responsive"/>
-								<div class="category-text">
-									{{categories[0].name}}
-								</div>
-							</a>
-						</div>
-						<div class="col-md-4" id="category2">
-							<a ng-href="{{categories_link(pageName(), categories[1])}}">
-								<img src={{pictures[1]}} alt="Calzado" class="img-responsive"/>
-								<div class="category-text">
-									{{categories[1].name}}
-								</div>
-							</a>
-						</div>
-						<div class="col-md-4" id="category3">
-							<a ng-href="{{categories_link(pageName(), categories[2])}}">
-								<img src={{pictures[2]}} alt="Accesorios" class="img-responsive"/>
-								<div class="category-text">
-									{{categories[2].name}}
-								</div>
-							</a>
-						</div>
-					</div> -->
 					<div class="row">
 						Aca ponemos historial de vistas
 					</div>

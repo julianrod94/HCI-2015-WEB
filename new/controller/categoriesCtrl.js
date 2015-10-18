@@ -19,7 +19,8 @@ function getFilters(result) {
             result = JSON.stringify([{"id":2, "value":"Adulto"},{"id":1, "value":"Femenino"}]);
             break;
         case 3:
-            result = [{"id":2, "values":["Infantil", "Bebe"]},{"id":1, "values":["Masculino","Femenino"]}];
+            //result = [{"id":2, "values":["Infantil", "Bebe"]},{"id":1, "values":["Masculino","Femenino"]}];
+            result = JSON.stringify([{"id":2, "value": "Infantil"}]);   //, {"id":2, "value": "Bebe"}]);
             break;
     }
     return result;
@@ -69,7 +70,7 @@ angular.module('categoriesApp', []).controller('categoriesController', function(
              //    getAllSubCategories($scope.categories[i].id);
              // }
              completeList($scope.categories).then(
-             console.log($scope.subcategories)
+             
              );
         });
     }
@@ -78,6 +79,7 @@ angular.module('categoriesApp', []).controller('categoriesController', function(
         var i;
         for (i = 0 ; i < array.length ; i++) {
             getAllSubCategories(array[i].id);
+            getAnImageToDisplay(array[i].id);
         }
     }
 
@@ -91,9 +93,15 @@ angular.module('categoriesApp', []).controller('categoriesController', function(
 
     function getAllSubCategories(category_id) {
         var url = "http://eiffel.itba.edu.ar/hci/service3/Catalog.groovy?method=GetAllSubcategories&id=" + category_id + "&filters=" + encodeURIComponent(getFilters(pageId));
-        console.log(url);
         $http.get(url, {cache: true, timeout: 10000}).then(function(response) {
              $scope.subcategories.push({id:category_id, values: response.data.subcategories});
+        });
+    }
+
+    function getAnImageToDisplay(category_id) {
+        var url = "http://eiffel.itba.edu.ar/hci/service3/Catalog.groovy?method=GetProductsByCategoryId&id=" + category_id + "&page_size=1" + "&filters=" + encodeURIComponent(getFilters(pageId));
+        $http.get(url, {cache: true, timeout: 10000}).then(function(response) {
+            $scope.pictures.push({id:category_id, pictures: response.data.products[0].imageUrl});
         });
     }
 
@@ -103,7 +111,7 @@ angular.module('categoriesApp', []).controller('categoriesController', function(
 
     $scope.categories = null;
     $scope.subcategories = [];
-
+    $scope.pictures = [];
 
     $scope.gender = function() {
         var result;
@@ -122,30 +130,16 @@ angular.module('categoriesApp', []).controller('categoriesController', function(
         }
         return result;
   }
-
     
 
-     $scope.pictures = function() {
-      return getCategoryPictures(pageId);
+    $scope.categories_link = function(category_id) {
+
+      return "catalogue.html?calling_option=1&gender=" + gender + "&category=" + category_id;
     },
 
-    
+    $scope.sub_categories_link = function(category_id, subcategory_id) {
 
-    $scope.categories_link = function(gender, cat) {
-
-      var str = '[{"name":"gender", "values":["' + gender + '"]}, {"name":"category", "values":["' + cat + '"]}]';
-      str = JSON.stringify(str);
-      str = encodeURIComponent(str);
-      return "catalogue.html?filters=" + str;
-      
-    },
-
-    $scope.sub_categories_link = function(gender, cat, sub) {
-
-      var str = '[{"name":"gender", "values":["' + gender + '"]}, {"name":"category", "values":["' + cat + '"]}, {"name":"sub", "values":["' + sub + '"]}]';
-      str = JSON.stringify(str);
-      str = encodeURIComponent(str);
-      return "catalogue.html?filters=" + str;
+      return "catalogue.html?calling_option=2&gender=" + gender + "&category=" + category_id + "&sub_category=" + subcategory_id;
       
     }
 

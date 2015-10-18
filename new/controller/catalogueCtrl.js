@@ -21,6 +21,7 @@ function getGender() {
     return isNaN(aux) ? 0 : aux;
 }
 
+
 function getCategory() {
 
     var aux = getParameterByName('category');
