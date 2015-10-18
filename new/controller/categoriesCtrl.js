@@ -1,18 +1,11 @@
 
-function getGender(result) {
+var gender = getGender();
 
-   	switch (result) {
-   		case 1:
-   			result = 'Hombres';
-   			break;
-   		case 2:
-   			result = 'Mujeres';
-   			break;
-   		case 3:
-   			result = 'Infantiles';
-   			break;
-   	}
-   	return result;
+function getGender() {
+
+    var aux = getParameterByName('id');
+    aux = parseInt(aux);
+    return isNaN(aux) ? 0 : aux;
 }
 
 
@@ -61,8 +54,9 @@ function getParameterByName(name) {
 }
 
 
+// **************************************************************************************************************************************************************************************
 
-angular.module('categoriesApp', []).controller('categoriesController', function($scope, $http, $log, $timeout) {
+angular.module('categoriesApp', []).controller('categoriesController', function($scope, $http, $log, $timeout, $q) {
 	var pageId = parseInt(getParameterByName('id'));
 
     function getAllCategories() {
@@ -70,15 +64,36 @@ angular.module('categoriesApp', []).controller('categoriesController', function(
         var url = "http://eiffel.itba.edu.ar/hci/service3/Catalog.groovy?method=GetAllCategories&filters=" + encodeURIComponent(getFilters(pageId));
         $http.get(url, {cache: true, timeout: 10000}).then(function(response) {
              $scope.categories = response.data.categories;
+             // var i;
+             // for (i = 0 ; i < $scope.categories.length ; i++) {
+             //    getAllSubCategories($scope.categories[i].id);
+             // }
+             completeList($scope.categories).then(
+             console.log($scope.subcategories)
+             );
         });
     }
 
+    function iteration(array){
+        var i;
+        for (i = 0 ; i < array.length ; i++) {
+            getAllSubCategories(array[i].id);
+        }
+    }
+
+    function completeList(array) {
+
+      return $q(function(resolve, reject) {
+          resolve(iteration(array));
+      })
+    }
+
+
     function getAllSubCategories(category_id) {
-        console.log(category_id);
         var url = "http://eiffel.itba.edu.ar/hci/service3/Catalog.groovy?method=GetAllSubcategories&id=" + category_id + "&filters=" + encodeURIComponent(getFilters(pageId));
         console.log(url);
         $http.get(url, {cache: true, timeout: 10000}).then(function(response) {
-             $scope.partial_result = response.data.subcategories;
+             $scope.subcategories.push({id:category_id, values: response.data.subcategories});
         });
     }
 
@@ -86,17 +101,27 @@ angular.module('categoriesApp', []).controller('categoriesController', function(
         return null;
     }
 
-    $scope.partial_result = null;
     $scope.categories = null;
-    $scope.sub_categories = function(category_id) {
-        getAllSubCategories(category_id);
-        return $scope.partial_result;
-    },
+    $scope.subcategories = [];
 
 
-    $scope.pageName = function() {
-        return getGender(pageId);
-    },
+    $scope.gender = function() {
+        var result;
+        switch(gender) {
+            case 1:
+                result = "Hombres";
+                break;
+            case 2:
+                result = "Mujeres";
+                break;
+            case 3:
+                result = "Infantiles";
+                break;
+            default:
+                result = "Seleccione Género";
+        }
+        return result;
+  }
 
     
 
@@ -122,6 +147,11 @@ angular.module('categoriesApp', []).controller('categoriesController', function(
       str = encodeURIComponent(str);
       return "catalogue.html?filters=" + str;
       
+    }
+
+    $scope.hasGenderSpecified = function() {
+
+        return gender != 0;
     }
 
      getAllCategories();

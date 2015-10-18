@@ -52,6 +52,12 @@
 	padding-bottom: 1em;
 
 }
+
+.buying-options > div > label {
+	text-transform: uppercase;
+	font-size: 90%;
+}
+
 .buying-controls {
 
 	max-width: 10em;

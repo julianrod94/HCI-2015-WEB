@@ -53,14 +53,14 @@
 				<div ng-switch-when="1"> <!-- Display by category -->
 					<ol class="breadcrumb">
 			  			<li><a href="home.html">Home</a></li>
-			  			<li><a ng-href="categories.html?id={{gender().id}}">{{ gender().name }}</a></li>
+			  			<li ng-if="hasGenderSpecified()"><a ng-href="{{gender_link()}}">{{ gender() }}</a></li>
 			  			<li class="active">{{category.name}}</li>
 			  		</ol>
 				</div>
 				<div ng-switch-when="2"> <!-- Display by subcategory -->
 					<ol class="breadcrumb">
 					  	<li><a href="home.html">Home</a></li>
-			  			<li><a ng-href="categories.html?id={{gender().id}}">{{ gender().name }}</a></li>
+			  			<li ng-if="hasGenderSpecified()"><a ng-href="{{gender_link()}}">{{ gender() }}</a></li>
 			  			<li><a ng-href="{{ categories_link(gender(), category.name )}}">{{ category.name }}</a></li>
 			 			<li class="active"> {{ sub_category.name }} </li>
 					</ol>
@@ -68,14 +68,14 @@
 				<div ng-switch-when="3"> <!-- Display by brand -->
 					<ol class="breadcrumb">
 					  	<li><a href="home.html">Home</a></li>
-			  			<li><a ng-href="categories.html?id={{gender().id}}">{{ gender().name }}</a></li>
+			  			<li ng-if="hasGenderSpecified()"><a ng-href="{{gender_link()}}">{{ gender() }}</a></li>
 			 			<li class="active"> {{ brand }} </li>
 					</ol>
 				</div>
 				<div ng-switch-when="4"> <!-- Display by news -->
 					<ol class="breadcrumb">
 					  	<li><a href="home.html">Home</a></li>
-			  			<li><a ng-href="categories.html?id={{gender().id}}">{{ gender().name }}</a></li>
+			  			<li ng-if="hasGenderSpecified()"><a ng-href="{{gender_link()}}">{{ gender().name }}</a></li>
 			 			<li class="active"> Novedades </li>
 					</ol>
 				</div>

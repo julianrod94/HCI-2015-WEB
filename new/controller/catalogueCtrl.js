@@ -212,16 +212,16 @@ angular.module('catalogueApp', []).controller('catalogueController', function($s
         var result;
         switch(gender) {
             case 1:
-                result = {id:1, name:"Hombres"};
+                result = "Hombres";
                 break;
             case 2:
-                result = {id:2, name:"Mujeres"};
+                result = "Mujeres";
                 break;
             case 3:
-                result = {id:3, name:"Infantiles"};
+                result = "Infantiles";
                 break;
             default:
-                result = "Categorias";
+                result = "Género";
         }
         return result;
 	}
@@ -302,6 +302,10 @@ angular.module('catalogueApp', []).controller('catalogueController', function($s
         return link;
     }
 	
+    $scope.gender_link = function() {
+
+        return "categories.html?id=" + gender;
+    }
 
     $scope.categories_link = function() {
 
@@ -312,6 +316,11 @@ angular.module('catalogueApp', []).controller('catalogueController', function($s
     $scope.breadcrumb_type = function() {
 
         return display_options;
+    }
+
+    $scope.hasGenderSpecified = function() {
+
+        return gender != 0;
     }
 
     getCategoryByAJAX();

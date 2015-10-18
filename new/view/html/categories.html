@@ -49,7 +49,7 @@
 	<div ng-controller="categoriesController">
 		<ol class="breadcrumb">
   			<li><a href="home.html">Home</a></li>
- 			<li class="active"> {{pageName()}}</li>
+ 			<li class="active"> {{gender()}}</li>
 		</ol>
 
 		<div class="container-fluid">
@@ -62,7 +62,7 @@
 							{{ i.name }} <!-- Prints category -->
 						</a>
 						<ul>
-							<li ng-repeat="y in sub_categories(i.id)">
+							<li ng-repeat="y in (subcategories | filter: {id:i.id})[0].values">
 								<a ng-href="#">
 									{{y.name}} <!-- Prints sub-categories -->
 								</a>
@@ -75,15 +75,73 @@
 			<div class="col-md-8" id="body-content">
 				<div class="container-fluid">
 					<div class="row" id="page-title">
-						<h1> {{ pageName() }} </h1>
+						<h1> {{ gender() }} </h1>
 					</div>
 					<hr>
-					<div class="row" ng-init="pictures=pictures()" id="categories-holder">
+
+					<div class="central-part" ng-init="genderSpecified=hasGenderSpecified()">
+
+						<div ng-switch on="genderSpecified">
+
+							<div ng-switch-when="true">
+
+								<!-- Arrancar aca con el iterator -->
+								<div class="col-md-4" class="genderSelector">
+									<a ng-href="{{categories_link(pageName(), categories[0])}}"> 
+										<img src={{pictures[0]}} alt="Indumentaria" class="img-responsive"/>
+										<div class="category-text">
+											{{categories[0].name}}
+										</div>
+									</a>
+								</div>
+
+							</div>
+
+							<!-- Reloads the page in case it wasn't specified gender -->
+							<div ng-switch-default>
+
+								<div class="col-md-4" class="genderSelector">
+									<a href="categories.html?id=1"> 
+										<img src="../../assets/genderImages/men.png" alt="Hombres" class="img-responsive"/>
+										<div class="category-text">
+											Hombres
+										</div>
+									</a>
+								</div>
+								<div class="col-md-4" class="genderSelector">
+									<a href="categories.html?id=2"> 
+										<img src="../../assets/genderImages/women.png" alt="Mujeres" class="img-responsive"/>
+										<div class="category-text">
+											Mujeres
+										</div>
+									</a>
+								</div>
+								<div class="col-md-4" class="genderSelector">
+									<a href="categories.html?id=3"> 
+										<img src="../../assets/genderImages/kids.png" alt="Infantiles" class="img-responsive"/>
+										<div class="category-text">
+											Infantiles
+										</div>
+									</a>
+								</div>
+
+							</div>
+
+						</div>
+
+
+
+
+					</div>
+
+
+
+					<!-- <div class="row" ng-init="pictures=pictures()" id="categories-holder">
 						<div class="col-md-4" id="category1">
 							<a ng-href="{{categories_link(pageName(), categories[0])}}"> 
 								<img src={{pictures[0]}} alt="Indumentaria" class="img-responsive"/>
 								<div class="category-text">
-									{{categories[0]}}
+									{{categories[0].name}}
 								</div>
 							</a>
 						</div>
@@ -91,7 +149,7 @@
 							<a ng-href="{{categories_link(pageName(), categories[1])}}">
 								<img src={{pictures[1]}} alt="Calzado" class="img-responsive"/>
 								<div class="category-text">
-									{{categories[1]}}
+									{{categories[1].name}}
 								</div>
 							</a>
 						</div>
@@ -99,11 +157,11 @@
 							<a ng-href="{{categories_link(pageName(), categories[2])}}">
 								<img src={{pictures[2]}} alt="Accesorios" class="img-responsive"/>
 								<div class="category-text">
-									{{categories[2]}}
+									{{categories[2].name}}
 								</div>
 							</a>
 						</div>
-					</div>
+					</div> -->
 					<div class="row">
 						Aca ponemos historial de vistas
 					</div>
