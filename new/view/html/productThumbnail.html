@@ -1,7 +1,7 @@
 <div ng-controller="thumbnailController" class="container-fluid :hover" onmouseover="">
     <div class="row" >
         <div class="col-sm-12">
-            <a ng-href="#"> <!--{{getProductLink(prod.id)}}-->
+            <a ng-href="{{getProductLink(prod.id)}}"> <!--{{getProductLink(prod.id)}}-->
                 <div class="thumbnail my_thumbnail">
                     <div id="img_size" ng-init="thumb_image=prod.imageUrl[0]">
                         <img  src={{thumb_image}} alt={{prod.name}} class="product_image"/>

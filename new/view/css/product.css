@@ -2,10 +2,6 @@
 	color: #FFBF00;
 }
 
-/*********************************************
-					PRODUCTS
-*********************************************/
-
 .product{
 	border: 1px solid #dddddd;
 	height: 321px;
@@ -16,12 +12,18 @@
 }
 
 .product-rating{
+	
 	font-size: 20px;
-	margin-bottom: 25px;
+	
 }
 
 .product-title{
 	font-size: 20px;
+}
+
+.name-and-rating {
+	padding-bottom: 1.5em;
+	border-bottom: solid 1px #DDDDDD;
 }
 
 .product-desc{
@@ -35,16 +37,64 @@
 .product-stock{
 	color: #74DF00;
 	font-size: 20px;
-	margin-top: 10px;
+	padding-top: 0.2em;
+	
 }
 
-.product-info{
-		margin-top: 50px;
+.price-and-stock {
+
+	padding-top: 1em;
+	padding-bottom: 1.5em;
+	border-bottom: solid 1px #DDDDDD;
 }
 
-/*********************************************
-					VIEW
-*********************************************/
+.buying-options .row {
+	padding-bottom: 1em;
+
+}
+.buying-controls {
+
+	max-width: 10em;
+
+}
+
+.wishlist-and-cart-buttons {
+
+	padding-top: 1.6em;
+	
+}
+
+.wishlist-and-cart-buttons .row {
+		
+		padding-bottom: 2.8em;
+}
+
+.wishlist-and-cart-buttons .btn {
+		
+		width: 10em;
+}
+
+.size-color-quantity-and-buttons {
+
+	padding-top: 1em;
+}
+
+
+.details-and-similars {
+	border-top: solid 1px #DDDDDD;
+	padding-top: 2em;
+}
+
+.details-and-similars > div > h5 {
+	padding-bottom: 1em;
+	font-weight: bold;
+}
+
+.similar-col {
+	border-left: solid 1px #DDDDDD;
+	padding-left: 3em;
+}
+
 
 .myContentWrapper {
 	max-width: 1140px;
@@ -61,40 +111,17 @@
 	margin: 0 auto;
 }
 
-.view-wrapper {
-	float: right;
-	max-width: 70%;
-	margin-top: 25px;
-}
-
 .myContainer {
 	padding-left: 0px;
 	padding-right: 0px;
 	max-width: 100%;
 }
 
-.bottom-tabs {
-
-	padding-left: 70px;
-}
-
-/*********************************************
-				ITEM 
-*********************************************/
 
 .central-part {
 	padding-bottom: 2em;
 }
 
-.service1-items {
-	padding: 0px 0 0px 0;
-	float: left;
-	position: relative;
-	overflow: hidden;
-	max-width: 100%;
-	height: 321px;
-	width: 130px;
-}
 
 .service1-item {
 	height: 25%;
@@ -124,13 +151,9 @@
 }
 
 .service-image-left {
-	padding-right: 50px;
-}
-
-.service-image-left {
 	
 	padding-bottom: 5px;
-	padding-right: 500px;
+	padding-right: 400px;
 	height: 100%;
 }
 
@@ -138,33 +161,5 @@
 	max-width: 500px;
 }
 
-.service-image-right {
-	padding-left: 50px;
-}
-
-.service-image-left > center > img,.service-image-right > center > img{
-	max-height: 180px;
-}
-
-.other-colors {
-	max-width: 100px;
-	padding: 1em;
-}
-
-.myButtons > div {
-	margin-left: 2em;
-	width: 10em;
-}
 
 
-.myButtons > div > button{
-	margin-bottom: 1em;
-	width: 13em;
-}
-
-.resenia {
-	padding-left: 50px;
-	padding-bottom: 5em;
-	border: 3px;
-	width: 50em;
-}

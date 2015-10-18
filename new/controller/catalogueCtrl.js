@@ -18,7 +18,7 @@ function getGender() {
 
     var aux = getParameterByName('gender');
     aux = parseInt(aux);
-    return isNaN(aux) ? null : aux;
+    return isNaN(aux) ? 0 : aux;
 }
 
 function getCategory() {
@@ -221,7 +221,7 @@ angular.module('catalogueApp', []).controller('catalogueController', function($s
                 result = {id:3, name:"Infantiles"};
                 break;
             default:
-                result = null;
+                result = "Categorias";
         }
         return result;
 	}
@@ -263,7 +263,43 @@ angular.module('catalogueApp', []).controller('catalogueController', function($s
 
 
     $scope.getProductLink = function(prod_id) {
-        return "product.html?product_id=" + prod_id;
+        var link = "product.html?product_id=" + prod_id;
+
+        if (gender != null) {
+            link += '&gender=' + gender;
+        }
+        if (category != null) {
+            link += '&category=' + category;
+        }
+        if (sub_category != null) {
+            link += '&sub_category=' + sub_category;
+        }
+        if (brand != null){
+            link += '&brand=' + brand;
+        }
+        if (search_string != null ) {
+            link += '&search_string=' + search_string;
+        }
+        if (display_options != null) {
+            link += '&calling_option=' + display_options;
+        }
+        if (page_number != null) {
+            link += '&page=' + page_number;
+        }
+        if (products_per_page != null) {
+            link += '&page_size=' + products_per_page;
+        }
+        if (sorting_key != null) {
+            link += '&sort_key=' + sorting_key;
+        }
+        if (sort_order != null) {
+            link += '&sort_order=' + sort_order;
+        }
+        if (filters != null) {
+            link += '&prev_filters=' + encodeURIComponent(JSON.stringify(filters));
+        }
+
+        return link;
     }
 	
 

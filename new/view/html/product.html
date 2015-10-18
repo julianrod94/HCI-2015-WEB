@@ -21,6 +21,7 @@
     <link rel="stylesheet" type="text/css" href="../css/common.css">
     <link rel="stylesheet" type="text/css" href="../css/header.css">
     <link rel="stylesheet" type="text/css" href="../css/product.css">
+    <link rel="stylesheet" type="text/css" href="../css/productThumbnail.css">
 
     <!-- Angular stuff -->
     <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.3.15/angular.min.js"></script>
@@ -30,6 +31,8 @@
     <script src="../../controller/productCtrl.js"></script>
     <script src="../../controller/cartCtrl.js"></script>
     <script src="../../controller/accountCtrl.js"></script>
+    <script src="../../controller/thumbnailCtrl.js"></script>
+
     <script src="../js/product.js"></script>
 
 </head>
@@ -45,10 +48,10 @@
         <div = ng-controller="productController">
             <ol class="breadcrumb">
                 <li><a href="home.html">Home</a></li>
-                <li><a ng-href="categories.html?id={{product().gender.toLowerCase()}}">{{product().gender}}</a></li>
-                <li><a ng-href="{{createBackLinkCategory()}}">{{product().category}}</a></li>
-                <li><a ng-href="{{createBackLinkSubCategory()}}">{{product().sub}}</a></li>
-                <li class="active">{{product().brand + " | " + product().name}}</li>
+                <li ng-if="hasGenderSpecified()"><a ng-href="{{getLinkForGenderBreadcrumb()}}">{{getGenderNameForBreadcrumb()}}</a></li>
+                <li><a ng-href="{{link_for_category}}">{{product.category.name}}</a></li>
+                <li><a ng-href="{{link_for_sub_category}}">{{product.subcategory.name}}</a></li>
+                <li class="active">{{product.name}}</li>
             </ol>
 
 
@@ -58,13 +61,15 @@
                     <div class="item-container">  
                         <div class="container myContainer"> 
                             <div class="row central-part">
+                                
+                                <!--pictures-->
                                 <div class="col-md-8">
-                                    <div class="product col-md-5 service-image-left">
-                                        <img id="item-display" src={{product_images()[0]}} alt={{product().name}}></img>
+                                    <div class="product col-md-6 service-image-left">
+                                        <img id="item-display" src={{product.imageUrl[0]}} alt={{product.name}}></img>
                                     </div>
 
                                     <div class="myContainer service-items col-sm-2 col-md-2 pull-left">
-                                        <div ng-repeat="i in product_images()" 
+                                        <div ng-repeat="i in product.imageUrl"> 
                                             <a class="service1-item">
                                                 <img src="{{i}}" alt=""></img>
                                             </a>
@@ -72,62 +77,77 @@
                                     </div>
                                 </div>
 
-                                <div class="col-md-3">
-                                    <div class="product-title">
-                                        {{product().brand + " | " + product().name}}
-                                    </div>
-                                    <div class="product-rating">
-                                        <i class="fa fa-star gold"></i>
-                                        <i class="fa fa-star gold"></i>
-                                        <i class="fa fa-star gold"></i>
-                                        <i class="fa fa-star gold"></i>
-                                        <i class="fa fa-star-o"></i>
-                                    </div>
-                                    <hr>
-                                    <div class="product-price">{{'$' + product().price}}</div>
-                                    <div class="product-stock">Disponible!</div>
-                                    <hr>
-                                    <div class="myContainer">
-                                        <div class="btn-group">
-                                            <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                                Talles
-                                                <span class="caret"></span>
-                                            </button>
-                                            <ul class="dropdown-menu">
+                                <!--side part-->
+                                <div class="col-md-4">
 
-                                                <li ng-repeat="i in product().sizes"><a href="#">{{i}}</a></li>
-                                        
-                                            </ul>
+                                    <!-- Name and Rating -->
+                                    <div class="name-and-rating">
+                                        <div class=" row product-title" ng-init="brand=product.attributes | filter:{id:'9'}">
+                                            {{product.name }}
                                         </div>
-                                        
-                                        <div ng-init="other=product_variants()">
+                                        <div class="product-rating row">
+                                            <i class="fa fa-star gold glyphicon glyphicon-star"></i>
+                                            <i class="fa fa-star gold glyphicon glyphicon-star"></i>
+                                            <i class="fa fa-star gold glyphicon glyphicon-star"></i>
+                                            <i class="fa fa-star gold glyphicon glyphicon-star"></i>
+                                            <i class="fa fa-star-o glyphicon glyphicon-star"></i>
+                                        </div>
+                                    </div>
+                                    
+                                    <!-- Price and stock -->
+                                    <div class="price-and-stock">
+                                        <div class="product-price">{{'$' + product.price}}</div>
+                                        <div class="product-stock">Disponible!</div>
+                                    </div>
 
-                                            <div ng-if="other.length > 1">
-                                                <br>
-                                                <hr>
-                                                <br>
-                                                <div class="row">
-                                                    <h4>Colores</h4>
-                                                </div>
-                                                <div class="row">
-                                                    <div class="col-md-3" ng-repeat="i in other">
-                                                        <a href="{{product_variants_links(i.id)}}"><img class="other-colors" src="{{get_first_picture(i.id)}}"/></a>
-                                                    </div>
-                                                </div>
+                                    <!-- Size, color, quantity and buttons -->
+                                    <div class="row size-color-quantity-and-buttons">
+
+                                        <!-- Options -->
+                                        <div class="col-md-6 buying-options">
+
+                                            <!--Size menu-->
+                                            <div class="row size-menu">
+                                                <label for="sizes">Talle</label>
+                                                <select class="form-control buying-controls" id="sizes">
+                                                    <option ng-repeat="i in (product.attributes | filter: {name:'Talle'})[0].values">
+                                                        {{i}}
+                                                    </option>
+                                                </select>
                                             </div>
+
+                                            <!-- Color menu -->
+                                            <div class="row color-menu">
+                                                <label for="colors">Color</label>
+                                                <select class="form-control buying-controls" id="colors">
+                                                    <option ng-repeat="i in (product.attributes | filter: {id:'4'})[0].values">
+                                                        {{i}}
+                                                    </option>
+                                                </select>
+                                            </div>
+
+
+                                            <!-- Cantidad menu -->
+                                            <div class="row color-menu">
+                                                <label for="quantity">Cantidad</label>
+                                                <input class="buying-controls" id="quantity" type="number" min="1" value="1"/>
+                                                    
+                                            </div>
+
                                         </div>
-                                    </div>
-                                    <hr>
-                                    <div class="btn-group cart myContainer myButtons">
-                                        <div class="row">
-                                            <button type="button" class="btn btn-success">
-                                                <i class="glyphicon glyphicon-shopping-cart"></i>
-                                            </button>
-                                        </div>
-                                        <div class="row">
-                                            <button type="button" class="btn btn-warning">
-                                                <i class="glyphicon glyphicon-heart"></i>
-                                            </button>
+
+                                        <!-- Buttons -->
+                                        <div class="col-md-6 wishlist-and-cart-buttons">
+                                            <div class="row">
+                                                <button type="button" class="btn btn-success">
+                                                    Añadir al <i class="glyphicon glyphicon-shopping-cart"></i>
+                                                </button>
+                                            </div>
+                                            <div class="row">
+                                                <button type="button" class="btn btn-warning">
+                                                    Añadir a <i class="glyphicon glyphicon-heart"></i>
+                                                </button>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
@@ -136,39 +156,33 @@
                     </div> 
                 </div>
             </div>
-            <div class="bottom-tabs">
 
-                    <ul class="nav nav-tabs">
-                        <li class="active"><a href="#Descripcion"data-toggle="tab">Descripción</a></li>
-                        <li><a href="#Resenias" data-toggle="tab">Reseñas</a></li>
-                    </ul>
-
-                <div class="tab-content">
-                    <div class="tab-pane fade active in" id="Descripcion">
-                        <br>
+            <div class="container-fluid">
+                <div class="col-md-12 details-and-similars">
+                    <div class="col-md-4 details-col">
+                        <h5>DETALLES DEL PRODUCTO</h5>
                         <ul>
-                            <li>Marca: {{product().brand}}</li>
-                            <li>Color: {{product().color}}</li>
-                            <li ng-repeat="i in product().descriptions"> {{i}}</li>
-                    </div>  
-
-                    <div class="tab-pane fade" id="Resenias">
-                        <br>
-                        <div class="row resenia">
-                            <h5>Julian </h5>
-                            <hr>
-                            Muy buen producto! Lo recomiendo
-                        </div>
-                        <br>
-                        <div class="row resenia">
-                            <h5>Andrea </h5>
-                            <hr>
-                            No me gustó mucho
+                            <li ng-repeat="i in product.attributes |orderBy:-'id'">
+                                {{i.name}}:
+                                <span ng-repeat="j in i.values"> {{j}} </span>
+                            </li>
+                        </ul> 
+                    </div>
+                    <div class="col-md-8 similar-col">
+                        <h5>PRODUCTOS SIMILARES</h5>
+                        <div ng-repeat="prod in similars">
+                            <div class="col-md-4">
+                                <div ng-include="'productThumbnail.html'"></div>
+                            </div>
                         </div>
                     </div>
-
                 </div>
+
+
             </div>
+
+
+
             <br>
         </div>
     </div>
