@@ -1,23 +1,23 @@
 
 function getSection(result) {
 
-    switch (result) {
-        case 1:
-            result = JSON.stringify([{"id":2, "value":"Adulto"},{"id":1, "value":"Masculino"}]);
-            break;
-        case 2:
-            result = JSON.stringify([{"id":2, "value":"Adulto"},{"id":1, "value":"Femenino"}]);
-            break;
-        case 3:
+	switch (result) {
+		case 1:
+		result = JSON.stringify([{"id":2, "value":"Adulto"},{"id":1, "value":"Masculino"}]);
+		break;
+		case 2:
+		result = JSON.stringify([{"id":2, "value":"Adulto"},{"id":1, "value":"Femenino"}]);
+		break;
+		case 3:
             //result = [{"id":2, "values":["Infantil", "Bebe"]},{"id":1, "values":["Masculino","Femenino"]}];
             result = JSON.stringify([{"id":2, "value": "Infantil"}]);   //, {"id":2, "value": "Bebe"}]);
-            break;
-        case 4:
-	        result = JSON.stringify([{"id":2, "value": "Bebe"}]);
-            break;
+break;
+case 4:
+result = JSON.stringify([{"id":2, "value": "Bebe"}]);
+break;
 
-    }
-    return result;
+}
+return result;
 }
 
 //User stuff
@@ -43,7 +43,7 @@ var cart = localStorage.getItem("cart_id:" + user_local);
 function getParameterByName(name) {
 	name = name.replace(/[\[]/, "\\[").replace(/[\]]/, "\\]");
 	var regex = new RegExp("[\\?&]" + name + "=([^&#]*)"),
-	    results = regex.exec(location.search);
+	results = regex.exec(location.search);
 	return results === null ? null : decodeURIComponent(results[1].replace(/\+/g, " "));
 }
 
@@ -57,23 +57,23 @@ angular.module('headerApp', []).controller('headerController', function($scope, 
 
 	function getAllCategories(gender_id) {
 
-        var url = "http://eiffel.itba.edu.ar/hci/service3/Catalog.groovy?method=GetAllCategories&filters=" + encodeURIComponent(getSection(gender_id));
-        $http.get(url, {cache: true, timeout: 10000}).then(function(response) {
-             $scope.categories.push({id:gender_id, categories:response.data.categories});
-        });
-    }
+		var url = "http://eiffel.itba.edu.ar/hci/service3/Catalog.groovy?method=GetAllCategories&filters=" + encodeURIComponent(getSection(gender_id));
+		$http.get(url, {cache: true, timeout: 10000}).then(function(response) {
+			$scope.categories.push({id:gender_id, categories:response.data.categories});
+		});
+	}
 
 
-    function getBrands(gender_id) {
+	function getBrands(gender_id) {
 
-    	var url = "http://eiffel.itba.edu.ar/hci/service3/Catalog.groovy?method=GetAllProducts&filters=" + encodeURIComponent(getSection(gender_id));
-    	$http.get(url, {cache: true, timeout: 10000}).then(function(response) {
-             $scope.brands.push({id:gender_id, brands:response.data.filters.filter(function(elem) {return elem.id == 9})});
-        });
-    }
+		var url = "http://eiffel.itba.edu.ar/hci/service3/Catalog.groovy?method=GetAllProducts&filters=" + encodeURIComponent(getSection(gender_id));
+		$http.get(url, {cache: true, timeout: 10000}).then(function(response) {
+			$scope.brands.push({id:gender_id, brands:response.data.filters.filter(function(elem) {return elem.id == 9})});
+		});
+	}
 
 
-    function signIn(username, password){
+	function signIn(username, password){
 
 		if(token != null) {
 			return "Ya esta logeado, cierre la sesion existente e intentelo de nuevo";
@@ -97,16 +97,16 @@ angular.module('headerApp', []).controller('headerController', function($scope, 
 
 	function getAccount() {
 
-    	if ($scope.token != null) {
+		if ($scope.token != null) {
 
-    		var url = "http://eiffel.itba.edu.ar/hci/service3/Account.groovy?method=GetAccount&username=" + user_local + "&authentication_token=" + token;
-    		$http.get(url, {cache: true, timeout: 10000}).then(function(response) {
+			var url = "http://eiffel.itba.edu.ar/hci/service3/Account.groovy?method=GetAccount&username=" + user_local + "&authentication_token=" + token;
+			$http.get(url, {cache: true, timeout: 10000}).then(function(response) {
 				$scope.account = response.data.account;
 
 			});
 
-    	}
-    }
+		}
+	}
 
 	function signOut(){
 		if(token == null){
@@ -132,6 +132,68 @@ angular.module('headerApp', []).controller('headerController', function($scope, 
 			$scope.cart = response.data.order.id;		
 		});
 	}
+
+	function updateAccount(firstName, lastName, gender, identityCard, email, birthdate){
+		if(token == null){
+			return "Debe estar logeao para cambiar los datos de su cuenta";
+		}
+		var reName = /([^0-9]){2,80}/;
+		var ok1 =  reName.test(firstName);
+		var ok2 =  reName.test(lastName);
+		var reGender = /[FM]/;
+		var ok3 =  reGender.test(gender);
+		var reIdentityCard = /(((([0-9]){0,3})\.){0,2})([0-9]){0,3}/;
+		var ok4 = reIdentityCard.test(identityCard);
+		var ok5 = email != null;
+		var reBirthdate = /(19|20)[0-9]{2}-[01][0-9]-[0-3][0-9]/;
+		var ok6 = reBirthdate.test(birthdate);
+		var ok7 = password == repeat;
+
+		if(!ok1 || !ok2 || !ok3 || !ok4 || !ok5 || !ok6 || !ok7 ){
+			return "datos invalidos";
+		}
+		var today = new Date();
+		var dd = today.getDate();
+		var mm = today.getMonth()+1; //Enero es 0!
+		var yyyy = today.getFullYear();
+		var year = parseInt(birthdate.substring(0,3));
+		var month = parseInt(birthdate.substring(5,6));
+		var day = parseInt(birthdate.substring(8,9));
+		if(year-16 > yyyy){
+			return "Año invalido";
+		}
+		if(month>12){
+			return "mes invalido";
+		}
+		if(day > 31){
+			return "dia invalido";
+		}
+		if(year-16 == yyyy){
+			if(!month <= mm){
+				if(!day <= dd){
+					return "Tiene que ser mayor de 16 años";
+				}
+			}
+		}
+
+		var jsonDatos = {
+			firstName: firstName,
+			lastName: lastName,
+			gender: gender,
+			identityCard: identityCard,
+			email: email,
+			birthDate: birthdate,
+		}
+		var url = "eiffel.itba.edu.ar/hci/service3/Account.groovy?method=UpdateAccount&username=" + $scope.user_local + "&authentication_token=" + $scope.token + "&account=" + encodeURIComponent(JSON.stringify(jsonDatos));
+
+		$http.get(url, {cache: true, timeout: 10000}).then(function(response) {
+			if(response.hasOwnProperty("error")){
+				return response.data.error.message;
+			}
+			return "Datos de cuenta actualizados con exito";
+		})
+	}
+
 
 	function createAccount(username, password, repeat, firstName, lastName, gender, identityCard, email, birthdate){
 
@@ -210,121 +272,121 @@ angular.module('headerApp', []).controller('headerController', function($scope, 
 	}
 
 
-    $scope.categories = [];
-    $scope.brands = [];
-    $scope.search_string = null;
+	$scope.categories = [];
+	$scope.brands = [];
+	$scope.search_string = null;
 
-    $scope.parentScope = $scope;
+	$scope.parentScope = $scope;
 
-    $scope.user_model = null;
-    $scope.password_model = null;
-    $scope.registerFields = {
-    	name:null,
-    	last_name:null,
-    	birthday:null,
-    	username:null,
-    	email:null,
-    	password:null,
-    	repeat:null,
-    	gender:null,
-    	identity_card:null,
-    	terms:false
-    }
+	$scope.user_model = null;
+	$scope.password_model = null;
+	$scope.registerFields = {
+		name:null,
+		last_name:null,
+		birthday:null,
+		username:null,
+		email:null,
+		password:null,
+		repeat:null,
+		gender:null,
+		identity_card:null,
+		terms:false
+	}
 
 	$scope.token = token;
 	$scope.account = null;   
 
-    $scope.getBrandLink = function(gender_id, brand) {
+	$scope.getBrandLink = function(gender_id, brand) {
 
-    	return "catalogue.html?calling_option=3&gender=" + gender_id + "&brand=" + brand;
-    }
+		return "catalogue.html?calling_option=3&gender=" + gender_id + "&brand=" + brand;
+	}
 
-    $scope.getCategoriesLink = function(gender_id, category_id) {
+	$scope.getCategoriesLink = function(gender_id, category_id) {
 
-    	return "catalogue.html?calling_option=1&gender=" + gender_id + "&category=" + category_id;
-    }
+		return "catalogue.html?calling_option=1&gender=" + gender_id + "&category=" + category_id;
+	}
 
-    $scope.getNewsLink = function(gender_id) {
+	$scope.getNewsLink = function(gender_id) {
 
-    	return "catalogue.html?calling_option=4&gender=" + gender_id;
-    }
+		return "catalogue.html?calling_option=4&gender=" + gender_id;
+	}
 
-    $scope.getSearchLink = function() {
-    	return "catalogue.html?calling_option=5&search_string=" + $scope.search_string;
-    }
+	$scope.getSearchLink = function() {
+		return "catalogue.html?calling_option=5&search_string=" + $scope.search_string;
+	}
 
-    $scope.getSaleLink = function(gender_id) {
+	$scope.getSaleLink = function(gender_id) {
 
-    	return "catalogue.html?calling_option=6&gender=" + gender_id;
-    }
+		return "catalogue.html?calling_option=6&gender=" + gender_id;
+	}
 
-    $scope.makeSearch = function() {
-    	if ($scope.search_string != null) {
-	    	$window.location.href = "catalogue.html?calling_option=5&search_string=" + $scope.search_string;
-	    }
-    }
+	$scope.makeSearch = function() {
+		if ($scope.search_string != null) {
+			$window.location.href = "catalogue.html?calling_option=5&search_string=" + $scope.search_string;
+		}
+	}
 
-    $scope.userLogged = function() {
-    	return token != null;
-    }
+	$scope.userLogged = function() {
+		return token != null;
+	}
 
-    $scope.userMessage = function() {
+	$scope.userMessage = function() {
 
-    	if (token != null) {
-    		return "Hola, " + $scope.account.firstName + "!";
-    	}
-    	return "Ingresar"
-    }
+		if (token != null) {
+			return "Hola, " + $scope.account.firstName + "!";
+		}
+		return "Ingresar"
+	}
 
-    $scope.login = function() {
-    	signIn($scope.user_model,$scope.password_model);
-    }
+	$scope.login = function() {
+		signIn($scope.user_model,$scope.password_model);
+	}
 
-    $scope.logout = function() {
-    	signOut();
-    }
+	$scope.logout = function() {
+		signOut();
+	}
 
-    $scope.register = function() {
+	$scope.register = function() {
 
-    	console.log($scope.registerFields);
-    	var username = $scope.registerFields.username;
-    	var password = $scope.registerFields.password;
-    	var repeat = $scope.registerFields.repeat;
-    	var name = $scope.registerFields.name;
-    	var last_name = $scope.registerFields.last_name;
-    	var gender = $scope.registerFields.gender;
-    	var email = $scope.registerFields.email;
-    	var identity_card = $scope.registerFields.identity_card;
-    	var birthday = $scope.registerFields.birthday;
-    	
-    	createAccount(username, password, repeat, name, last_name, gender, identity_card, email, birthday);
+		console.log($scope.registerFields);
+		var username = $scope.registerFields.username;
+		var password = $scope.registerFields.password;
+		var repeat = $scope.registerFields.repeat;
+		var name = $scope.registerFields.name;
+		var last_name = $scope.registerFields.last_name;
+		var gender = $scope.registerFields.gender;
+		var email = $scope.registerFields.email;
+		var identity_card = $scope.registerFields.identity_card;
+		var birthday = $scope.registerFields.birthday;
 
-    }
+		createAccount(username, password, repeat, name, last_name, gender, identity_card, email, birthday);
+
+	}
 
 
-    getAllCategories(1);
-    getAllCategories(2);
-    getAllCategories(3);
-    getAllCategories(4);
-    getBrands(1);
-    getBrands(2);
-    getBrands(3);
-    getBrands(4);
+	getAllCategories(1);
+	getAllCategories(2);
+	getAllCategories(3);
+	getAllCategories(4);
+	getBrands(1);
+	getBrands(2);
+	getBrands(3);
+	getBrands(4);
 
-    getAccount();
+	getAccount();
 });
 
 angular.module('headerApp').directive('ngEnter', function() {
 	return function(scope, element, attrs) {
-	    element.bind("keydown keypress", function(event) {
-	        if(event.which === 13) {
-	            scope.$apply(function(){
-	                scope.$eval(attrs.ngEnter);
-	            });
+		element.bind("keydown keypress", function(event) {
+			if(event.which === 13) {
+				scope.$apply(function(){
+					scope.$eval(attrs.ngEnter);
+				});
 
-	            event.preventDefault();
-	        }
-	    });
+				event.preventDefault();
+			}
+		});
 	};
 });
 
