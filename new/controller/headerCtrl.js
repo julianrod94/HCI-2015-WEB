@@ -117,63 +117,58 @@ angular.module('headerApp', []).controller('headerController', function($scope, 
 
 
 	function createAccount(username, password, repeat, firstName, lastName, gender, identityCard, email, birthdate){
-		console.log("entre");
-		// var reUser = /([a-zA-Z0-9]){6,15}/;
-		// var ok1 = reUser.test(username);
-		// var rePass = /.{6,15}/;
-		// var ok2 = rePass.test(password);
-		// var reName = /([^0-9]){2,80}/;
-		// var ok3 =  reName.test(firstName);
-		// var ok4 =  reName.test(lastName);
-		// var reGender = /[FM]/;
-		// var ok5 =  reGender.test(gender);
-		// var reIdentityCard = /(((([0-9]){0,3})\.){0,2})([0-9]){0,3}/;
-		// var ok6 = reIdentityCard.test(identityCard);
-		// var ok7 = email != null;
-		// var reBirthdate = /(19|20)[0-9]{2}-[01][0-9]-[0-3][0-9]/;
-		// var ok8 = reBirthdate.test(birthdate);
-		// var ok9 = password == repeat;
 
-		// if(!ok1 || !ok2 || !ok3 || !ok4 || !ok5 || !ok6 || !ok7 || !ok8 || !ok9){
-		// 	console.log("caracteres");
-		// 	console.log(ok1);
-		// 	console.log(ok2);
-		// 	console.log(ok3);
-		// 	console.log(ok4);
-		// 	console.log(ok5);
-		// 	console.log(ok6);
-		// 	console.log(ok7);
-		// 	console.log(ok8);
-		// 	console.log(ok9);
-		// 	return "Caracteres invalidos";
-		// }
-		// var today = new Date();
-		// var dd = today.getDate();
-		// var mm = today.getMonth()+1; //Enero es 0!
-		// var yyyy = today.getFullYear();
-		// var year = parseInt(birthdate.subString(0,3));
-		// var month = parseInt(birthdate.subString(5,6));
-		// var day = parseInt(birthdate.subString(8,9));
-		// if(year-16 > yyyy){
-		// 	console.log("año");
-		// 	return "Año invalido";
-		// }
-		// if(month>12){
-		// 	console.log("mes");
-		// 	return "mes invalido";
-		// }
-		// if(day > 31){
-		// 	console.log("dia");
-		// 	return "dia invalido";
-		// }
-		// if(year-16 == yyyy){
-		// 	if(!month <= mm){
-		// 		if(!day <= dd){
-		// 			console.log("mayor");
-		// 			return "Tiene que ser mayor de 16 años";
-		// 		}
-		// 	}
-		// }
+		var reUser = /([a-zA-Z0-9]){6,15}/;
+		var ok1 = reUser.test(username);
+		var rePass = /.{6,15}/;
+		var ok2 = rePass.test(password);
+		var reName = /([^0-9]){2,80}/;
+		var ok3 =  reName.test(firstName);
+		var ok4 =  reName.test(lastName);
+		var reGender = /[FM]/;
+		var ok5 =  reGender.test(gender);
+		var reIdentityCard = /(((([0-9]){0,3})\.){0,2})([0-9]){0,3}/;
+		var ok6 = reIdentityCard.test(identityCard);
+		var ok7 = email != null;
+		var reBirthdate = /(19|20)[0-9]{2}-[01][0-9]-[0-3][0-9]/;
+		var ok8 = reBirthdate.test(birthdate);
+		var ok9 = password == repeat;
+
+		if(!ok1 || !ok2 || !ok3 || !ok4 || !ok5 || !ok6 || !ok7 || !ok8 || !ok9){
+			console.log(ok1);
+			console.log(ok2);
+			console.log(ok3);
+			console.log(ok4);
+			console.log(ok5);
+			console.log(ok6);
+			console.log(ok7);
+			console.log(ok8);
+			console.log(ok9);
+			return "Caracteres invalidos";
+		}
+		var today = new Date();
+		var dd = today.getDate();
+		var mm = today.getMonth()+1; //Enero es 0!
+		var yyyy = today.getFullYear();
+		var year = parseInt(birthdate.substring(0,3));
+		var month = parseInt(birthdate.substring(5,6));
+		var day = parseInt(birthdate.substring(8,9));
+		if(year-16 > yyyy){
+			return "Año invalido";
+		}
+		if(month>12){
+			return "mes invalido";
+		}
+		if(day > 31){
+			return "dia invalido";
+		}
+		if(year-16 == yyyy){
+			if(!month <= mm){
+				if(!day <= dd){
+					return "Tiene que ser mayor de 16 años";
+				}
+			}
+		}
 
 		var jsonFilt = {
 			username: username,
@@ -190,7 +185,6 @@ angular.module('headerApp', []).controller('headerController', function($scope, 
 		console.log(url);
 		$http.get(url, {cache: true, timeout: 10000}).then(function(response) {
 			if(response.hasOwnProperty("error")){
-				console.log("error");
 				return response.data.error.message;
 			}	
 			signIn(username, password); //ya lo logeo de entrada
