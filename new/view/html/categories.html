@@ -31,8 +31,7 @@
 
 		<!-- My code -->
 		<script src="../../controller/categoriesCtrl.js"></script>
-		<script src="../../controller/cartCtrl.js"></script>
-		<script src="../../controller/accountCtrl.js"></script>
+		<script src="../../controller/headerCtrl.js"></script>
 		
 		<script src="../js/categories.js"></script>
 		
@@ -42,7 +41,7 @@
 
 	<body>
 
-		<div ng-app=""> 
+		<div> 
 			<div ng-include="'header.html'"></div> <!-- Import's header -->
 		</div>
 
@@ -99,38 +98,45 @@
 
 							<!-- Reloads the page in case it wasn't specified gender -->
 							<div ng-switch-default>
-
-								<div class="col-md-4" class="gender-selector selector">
-									<a href="categories.html?id=1"> 
-										<img src="../../assets/genderImages/men.png" alt="Hombres" class="img-responsive selector-image"/>
-										<div class="selector-text">
-											Hombres
-										</div>
-									</a>
+								<div class="row">
+									<div class="col-md-6" class="gender-selector selector">
+										<a href="categories.html?id=1"> 
+											<img src="../../assets/genderImages/men.png" alt="Hombres" class="img-responsive selector-image"/>
+											<div class="selector-text">
+												Hombres
+											</div>
+										</a>
+									</div>
+									<div class="col-md-6" class="gender-selector selector">
+										<a href="categories.html?id=2"> 
+											<img src="../../assets/genderImages/women.png" alt="Mujeres" class="img-responsive selector-image"/>
+											<div class="selector-text">
+												Mujeres
+											</div>
+										</a>
+									</div>
 								</div>
-								<div class="col-md-4" class="gender-selector selector">
-									<a href="categories.html?id=2"> 
-										<img src="../../assets/genderImages/women.png" alt="Mujeres" class="img-responsive selector-image"/>
-										<div class="selector-text">
-											Mujeres
-										</div>
-									</a>
-								</div>
-								<div class="col-md-4" class="gender-selector selector">
-									<a href="categories.html?id=3"> 
-										<img src="../../assets/genderImages/kids.png" alt="Infantiles" class="img-responsive selector-image"/>
-										<div class="selector-text">
-											Infantiles
-										</div>
-									</a>
+								<div class="row">
+									<div class="col-md-6" class="gender-selector selector">
+										<a href="categories.html?id=3"> 
+											<img src="../../assets/genderImages/kids.png" alt="Infantiles" class="img-responsive selector-image"/>
+											<div class="selector-text">
+												Infantiles
+											</div>
+										</a>
+									</div>
+									<div class="col-md-6" class="gender-selector selector">
+										<a href="categories.html?id=4"> 
+											<img src="../../assets/genderImages/babies.png" alt="Bebes" class="img-responsive selector-image"/>
+											<div class="selector-text">
+												Bebes
+											</div>
+										</a>
+									</div>
 								</div>
 							</div>
 						</div>
 					</div> <!-- central part -->
-
-					<div class="row">
-						Aca ponemos historial de vistas
-					</div>
 				</div>
 			</div>
 		

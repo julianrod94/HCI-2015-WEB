@@ -6,7 +6,7 @@
 		<meta http-equiv="X-UA-Compatible" content="IE=edge">
 		<meta name="viewport" content="width=device-width, initial-scale=1">
 		
-		<title>User Page</title>
+		<title>Catalogo</title>
 
 		<!-- Bootstrap stuff -->
 		<script src="http://code.jquery.com/jquery-latest.min.js"></script>
@@ -29,7 +29,7 @@
 		<!-- My code -->
 		<script src="../../controller/catalogueCtrl.js"></script>
 		<script src="../../controller/cartCtrl.js"></script>
-		<script src="../../controller/accountCtrl.js"></script>
+		<script src="../../controller/headerCtrl.js"></script>
 		<script src="../../controller/thumbnailCtrl.js"></script>
 		
 		<script src="../js/catalogue.js"></script>
@@ -40,7 +40,7 @@
 
 	<body>
 
-		<div ng-app=""> 
+		<div> 
 			<div ng-include="'header.html'"></div> <!-- Import's header -->
 		</div>
 
@@ -73,15 +73,21 @@
 				<div ng-switch-when="4"> <!-- Display by news -->
 					<ol class="breadcrumb">
 					  	<li><a href="home.html">Home</a></li>
-			  			<li ng-if="hasGenderSpecified()"><a ng-href="{{gender_link()}}">{{ gender().name }}</a></li>
+			  			<li ng-if="hasGenderSpecified()"><a ng-href="{{gender_link()}}">{{ gender() }}</a></li>
 			 			<li class="active"> Novedades </li>
 					</ol>
 				</div>
 				<div ng-switch-when="5"> <!-- Display by search results -->
 					<ol class="breadcrumb">
 					  	<li><a href="home.html">Home</a></li>
-			  			<li><a ng-href="categories.html?id={{gender().id}}">{{ gender().name }}</a></li>
-			 			<li class="active"> {{ search_string }}  </li>
+			 			<li class="active"> "{{ search_string }}"  </li>
+					</ol>
+				</div>
+				<div ng-switch-when="6"> <!-- Display by sale -->
+					<ol class="breadcrumb">
+					  	<li><a href="home.html">Home</a></li>
+			  			<li ng-if="hasGenderSpecified()"><a ng-href="{{gender_link()}}">{{ gender() }}</a></li>
+			 			<li class="active"> Ofertas  </li>
 					</ol>
 				</div>
 				<div ng-switch-default>
@@ -98,28 +104,174 @@
 
 				<!-- filters -->
 				<div class="col-md-2">
-					<div ng-repeat="each in filters">
-						<div ng-init="panelIdWithHash='#' + each.id;panelId='' + each.id">
-							<div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
-		  						<div class="panel panel-default">
-		    						<div class="panel-heading" role="tab" id="headingOne">
-		      							<h4 class="panel-title">
-		        							<a role="button" data-toggle="collapse" data-parent="#accordion" href={{panelIdWithHash}} aria-expanded="true" aria-controls="collapseOne">
-		          								{{ each.name }} <!-- filter names -->
-		        							</a>
-		     							</h4>
-		    						</div>
-			    					<div id={{panelId}} class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingOne">
-			        					<div class="panel-body" ng-repeat="values in each.values">
-			        						
-			        						{{values}} <!-- filter values -->
-			        					
-			      						</div>
-			   						</div>
-		 						</div>
-							</div>
-						</div>
+
+					<!-- Filtros de seccion -->
+					<div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
+  						<div class="panel panel-default">
+    						<div class="panel-heading" role="tab" id="headingOne">
+      							<h4 class="panel-title">
+        							<a role="button" data-toggle="collapse" data-parent="#accordion" href="#gender" aria-expanded="true" aria-controls="collapseOne">
+          								Secciones
+        							</a>
+     							</h4>
+    						</div>
+	    					<div id="gender" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingOne">
+	        					<div class="panel-body">
+	        						<div class="radio">
+	        							<label><input type="radio" name="section-radio-buttons" value="1" ng-model="gender_filter" ng-change="sectionChanged(1)"/> Hombres</label>
+	        						</div>
+	        					
+	      						</div>
+	      						<div class="panel-body">
+	        						
+	        						<div class="radio">
+	        							<label><input type="radio" name="section-radio-buttons" value="2" ng-model="gender_filter" ng-change="sectionChanged(2)"/> Mujeres</label>
+	        						</div>
+	        					
+	      						</div>
+	      						<div class="panel-body">
+	        						
+	        						<div class="radio">
+	        							<label><input type="radio" name="section-radio-buttons" value="3" ng-model="gender_filter" ng-change="sectionChanged(3)"/> Infantiles</label>
+	        						</div>
+	        					
+	      						</div>
+	      						<div class="panel-body">
+	        						
+	        						<div class="radio">
+	        							<label><input type="radio" name="section-radio-buttons" value="4" ng-model="gender_filter" ng-change="sectionChanged(4)"/> Bebes</label>
+	        						</div>
+	        					
+	      						</div>
+	   						</div>
+ 						</div>
 					</div>
+
+					<!-- Filtros de categoria -->
+					<div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
+  						<div class="panel panel-default">
+    						<div class="panel-heading" role="tab" id="headingOne">
+      							<h4 class="panel-title">
+        							<a role="button" data-toggle="collapse" data-parent="#accordion" href="#categories" aria-expanded="true" aria-controls="collapseOne">
+          								Categorias
+        							</a>
+     							</h4>
+    						</div>
+    						<div ng-if="categories!=null">
+		    					<div id="categories" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingOne">
+		        					<div class="panel-body" ng-repeat="i in categories">
+		        						
+		        						<div class="radio">
+		        							<label><input type="radio" name="categories-radio-buttons" ng-value="{{ i.id }}" ng-model="category_filter" ng-change="categoryChanged(i.id)"/> {{i.name}}</label>
+		        						</div>
+		      						</div>
+		   						</div>
+		   					</div>
+		   					<div ng-if="categories==null">
+		    					<div id="categories" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingOne">
+		        					<div class="panel-body">
+		        						
+		        						Seleccione una sección
+		        					
+		      						</div>
+		   						</div>
+		   					</div>
+ 						</div>
+					</div>
+
+					<!-- Filtros de sub-categoria -->
+					<div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
+  						<div class="panel panel-default">
+    						<div class="panel-heading" role="tab" id="headingOne">
+      							<h4 class="panel-title">
+        							<a role="button" data-toggle="collapse" data-parent="#accordion" href="#sub-categories" aria-expanded="true" aria-controls="collapseOne">
+          								Sub-Categorias
+        							</a>
+     							</h4>
+    						</div>
+	    					<div id="sub-categories" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingOne">
+
+	    						<div ng-if="category!=null">
+		        					<div class="panel-body" ng-repeat="i in (subcategories | filter:{id:category.id})[0].values">
+		        						
+		        						<div class="radio">
+	        								<label><input type="radio" name="sub-categories-radio-buttons" ng-value="{{ i.id }}" ng-model="sub_category_filter" ng-change="subCategoryChanged(category.id, i.id)"/> {{i.name}}</label>
+	        							</div>
+		        					
+		      						</div>
+		      					</div>
+		      					<div ng-if="category==null">
+		        					<div ng-repeat="i in subcategories">
+
+		        						<div class="panel-body" ng-repeat="j in i.values">
+		        						
+		        							<div class="radio">
+	        									<label><input type="radio" name="sub-categories-radio-buttons" ng-value="{{ j.id }}" ng-model="sub_category_filter" ng-change="subCategoryChanged(i.id, j.id)"/> {{j.name}}</label>
+	        								</div>
+
+		        						</div>
+		        					
+		      						</div>
+		      					</div>
+		      					<div ng-if="categories==null">
+	        						<div class="panel-body">
+	        						
+	        							Seleccione una sección
+	        					
+	      							</div>
+		   						</div>
+	   						</div>
+ 						</div>
+					</div>
+
+					<!-- Filtros de marca -->
+						<div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true" ng-if="(filters | filter:{id:'9'})!=null">
+	  						<div class="panel panel-default">
+	    						<div class="panel-heading" role="tab" id="headingOne">
+	      							<h4 class="panel-title">
+	        							<a role="button" data-toggle="collapse" data-parent="#accordion" href="#marcas" aria-expanded="true" aria-controls="collapseOne">
+	          								Marcas
+	        							</a>
+	     							</h4>
+	    						</div>
+		    					<div id="marcas" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingOne">
+		        					<div class="panel-body" ng-repeat="i in (filters | filter:{id:'9'})[0].values">
+										<div class="radio">
+	        								<label><input type="radio" name="brands-radio-buttons" value={{i|removeSpaces}} ng-model="brands_filter" ng-change="brandChanged(i)"/> {{i}} </label>
+
+	        							</div>
+		        						
+		        						
+		      						</div>
+		   						</div>
+
+	 						</div>
+						</div>
+
+						<!-- Filtros de color -->
+						<div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true" ng-if="(filters | filter:{id:'9'})!=null">
+	  						<div class="panel panel-default">
+	    						<div class="panel-heading" role="tab" id="headingOne">
+	      							<h4 class="panel-title">
+	        							<a role="button" data-toggle="collapse" data-parent="#accordion" href="#colores" aria-expanded="true" aria-controls="collapseOne">
+	          								Colores
+	        							</a>
+	     							</h4>
+	    						</div>
+		    					<div id="colores" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingOne">
+		        					<div class="panel-body" ng-repeat="i in (filters | filter:{id:'4'})[0].values">
+										<div class="radio">
+	        								<label><input type="radio" name="colors-radio-buttons" value={{i|removeSpaces}} ng-model="colors_filter" ng-change="colorChanged(i)"/> {{i}} </label>
+
+	        							</div>
+		        						
+		        						
+		      						</div>
+		   						</div>
+
+	 						</div>
+						</div>
+					
 				</div>
 
 				<!-- products -->
@@ -130,6 +282,9 @@
 								<div ng-include="'productThumbnail.html'"></div>
 							</div>
 						</div>
+					</div>
+					<div ng-if="showNoProductsMessage()">
+						Lo sentimos, no se han encontrado productos con el criterio "{{search_string}}"
 					</div>
 				</div>
 				<div class="col-md-2">

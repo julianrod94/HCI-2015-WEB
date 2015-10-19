@@ -19,12 +19,13 @@ function getFilters(result) {
             result = JSON.stringify([{"id":2, "value":"Adulto"},{"id":1, "value":"Femenino"}]);
             break;
         case 3:
-            //result = [{"id":2, "values":["Infantil", "Bebe"]},{"id":1, "values":["Masculino","Femenino"]}];
-            result = JSON.stringify([{"id":2, "value": "Infantil"}]);   //, {"id":2, "value": "Bebe"}]);
+            result = JSON.stringify([{"id":2, "value": "Infantil"}]);
+            break;
+        case 4:
+            result = JSON.stringify([{"id":2, "value": "Bebe"}]);
             break;
     }
     return result;
-
 
 }
 
@@ -65,13 +66,7 @@ angular.module('categoriesApp', []).controller('categoriesController', function(
         var url = "http://eiffel.itba.edu.ar/hci/service3/Catalog.groovy?method=GetAllCategories&filters=" + encodeURIComponent(getFilters(pageId));
         $http.get(url, {cache: true, timeout: 10000}).then(function(response) {
              $scope.categories = response.data.categories;
-             // var i;
-             // for (i = 0 ; i < $scope.categories.length ; i++) {
-             //    getAllSubCategories($scope.categories[i].id);
-             // }
-             completeList($scope.categories).then(
-             
-             );
+             completeList($scope.categories).then();
         });
     }
 
@@ -105,10 +100,6 @@ angular.module('categoriesApp', []).controller('categoriesController', function(
         });
     }
 
-    function generateLink(gender_id, category_id, subcategory_id) {
-        return null;
-    }
-
     $scope.categories = null;
     $scope.subcategories = [];
     $scope.pictures = [];
@@ -125,8 +116,11 @@ angular.module('categoriesApp', []).controller('categoriesController', function(
             case 3:
                 result = "Infantiles";
                 break;
+            case 4:
+                result = "Bebes";
+                break;
             default:
-                result = "Seleccione Género";
+                result = "Seleccione una opción";
         }
         return result;
   }

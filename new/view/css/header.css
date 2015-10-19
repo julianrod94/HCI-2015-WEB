@@ -33,20 +33,37 @@
     box-shadow: none;
 }
 
-#custom-search-input button{
+#custom-search-input {
     background: none;
     box-shadow: none;
     border: 0;
     color: #666666;
     padding: 0 8px 0 10px;
+}
+
+.search-button {
+    background: none;
+    box-shadow: none;
+    border: 0;
+    color: #666666;
+    padding: 9px 20px 9px 20px;
+    border-radius: 0;
     border-left: solid 1px #ccc;
 }
 
-#custom-search-input button:hover{
+/*.hover-part :hover {
+    background: #dddddd;
     border: 0;
     box-shadow: none;
-    border-left: solid 1px #ccc;
+
+
 }
+
+.hover-part :active {
+    background: #bababa;
+    border: 0;
+    box-shadow: none;
+}*/
 
 #custom-search-input .glyphicon-search{
     font-size: 23px;

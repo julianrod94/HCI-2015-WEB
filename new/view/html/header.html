@@ -1,7 +1,9 @@
 <!--<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
 <script src="../js/header.js"></script>
 -->
-<div id="Header">
+
+<!--Upper part-->
+<div id="Header" ng-controller="headerController">
 	<div id="Upper zone">
 		<div class="container-fluid">
 
@@ -18,12 +20,14 @@
 					<div class="row">
 						<div id="custom-search-input">
 							<div id="search-bar" class="input-group col-md-8">
-								<input type="text" class="form-control input-lg" placeholder="Buscar..." />
-                 							<span class="input-group-btn">
-	                    						<button class="btn btn-info btn-lg" type="button">
-													<i class="glyphicon glyphicon-search"></i>
-												</button>
-                  							</span>
+								<input type="text" class="form-control input-lg" placeholder="Buscar..." ng-model="search_string" ng-enter="makeSearch()"/>
+     							<span class="input-group-btn hover-part">
+     								<a ng-href="{{getSearchLink()}}">
+	            						<button class="btn btn-info btn-lg search-button" type="button">
+											<i class="glyphicon glyphicon-search"></i>
+										</button>
+									</a>
+      							</span>
 							</div>
 						</div>
 					</div>
@@ -55,23 +59,21 @@
 							<div class="row">
 								<div class="col-sm-6">
 									<ul class="multi-column-dropdown">
-										<li><a href="#">Novedades</a></li>
-										<li><a href="#" id="sale_btn">Sale</a></li>
+										<li><a ng-href="{{ getNewsLink(1) }}">Novedades</a></li>
+										<li><a ng-href="{{ getSaleLink(1) }}" id="sale_btn">Ofertas!</a></li>
 										<br>
-										<li><a href="#">Vestidos</a></li>
-										<li><a href="#">Camisas</a></li>
-										<li><a href="#">Pantalones</a></li>
-										<li><a href="#">Jeans</a></li>
-										<li><a href="#">Abrigos</a></li>
-										<li><a href="#">Calzados</a></li>
-										<li><a href="#">Accesarios</a></li>
+										<li ng-repeat="i in (categories | filter:{id:'1'})[0].categories">
+											<a ng-href="{{ getCategoriesLink(1,i.id) }}">{{i.name}}</a>
+										</li>
 									</ul>
 								</div>
 								<div class="col-sm-6">
 									<ul class="multi-column-dropdown">
-										<li class="dropdown-header">Brand</li>
-										<li><a href="#">Adidas</a></li>
-										<li><a href="#">Björn Borg</a></li>
+										<li class="dropdown-header">Marcas</li>
+										<li ng-repeat="i in (brands | filter:{id:'1'})[0].brands[0].values |limitTo:6">
+											<a ng-href="{{ getBrandLink(1,i) }}">{{i}}</a>
+										</li>
+										<li class="see-more-brands">Ver más</li>
 									</ul>
 								</div>
 							</div>
@@ -86,23 +88,21 @@
 							<div class="row">
 								<div class="col-sm-6">
 									<ul class="multi-column-dropdown">
-										<li><a href="#">Novedades</a></li>
-										<li><a href="#" id="sale_btn">Sale</a></li>
+										<li><a ng-href="{{ getNewsLink(2) }}">Novedades</a></li>
+										<li><a ng-href="{{ getSaleLink(2) }}">Ofertas!</a></li>
 										<br>
-										<li><a href="#">Vestidos</a></li>
-										<li><a href="#">Camisas</a></li>
-										<li><a href="#">Pantalones</a></li>
-										<li><a href="#">Jeans</a></li>
-										<li><a href="#">Abrigos</a></li>
-										<li><a href="#">Calzados</a></li>
-										<li><a href="#">Accesarios</a></li>
+										<li ng-repeat="i in (categories | filter:{id:'2'})[0].categories">
+											<a ng-href="{{ getCategoriesLink(2,i.id) }}">{{i.name}}</a>
+										</li>
 									</ul>
 								</div>
 								<div class="col-sm-6">
 									<ul class="multi-column-dropdown">
-										<li class="dropdown-header">Brand</li>
-										<li><a href="#">Adidas</a></li>
-										<li><a href="#">Björn Borg</a></li>
+										<li class="dropdown-header">Marcas</li>
+										<li ng-repeat="i in (brands | filter:{id:'2'})[0].brands[0].values |limitTo:6">
+											<a ng-href="{{ getBrandLink(2,i) }}">{{i}}</a>
+										</li>
+										<li class="see-more-brands">Ver más</li>
 									</ul>
 								</div>
 							</div>
@@ -117,23 +117,53 @@
 							<div class="row">
 								<div class="col-sm-6">
 									<ul class="multi-column-dropdown">
-										<li><a href="#">Novedades</a></li>
-										<li><a href="#" id="sale_btn">Sale</a></li>
+										<li><a ng-href="{{ getNewsLink(3) }}">Novedades</a></li>
+										<li><a ng-href="{{ getSaleLink(3) }}" id="sale_btn">Ofertas!</a></li>
 										<br>
-										<li><a href="#">Vestidos</a></li>
-										<li><a href="#">Camisas</a></li>
-										<li><a href="#">Pantalones</a></li>
-										<li><a href="#">Jeans</a></li>
-										<li><a href="#">Abrigos</a></li>
-										<li><a href="#">Calzados</a></li>
-										<li><a href="#">Accesarios</a></li>
+										<li ng-repeat="i in (categories | filter:{id:'3'})[0].categories">
+											<a ng-href="{{ getCategoriesLink(3,i.id) }}">{{i.name}}</a>
+										</li>
 									</ul>
 								</div>
 								<div class="col-sm-6">
 									<ul class="multi-column-dropdown">
-										<li class="dropdown-header">Brand</li>
-										<li><a href="#">Adidas</a></li>
-										<li><a href="#">Björn Borg</a></li>
+										<li class="dropdown-header">Marcas</li>
+										<li ng-repeat="i in (brands | filter:{id:'3'})[0].brands[0].values |limitTo:6">
+											<a ng-href="{{ getBrandLink(3,i) }}">{{i}}</a>
+										</li>
+										<li class="see-more-brands">
+											<a href="#">Ver más</a>
+										</li>
+									</ul>
+								</div>
+							</div>
+						</ul>
+					</li>
+
+					<!-- Dropdown de bebes-->
+					<li class="dropdown">
+						<a href="categories.html?id=4" class="dropdown-toggle" role="button" aria-haspopup="true" aria-expanded="false">BEBES <span class="caret"></span></a>
+						<ul class="dropdown-menu multi-column columns-2">
+							<div class="row">
+								<div class="col-sm-6">
+									<ul class="multi-column-dropdown">
+										<li><a ng-href="{{ getNewsLink(4) }}">Novedades</a></li>
+										<li><a ng-href="{{ getSaleLink(4) }}" id="sale_btn">Ofertas!</a></li>
+										<br>
+										<li ng-repeat="i in (categories | filter:{id:'4'})[0].categories">
+											<a ng-href="{{ getCategoriesLink(4,i.id) }}">{{i.name}}</a>
+										</li>
+									</ul>
+								</div>
+								<div class="col-sm-6">
+									<ul class="multi-column-dropdown">
+										<li class="dropdown-header">Marcas</li>
+										<li ng-repeat="i in (brands | filter:{id:'4'})[0].brands[0].values |limitTo:6">
+											<a ng-href="{{ getBrandLink(4,i) }}">{{i}}</a>
+										</li>
+										<li class="see-more-brands">
+											<a href="#">Ver más</a>
+										</li>
 									</ul>
 								</div>
 							</div>
@@ -177,117 +207,22 @@
 
 
 
-					<!-- Cuenta -->
-					<script type="text/javascript">
-						$(document).ready(function() {
-
-
-							var aux = getParameterByName('user_id');
-							if (aux != null && aux != '') {
-
-								var str = get_user();
-								str = " Hola, " + str.first_name;
-								$('#user-logged .dropdown-toggle #user-name-display').text(str);
-								$('#login-form').hide();
-
-							} else {
-								$('#user-logged .dropdown-toggle #user-name-display').text(" Ingresar");
-								$('#user-logged-dropdown').hide();
-								$('#ir-a-pagina-de-usuario').attr("href","");
-
-							}
-
-
-							$('#login-form .container-fluid .btn').click(function() {
-
-								var str = document.location.pathname;
-								str += '?';
-
-								var email = $("#login-form .container-fluid #e-mail-input").val();
-								var password = $("#login-form .container-fluid #password-input").val()
-								var user_id = login(email,password);
-								if (user_id == null) {
-									console.log("Error");
-									return;
-								}
-								var query = getParameterByName('filters');
-								if (query != null && query != '') {
-									if (str[str.length - 1] != '?') {
-										str = str + '&';
-									}
-									str += 'filters=' + encodeURIComponent(query);
-								}
-								query = getParameterByName('id');
-								if (query != null && query != '') {
-									if (str[str.length - 1] != '?') {
-										str = str + '&';
-									}
-									str += 'id=' + query;
-								}
-								query = getParameterByName('search');
-								if (query != null && query != '') {
-									if (str[str.length - 1] != '?') {
-										str = str + '&';
-									}
-									str += 'search=' + query;
-								}
-								if (str[str.length - 1] != '?') {
-									str = str + '&';
-								}
-								str += 'user_id=' + user_id;
-
-								window.location.replace(str);
-							});
-
-							$('#user-logged-dropdown #bye-bye').click(function() {
-
-								var str = document.location.pathname;
-								str += '?';
-
-								var query = getParameterByName('filters');
-								if (query != null && query != '') {
-									if (str[str.length - 1] != '?') {
-										str = str + '&';
-									}
-									str += 'filters=' + encodeURIComponent(query);
-								}
-								query = getParameterByName('id');
-								if (query != null && query != '') {
-									if (str[str.length - 1] != '?') {
-										str = str + '&';
-									}
-									str += 'id=' + query;
-								}
-								query = getParameterByName('search');
-								if (query != null && query != '') {
-									if (str[str.length - 1] != '?') {
-										str = str + '&';
-									}
-									str += 'search=' + query;
-								}
-								window.location.replace(str);
-
-							})
-
-
-						});
-					</script>
-
-					<li class="dropdown" id="user-logged">
-						<a href="userPage.html?id=usuario" class="dropdown-toggle" role="button" aria-haspopup="true" aria-expanded="false" id="ir-a-pagina-de-usuario">
-							<i class="glyphicon glyphicon-user"></i><span id="user-name-display"/>
+					<li class="dropdown" ng-init="model = parentScope">
+						<a href="userPage.html?id=usuario" class="dropdown-toggle" role="button" aria-haspopup="true" aria-expanded="false">
+							{{ userMessage() }}
+							<i class="glyphicon glyphicon-user"/>
 							<span class="caret"></span>
 						</a>
-						<ul class="dropdown-menu" id="login-form">
+						<ul ng-if="!userLogged()" class="dropdown-menu" id="login-form">
 
 							<div class="container-fluid">
 								<div class="form-group">
 									<label>Usuario</label>
-									<input type="email" class="form-control" id="e-mail-input" placeholder="Usuario">
+									<input type="text" class="form-control input-lg" placeholder="Usuario" ng-model="model.user_model"/>
 								</div>
 								<div class="form-group">
 									<label>Contraseña</label>
-									<input type="password" class="form-control" id="password-input" placeholder="Contraseña">
+									<input type="password" class="form-control input-lg" placeholder="Contraseña" ng-model="model.password_model" ng-enter="login()"/>
 								</div>
 								<div>
 									<a href='' data-toggle="modal" data-target="#myModal">Crear cuenta nueva</a>
@@ -295,11 +230,11 @@
 								<div>
 									<a href="#">Olvidé mi contraseña</a>
 								</div>
-								<button type="submit" class="btn btn-default">Ingresar</button>
+								<button type="submit" class="btn btn-default" ng-click="login()">Ingresar</button>
 							</div>
 						</ul>
-						<ul class="dropdown-menu" id='user-logged-dropdown'>
-							<li><a id="bye-bye" href="">Cerrar Sesión</a></li>
+						<ul ng-if="userLogged()" class="dropdown-menu" id='user-logged-dropdown'>
+							<li><a id="bye-bye" ng-href="#" ng-click="logout()">Cerrar Sesión</a></li>
 						</ul>
 					</li>
 					<!-- 										  		<button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#myModal">Registrarse</button> -->
@@ -324,35 +259,53 @@
 					<div class="container-fluid">
 						<div class="form-group">
 							<label>Nombre <span class="requerido">*</span></label>
-							<input class="form-control" id="first-name-input" placeholder="Nombre">
+							<input class="form-control" placeholder="Nombre" ng-model="registerFields.name">
 						</div>
 						<div class="form-group">
 							<label>Apellido <span class="requerido">*</span></label>
-							<input class="form-control" id="last-name-input" placeholder="Apellido">
+							<input class="form-control" placeholder="Apellido" ng-model="registerFields.last_name">
 						</div>
+
+						<div class="form-group">
+							<label>Género <span class="requerido">*</span></label>
+							<div class="radio">
+								<label><input type="radio" name="gender-selector" value="M" ng-model="registerFields.gender">Masculino</label>
+							</div>
+							<div class="radio">
+							 	<label><input type="radio" name="gender-selector" value="F" ng-model="registerFields.gender">Femenino</label>
+							</div>
+						</div>
+
 						<div class="form-group">
 							<label>Fecha de nacimiento <span class="requerido">*</span></label>
-							<input class="form-control" id="last-name-input" placeholder="Formato DD/MM/AAAA">
+							<input class="form-control" placeholder="Formato AAAA-MM-DD" ng-model="registerFields.birthday">
+						</div>
+
+						<div class="form-group">
+							<label>Documento <span class="requerido">*</span></label>
+							<input class="form-control" placeholder="Documento" ng-model="registerFields.identity_card">
+						</div>
+
+						<div class="form-group">
+							<label>Usuario <span class="requerido">*</span></label>
+							<input type="text" class="form-control" placeholder="Usuario" ng-model="registerFields.username">
 						</div>
 						<div class="form-group">
 							<label>e-Mail <span class="requerido">*</span></label>
-							<input type="email" class="form-control" id="last-name-input" placeholder="e-Mail">
+							<input type="email" class="form-control" placeholder="e-Mail" ng-model="registerFields.email">
 						</div>
 						<div class="form-group">
 							<label>Contraseña <span class="requerido">*</span></label>
-							<input type="password" class="form-control" id="last-name-input" placeholder="Contraseña">
+							<input type="password" class="form-control" placeholder="Contraseña" ng-model="registerFields.password">
 						</div>
 						<div class="form-group">
 							<label>Repetir contraseña <span class="requerido">*</span></label>
-							<input type="password" class="form-control" id="last-name-input" placeholder="Repetir contraseña">
+							<input type="password" class="form-control" placeholder="Repetir contraseña" ng-model="registerFields.repeat">
 						</div>
-						<div class="form-group">
-							<label>Teléfono</label>
-							<input class="form-control" id="last-name-input" placeholder="Teléfono">
-						</div>
+						
 						<div class="checkbox">
 							<label>
-								<input type="checkbox"/>
+								<input type="checkbox" ng-model="registerFields.terms"/>
 							</label>
 							Acepto los <a href="" data-toggle="modal" data-target="#terms-and-conditions">Términos y condiciones</a>
 						</div>
@@ -364,7 +317,7 @@
 
 				</div>
 				<div class="modal-footer">
-					<button type="button" class="btn btn-primary">Aceptar</button>
+					<button type="button" class="btn btn-primary" ng-click="register()">Aceptar</button>
 				</div>
 
 
