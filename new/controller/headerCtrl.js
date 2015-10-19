@@ -26,8 +26,7 @@ function getSection(result) {
 
 var token = localStorage.getItem("token");
 var user_local = localStorage.getItem("username");
-var carrito = localStorage.getItem("carrito" + user_local);
-var favoritos = localStorage.getItem("favoritos" + user_local);
+
 
 
 
@@ -79,18 +78,15 @@ angular.module('headerApp', []).controller('headerController', function($scope, 
 			return "Ya esta logeado, cierre la sesion existente e intentelo de nuevo";
 		}
 
-		var url = "http://eiffel.itb	 a.edu.ar/hci/service3/Account.groovy?method=SignIn&username=" + username + "&password=" + password;
+		var url = "http://eiffel.itba.edu.ar/hci/service3/Account.groovy?method=SignIn&username=" + username + "&password=" + password;
 
 		$http.get(url, {cache: true, timeout: 10000}).then(function(response) {
 			if(response.data.hasOwnProperty("error")){
 				return response.data.error.message;	
 			}
 			$scope.token = response.data.authenticationToken;
-			$scope.user_local = response.data.account.username;
 			localStorage.setItem("token",$scope.token);
 			localStorage.setItem("username",response.data.account.username);
-			$scope.carrito = localStorage.getItem("carrito" + user_local);
-			$scope.favoritos = localStorage.getItem("favoritos" + user_local);
 			window.location.replace(window.location.href); 
 		});
 	}
@@ -115,8 +111,6 @@ angular.module('headerApp', []).controller('headerController', function($scope, 
 		$http.get(url, {cache: true, timeout: 10000}).then(function(response) {
 			localStorage.removeItem("token");
 			token = null;
-			$scope.carrito = null;
-			$scope.favoritos = null;
 
 		});
 	}
@@ -194,15 +188,6 @@ angular.module('headerApp', []).controller('headerController', function($scope, 
 				return response.data.error.message;
 			}	
 			signIn(username, password); //ya lo logeo de entrada
-			url = "http://eiffel.itba.edu.ar/hci/service3/Order.groovy?method=CreateOrder&username=" + username + "&authentication_token=" + $scope.token;
-			$http.get(url, {cache: true, timeout: 10000}).then(function(response) {
-				localStorage.setItem("carrito" + username, response.order.id);
-				$scope.carrito = response.order.id;
-			}
-			$http.get(url, {cache: true, timeout: 10000}).then(function(response) {
-				localStorage.setItem("favoritos" + username, response.order.id);
-				$scope.favoritos = response.order.id;
-			}
 			return "bienvenido firstName";
 		})
 	}

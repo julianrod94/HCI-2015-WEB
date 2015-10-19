@@ -1,7 +1,7 @@
 
 // Angular modules loader
 angular.element(document).ready(function() {
-      angular.bootstrap(document, ['cartApp','AccountApp']);
+      angular.bootstrap(document, ['cartApp','AccountApp','headerApp']);
     });
 
 
