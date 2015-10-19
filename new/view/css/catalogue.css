@@ -1,0 +1,31 @@
+
+.sort-selector {
+
+	width: 150px;
+}
+
+
+.remove-filter-link {
+
+	color: red;
+}
+
+.remove-filter-link :hover{
+
+	color: #ba1c1c;
+}
+
+.remove-filter-link :active{
+
+	color: black;
+}
+
+.applicated-filters {
+
+	padding-left: 1em;
+}
+
+.applicated-filters .filter-name {
+
+	font-weight: bold;
+}

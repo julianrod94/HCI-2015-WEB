@@ -26,6 +26,7 @@ function getSection(result) {
 
 var token = localStorage.getItem("token");
 var user_local = localStorage.getItem("username");
+var cart = localStorage.getItem("cart_id:" + user_local);
 
 
 
@@ -87,6 +88,9 @@ angular.module('headerApp', []).controller('headerController', function($scope, 
 			$scope.token = response.data.authenticationToken;
 			localStorage.setItem("token",$scope.token);
 			localStorage.setItem("username",response.data.account.username);
+			if (cart == null) {
+				createCart(response.data.account.username, $scope.token);
+			}
 			window.location.replace(window.location.href); 
 		});
 	}
@@ -98,6 +102,7 @@ angular.module('headerApp', []).controller('headerController', function($scope, 
     		var url = "http://eiffel.itba.edu.ar/hci/service3/Account.groovy?method=GetAccount&username=" + user_local + "&authentication_token=" + token;
     		$http.get(url, {cache: true, timeout: 10000}).then(function(response) {
 				$scope.account = response.data.account;
+
 			});
 
     	}
@@ -110,11 +115,23 @@ angular.module('headerApp', []).controller('headerController', function($scope, 
 		var url = "http://eiffel.itba.edu.ar/hci/service3/Account.groovy?method=SignOut&username=" + user_local + "&authentication_token=" + token;
 		$http.get(url, {cache: true, timeout: 10000}).then(function(response) {
 			localStorage.removeItem("token");
+			localStorage.removeItem("username");
 			token = null;
-
+			cart = null;
+			window.location.replace(window.location.href);
 		});
 	}
 
+	function createCart(user_name, token) {
+
+		url = "http://eiffel.itba.edu.ar/hci/service3/Order.groovy?method=CreateOrder&username=" + user_name + "&authentication_token=" + token;
+		console.log(url);
+		// Creates a cart
+		$http.get(url, {cache: true, timeout: 10000}).then(function(response) {
+			localStorage.setItem("cart_id:" + user_name, response.data.order.id);
+			$scope.cart = response.data.order.id;		
+		});
+	}
 
 	function createAccount(username, password, repeat, firstName, lastName, gender, identityCard, email, birthdate){
 

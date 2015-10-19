@@ -74,7 +74,7 @@ function productsPerPage() {
     var aux = getParameterByName('page_size');
     aux = parseInt(aux);
     if (isNaN(aux) || (aux != 24 && aux != 48 && aux != 96)) {
-        return null;
+        return 24;
     }
     return aux;
 }
@@ -82,9 +82,8 @@ function productsPerPage() {
 function sortingKey() {
 
     var aux = getParameterByName('sort_key');
-    aux = parseInt(aux);
-    if (isNaN(aux) || (aux != 1 && aux != 2 && aux != 3)) {
-        return null;
+    if(aux != "nombre" && aux != "precio" && aux != "marca") {
+        return "nombre";
     }
     return aux;
 }
@@ -93,7 +92,7 @@ function sortOrder() {
 
     var aux = getParameterByName('sort_order');
     if (aux != "asc" && aux != "desc") {
-        return null;
+        return "asc";
     }
     return aux;
 }
@@ -120,7 +119,11 @@ function generateRequestURL(gender, category, sub_category, brand, search_string
 
     var i;
     for (i = 0 ; i < filters.length ; i++) {
-        filterJSON[i] = filters[i];
+        if (filters[i].hasOwnProperty("real_id")) { // It's a size filter
+            filterJSON[i] = {id: filters[i].real_id, value: filters[i].value};
+        } else {
+            filterJSON[i] = filters[i];
+        }
     }
 
     // Adds gender filter
@@ -393,6 +396,8 @@ angular.module('catalogueApp', []).controller('catalogueController', function($s
         }
     }
 
+    $scope.parentScope = $scope;
+
 
 
     $scope.gender_filter = gender;
@@ -400,6 +405,8 @@ angular.module('catalogueApp', []).controller('catalogueController', function($s
     $scope.sub_category_filter = sub_category;
     $scope.brands_filter = getFilterFromPrev(9);
     $scope.colors_filter = getFilterFromPrev(4);
+    $scope.occasion_filter = getFilterFromPrev(3);
+    $scope.size_filter = getFilterFromPrev(-1);
 
 
 	$scope.category = null;
@@ -408,6 +415,12 @@ angular.module('catalogueApp', []).controller('catalogueController', function($s
     $scope.search_string = search_string;
 	$scope.products = null;
     $scope.filters = null;
+    $scope.applicated_filters = filters;
+
+    $scope.page_size = products_per_page;
+    $scope.page_number = page_number;
+    $scope.sorting_key = sorting_key;
+    $scope.sorting_order = sort_order;
 
     // For filters
     $scope.categories = null;
@@ -508,7 +521,7 @@ angular.module('catalogueApp', []).controller('catalogueController', function($s
         var brandFilters = filters.find(function(elem) { return elem.id==9});
 
         if (brandFilters == null) { // if brands filter wasn't applicated
-            filters.push({id:9, value:brand})
+            filters.push({id:9, name:"Marca", value:brand})
         } else {
             brandFilters.value = brand;
         }
@@ -521,15 +534,72 @@ angular.module('catalogueApp', []).controller('catalogueController', function($s
 
         var colorFilters = filters.find(function(elem) { return elem.id==4});
 
-        if (colorFilters == null) { // if brands filter wasn't applicated
-            filters.push({id:4, value:color})
+        if (colorFilters == null) { // if color filter wasn't applicated
+            filters.push({id:4, name:"Color", value:color})
         } else {
             colorFilters.value = color;
         }
-        console.log(filters);
+        var url = getFilterUrl();
+        applicate_filter(url);
+    }
+
+    $scope.ocassionChanged = function(occasion) {
+
+        var ocassionFilters = filters.find(function(elem) { return elem.id==3});
+
+        if (ocassionFilters == null) { // if color filter wasn't applicated
+            filters.push({id:3, name:"Ocasion", value:occasion})
+        } else {
+            colorFilters.value = occasion;
+        }
+        var url = getFilterUrl();
+        applicate_filter(url);
+    }
+
+    $scope.sizeChanged = function(size, filter_id) {
+
+        var sizeFilters = filters.find(function(elem) { return elem.id==-1});
+
+        if (sizeFilters == null) { // if size filter wasn't applicated
+            filters.push({id:-1, name:"Talle", value:size, real_id: filter_id})
+        } else {
+            sizeFilters.value = size;
+        }
         var url = getFilterUrl();
         applicate_filter(url);
 
+    }
+
+    $scope.pageSizeChanged = function() {
+        products_per_page = $scope.page_size;
+        var url = getFilterUrl();
+        applicate_filter(url);
+    }
+
+    $scope.sortKeyChanged = function() {
+        sorting_key = $scope.sorting_key;
+        var url = getFilterUrl();
+        applicate_filter(url);
+    }
+
+    $scope.sortOrderChanged = function() {
+        sort_order = $scope.sorting_order;
+        var url = getFilterUrl();
+        applicate_filter(url);
+    }
+
+    $scope.removeFilter = function(filter_id) {
+
+        var i, flag = false;;
+        for (i = 0 ; i < filters.length &!flag; i++) {
+            if (filters[i].id == filter_id) {
+                filters.splice(i,1);
+                flag = true;
+            }
+        }
+
+        var url = getFilterUrl();
+        applicate_filter(url);
     }
 
 
@@ -539,61 +609,9 @@ angular.module('catalogueApp', []).controller('catalogueController', function($s
         return (aux != null) ? aux.value.replace(/\s+/g, "").toLowerCase() : null;
     }
 
-    // $scope.brandChange = function(brand) {
-
-    //     console.log(brand);
-    //     var brandFilters = filters.find(function(elem) { return elem.id==9});
-
-
-    //     if (brandFilters == null) { // if brands filter wasn't applicated
-    //         filters.push({id:9, value:[brand]})
-    //     } else {
-    //         brandFilters.value.push(brand);
-    //     }
-    //     console.log(filters);
-    //     var url = getFilterUrl();
-    //     console.log(url);
-    //     applicate_filter(url);
-    // }
-
     function applicate_filter(new_url) {
         window.location.replace(new_url);
     }
-
-    // function getSelectedItems(attr_id) {
-
-    //     var selected = $scope.filters.find(function(elem) { return elem.id==attr_id});
-
-    //     if (selected == null) {
-    //         return null;
-    //     }
-    //     selected = selected.values;
-    //     var jsonOutput = {};
-    //     var i;
-
-    //     for (i = 0 ; i < selected.length ; i++) {
-    //         jsonOutput[selected[i]] = false;
-    //     }
-
-    //     if (filters != null) {
-    //         console.log("1er if");
-    //         selected = selected = filters.find(function(elem) { return elem.id==attr_id});
-
-    //         if (selected != null) {
-    //             console.log("2do if");
-    //             selected = selected.value;
-
-    //             if (selected != null) {
-    //                 console.log("3er if"); 
-    //                 for (i = 0 ; i < selected.length ; i++) {
-    //                     jsonOutput[selected[i]] = true;
-    //                 }
-    //             }
-    //         }
-    //     }
-
-    //     return jsonOutput;
-    // }
 
     getCategoryByAJAX();
     getSubCategoryByAJAX();

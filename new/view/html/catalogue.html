@@ -28,7 +28,6 @@
 
 		<!-- My code -->
 		<script src="../../controller/catalogueCtrl.js"></script>
-		<script src="../../controller/cartCtrl.js"></script>
 		<script src="../../controller/headerCtrl.js"></script>
 		<script src="../../controller/thumbnailCtrl.js"></script>
 		
@@ -249,7 +248,7 @@
 						</div>
 
 						<!-- Filtros de color -->
-						<div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true" ng-if="(filters | filter:{id:'9'})!=null">
+						<div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true" ng-if="(filters | filter:{id:'4'})!=null">
 	  						<div class="panel panel-default">
 	    						<div class="panel-heading" role="tab" id="headingOne">
 	      							<h4 class="panel-title">
@@ -271,24 +270,153 @@
 
 	 						</div>
 						</div>
+
+						<!-- Filtros de talle -->
+						<div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true" ng-if="(filters | filter:{id:'-1'})!=null">
+	  						<div class="panel panel-default">
+	    						<div class="panel-heading" role="tab" id="headingOne">
+	      							<h4 class="panel-title">
+	        							<a role="button" data-toggle="collapse" data-parent="#accordion" href="#talles" aria-expanded="true" aria-controls="collapseOne">
+	          								Talles
+	        							</a>
+	     							</h4>
+	    						</div>
+		    					<div id="talles" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingOne">
+
+	        						<div ng-repeat="i in (filters | filter:{name:'Talle'})">
+	        							<div class="panel-body" ng-repeat="j in i.values">
+	        								<div class="radio">
+        										<label><input type="radio" name="colors-radio-buttons" value={{j|removeSpaces}} ng-model="size_filter" ng-change="sizeChanged(j,i.id)"/> {{j}} </label>
+        									</div>
+        								</div>
+        							</div>
+		   						</div>
+
+	 						</div>
+						</div>
+
+						<!-- Filtros de ocasion -->
+						<div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true" ng-if="(filters | filter:{id:'3'})!=null">
+	  						<div class="panel panel-default">
+	    						<div class="panel-heading" role="tab" id="headingOne">
+	      							<h4 class="panel-title">
+	        							<a role="button" data-toggle="collapse" data-parent="#accordion" href="#ocasion" aria-expanded="true" aria-controls="collapseOne">
+	          								Ocasión
+	        							</a>
+	     							</h4>
+	    						</div>
+		    					<div id="ocasion" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingOne">
+		        					<div class="panel-body" ng-repeat="i in (filters | filter:{id:'3'})[0].values">
+										<div class="radio">
+	        								<label><input type="radio" name="colors-radio-buttons" value={{i|removeSpaces}} ng-model="occasion_filter" ng-change="ocassionChanged(i)"/> {{i}} </label>
+
+	        							</div>
+		        						
+		        						
+		      						</div>
+		   						</div>
+
+	 						</div>
+						</div>
 					
 				</div>
 
 				<!-- products -->
 				<div class="col-md-8">
-					<div>
-						<div ng-repeat="prod in products">
-							<div class="col-md-4">
-								<div ng-include="'productThumbnail.html'"></div>
+
+					<div class="row">
+
+
+						<div class="col-md-6"> <!-- pagination -->
+
+							<nav>
+  								<ul class="pagination pagination-sm">
+    								
+    								<li><a href="#">Primero</a></li>
+    								<li><a href="#">&lt;</a></li>
+    								<li><a href="#">1</a></li>
+    								<li><a href="#">2</a></li>
+    								<li><a href="#">3</a></li>
+    								<li><a href="#">&gt;</a></li>
+    								<li><a href="#">Último</a></li>
+
+							  	</ul>
+							</nav>
+
+
+						</div>
+
+					</div>
+
+					<div class="row">
+						<div>
+							<div ng-repeat="prod in products">
+								<div class="col-md-4">
+									<div ng-include="'productThumbnail.html'"></div>
+								</div>
 							</div>
 						</div>
-					</div>
-					<div ng-if="showNoProductsMessage()">
-						Lo sentimos, no se han encontrado productos con el criterio "{{search_string}}"
+						<div ng-if="showNoProductsMessage()">
+							Lo sentimos, no se han encontrado productos con el criterio "{{search_string}}"
+						</div>
 					</div>
 				</div>
 				<div class="col-md-2">
-					<div ng-include="'recommendations.html'"></div> <!-- Import's recommendations -->
+
+					<div class="row"
+						<form role="form" class="sort-selector">
+					    	<div class="form-group">
+					    		<label for="sort-select">Productos por página</label>
+					      		<select class="form-control" id="sort-select" ng-model="page_size" ng-change="pageSizeChanged()">
+									<option value="24">24</option>
+									<option value="48">48</option>
+									<option value="96">96</option>
+								</select>
+					    	</div>
+					  	</form>
+					 </div>
+
+					<div class="row"
+						<form role="form" class="sort-selector">
+					    	<div class="form-group">
+					    		<label for="sort-select">Ordenar por</label>
+					      		<select class="form-control" id="sort-select" ng-model="sorting_key" ng-change="sortKeyChanged()">
+									<option value="nombre">Nombre</option>
+									<option value="precio">Precio</option>
+									<option value="marca">Marca</option>
+								</select>
+					    	</div>
+					  	</form>
+					 </div>
+
+					 <div class="row">
+
+					 	<div class="form-group">
+							<label for="key-select">Orden</label>
+							<form id="key-select">
+								<div class="radio">
+									<label><input type="radio" name="gender-selector" value="asc" ng-model="sorting_order" ng-change="sortOrderChanged()">Ascendente</label>
+								</div>
+								<div class="radio">
+								 	<label><input type="radio" name="gender-selector" value="desc" ng-model="sorting_order" ng-change="sortOrderChanged()">Descendente</label>
+								</div>
+							</form>
+						</div>
+
+					 </div>
+
+					 <div class="row">
+
+					 	<label ng-if="applicated_filters.length > 0">Filtros aplicados:</label>
+					 	<div ng-repeat="i in applicated_filters track by i.id" class="applicated-filters">
+					 		<span class="filter-name">{{i.name}}: </span>
+					 		<span class="filter-value"> {{i.value}}</span> 
+						 	<a href class="remove-filter-link" ng-click="removeFilter(i.id)">
+	  							<span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
+							</a>
+						</div>
+
+					 </div>
 				</div>
 			</div>
 
