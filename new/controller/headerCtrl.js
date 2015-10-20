@@ -3,21 +3,20 @@ function getSection(result) {
 
 	switch (result) {
 		case 1:
-		result = JSON.stringify([{"id":2, "value":"Adulto"},{"id":1, "value":"Masculino"}]);
-		break;
+			result = JSON.stringify([{"id":2, "value":"Adulto"},{"id":1, "value":"Masculino"}]);
+			break;
 		case 2:
-		result = JSON.stringify([{"id":2, "value":"Adulto"},{"id":1, "value":"Femenino"}]);
-		break;
+			result = JSON.stringify([{"id":2, "value":"Adulto"},{"id":1, "value":"Femenino"}]);
+			break;
 		case 3:
             //result = [{"id":2, "values":["Infantil", "Bebe"]},{"id":1, "values":["Masculino","Femenino"]}];
             result = JSON.stringify([{"id":2, "value": "Infantil"}]);   //, {"id":2, "value": "Bebe"}]);
-break;
-case 4:
-result = JSON.stringify([{"id":2, "value": "Bebe"}]);
-break;
-
-}
-return result;
+			break;
+		case 4:
+			result = JSON.stringify([{"id":2, "value": "Bebe"}]);
+			break;
+	}
+	return result;
 }
 
 //User stuff
@@ -126,12 +125,31 @@ angular.module('headerApp', []).controller('headerController', function($scope, 
 	function createCart(user_name, token) {
 
 		url = "http://eiffel.itba.edu.ar/hci/service3/Order.groovy?method=CreateOrder&username=" + user_name + "&authentication_token=" + token;
-		console.log(url);
 		// Creates a cart
 		$http.get(url, {cache: true, timeout: 10000}).then(function(response) {
 			localStorage.setItem("cart_id:" + user_name, response.data.order.id);
-			$scope.cart = response.data.order.id;		
+			$scope.cart = response.data.order.id;
+
 		});
+	}
+
+	function saveCartInAPI(cart_id, user_name, token) {
+
+		var url = "http://eiffel.itba.edu.ar/hci/service3/Order.groovy?method=GetPreferences&username=" + user_name + "&authentication_token=" + token;
+		$http.get(url, {cache: true, timeout: 10000}).then(function(response) {
+			$scope.userPreferences = JSON.parse(response.data.preferences);
+			$scope.userPreferences["current_cart"] = cart_id;
+			var auxJSON = encodeURIComponent(JSON.stringify($scope.userPreferences));
+			var nextURL = "http://eiffel.itba.edu.ar/hci/service3/Order.groovy?method=GetPreferences&username=" + user_name + "&authentication_token=" + token + "&value=" + auxJSON;
+			console.log(nextURL);
+			$http.get(url, {cache: true, timeout: 10000}).then(function(response) {
+				//Do nothing, don't need nothing from here
+				//Maybe try to create favorites here
+			})
+
+		});
+
+
 	}
 
 	function updateAccount(firstName, lastName, gender, identityCard, email, birthdate){
@@ -210,7 +228,8 @@ angular.module('headerApp', []).controller('headerController', function($scope, 
 
 	//account stuff
 	$scope.token = token;
-	$scope.account = null;   
+	$scope.account = null;
+	$scope.userPreferences = null;   
 
 	$scope.getBrandLink = function(gender_id, brand) {
 
