@@ -35,3 +35,49 @@
 #sub-total {
 	padding-top: 16px;
 }
+
+.user-field-name {
+	font-weight: bold;
+}
+
+.edit-field {
+	visibility: hidden;
+	color: #1b5d85;
+}
+
+.user-field {
+	padding-top: 0.7em;
+    padding-bottom: 1.5em;
+    border-top: 1px solid #ddd;
+
+}
+
+.user-field:hover .edit-field {
+    visibility: visible;
+}
+
+.edit-form {
+
+}
+
+.edit-form-input {
+
+	width: 17em;
+}
+
+
+/* This only works with JavaScript, 
+if it's not present, don't show loader */
+.no-js #loader { display: none;  }
+.js #loader { display: block; position: absolute; left: 100px; top: 0; }
+.se-pre-con {
+	position: fixed;
+	left: 0px;
+	top: 0px;
+	width: 100%;
+	height: 100%;
+	z-index: 9999;
+	background: url(../../assets/loading.gif) center no-repeat #fff;
+
+
+}

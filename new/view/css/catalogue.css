@@ -42,3 +42,8 @@ if it's not present, don't show loader */
 	height: 100%;
 	z-index: 9999;
 	background: url(../../assets/loading.gif) center no-repeat #fff;
+
+
+}
+
+

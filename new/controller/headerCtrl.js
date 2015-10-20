@@ -118,7 +118,7 @@ angular.module('headerApp', []).controller('headerController', function($scope, 
 			localStorage.removeItem("username");
 			token = null;
 			cart = null;
-			window.location.replace(window.location.href);
+			window.location.replace(window.location.href); // This keeps you were you were before loging out
 		});
 	}
 
