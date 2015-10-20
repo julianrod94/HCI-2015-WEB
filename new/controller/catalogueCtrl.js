@@ -259,10 +259,12 @@ function getParameterByName(name) {
 
 
 //return category.charAt(0).toUpperCase() + category.slice(1);
+var angularScope = null;
 
 // Controller for catalogue
 angular.module('catalogueApp', []).controller('catalogueController', function($scope, $http, $q) {
 
+    angularScope = $scope;
 
 	$scope.gender = function() {
         var result;
@@ -310,6 +312,7 @@ angular.module('catalogueApp', []).controller('catalogueController', function($s
         $http.get(requestURL, {cache: true, timeout: 10000}).then(function(response) {
             $scope.products = response.data.products;
             $scope.filters = response.data.filters;
+            $scope.loading_page = false;
             //$scope.brands_filter = getSelectedItems(9);
         });
     }
@@ -397,7 +400,7 @@ angular.module('catalogueApp', []).controller('catalogueController', function($s
     }
 
     $scope.parentScope = $scope;
-
+    $scope.loading_page = true;
 
 
     $scope.gender_filter = gender;
@@ -625,15 +628,6 @@ angular.module('catalogueApp').filter("removeSpaces", function() {
         return str;
     }
 })
-
-
-
-
-
-
-
-
-
 
 
 

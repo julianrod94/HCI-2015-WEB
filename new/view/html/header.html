@@ -22,7 +22,7 @@
 							<div id="search-bar" class="input-group col-md-8">
 								<input type="text" class="form-control input-lg" placeholder="Buscar..." ng-model="search_string" ng-enter="makeSearch()"/>
      							<span class="input-group-btn hover-part">
-     								<a ng-href="{{getSearchLink()}}">
+     								<a href ng-click="makeSearch()">
 	            						<button class="btn btn-info btn-lg search-button" type="button">
 											<i class="glyphicon glyphicon-search"></i>
 										</button>
@@ -89,7 +89,7 @@
 								<div class="col-sm-6">
 									<ul class="multi-column-dropdown">
 										<li><a ng-href="{{ getNewsLink(2) }}">Novedades</a></li>
-										<li><a ng-href="{{ getSaleLink(2) }}">Ofertas!</a></li>
+										<li><a ng-href="{{ getSaleLink(2) }}" id="sale_btn">Ofertas!</a></li>
 										<br>
 										<li ng-repeat="i in (categories | filter:{id:'2'})[0].categories">
 											<a ng-href="{{ getCategoriesLink(2,i.id) }}">{{i.name}}</a>
@@ -206,9 +206,9 @@
 					</li>
 
 
-
+					<!-- Usuario -->
 					<li class="dropdown" ng-init="model = parentScope">
-						<a href="userPage.html?id=usuario" class="dropdown-toggle" role="button" aria-haspopup="true" aria-expanded="false">
+						<a href ng-click="userOption()" class="dropdown-toggle" role="button" aria-haspopup="true" aria-expanded="false">
 							{{ userMessage() }}
 							<i class="glyphicon glyphicon-user"/>
 							<span class="caret"></span>
@@ -218,134 +218,55 @@
 							<div class="container-fluid">
 								<div class="form-group">
 									<label>Usuario</label>
-									<input type="text" class="form-control input-lg" placeholder="Usuario" ng-model="model.user_model"/>
+									<input type="text" class="form-control input-lg" placeholder="Usuario" ng-model="model.user_model" tabindex="1"/>
 								</div>
 								<div class="form-group">
 									<label>Contraseña</label>
-									<input type="password" class="form-control input-lg" placeholder="Contraseña" ng-model="model.password_model" ng-enter="login()"/>
+									<input type="password" class="form-control input-lg" placeholder="Contraseña" ng-model="model.password_model" ng-enter="login()" tabindex="2"/>
 								</div>
 								<div>
-									<a href='' data-toggle="modal" data-target="#myModal">Crear cuenta nueva</a>
+									<a href="register.html" tabindex="3">Crear cuenta nueva</a>
 								</div>
 								<div>
-									<a href="#">Olvidé mi contraseña</a>
+									<a href="#" tabindex="4">Olvidé mi contraseña</a>
 								</div>
-								<button type="submit" class="btn btn-default" ng-click="login()">Ingresar</button>
+								<button type="submit" class="btn btn-default" ng-click="login()" tabindex="5">Ingresar</button>
 							</div>
 						</ul>
 						<ul ng-if="userLogged()" class="dropdown-menu" id='user-logged-dropdown'>
-							<li><a id="bye-bye" ng-href="#" ng-click="logout()">Cerrar Sesión</a></li>
+							<li><a id="bye-bye" href ng-click="logout()">Cerrar Sesión</a></li>
 						</ul>
 					</li>
-					<!-- 										  		<button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#myModal">Registrarse</button> -->
-
-
 				</ul>
 			</div><!-- /.navbar-collapse -->
 		</div><!-- /.container-fluid -->
 	</nav>
 
-	<!-- Modal -->
-	<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-		<div class="modal-dialog" role="document">
-			<div class="modal-content">
-				<div class="modal-header">
-					<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-					<h4 class="modal-title" id="myModalLabel">Ingrese sus datos...</h4>
-				</div>
-				<div class="modal-body">
-					<span class="explicacion" style="color: grey">* campos requeridos</span>
-
-					<div class="container-fluid">
-						<div class="form-group">
-							<label>Nombre <span class="requerido">*</span></label>
-							<input class="form-control" placeholder="Nombre" ng-model="registerFields.name">
-						</div>
-						<div class="form-group">
-							<label>Apellido <span class="requerido">*</span></label>
-							<input class="form-control" placeholder="Apellido" ng-model="registerFields.last_name">
-						</div>
-
-						<div class="form-group">
-							<label>Género <span class="requerido">*</span></label>
-							<div class="radio">
-								<label><input type="radio" name="gender-selector" value="M" ng-model="registerFields.gender">Masculino</label>
-							</div>
-							<div class="radio">
-							 	<label><input type="radio" name="gender-selector" value="F" ng-model="registerFields.gender">Femenino</label>
-							</div>
-						</div>
-
-						<div class="form-group">
-							<label>Fecha de nacimiento <span class="requerido">*</span></label>
-							<input class="form-control" placeholder="Formato AAAA-MM-DD" ng-model="registerFields.birthday">
-						</div>
-
-						<div class="form-group">
-							<label>Documento <span class="requerido">*</span></label>
-							<input class="form-control" placeholder="Documento" ng-model="registerFields.identity_card">
-						</div>
-
-						<div class="form-group">
-							<label>Usuario <span class="requerido">*</span></label>
-							<input type="text" class="form-control" placeholder="Usuario" ng-model="registerFields.username">
-						</div>
-						<div class="form-group">
-							<label>e-Mail <span class="requerido">*</span></label>
-							<input type="email" class="form-control" placeholder="e-Mail" ng-model="registerFields.email">
-						</div>
-						<div class="form-group">
-							<label>Contraseña <span class="requerido">*</span></label>
-							<input type="password" class="form-control" placeholder="Contraseña" ng-model="registerFields.password">
-						</div>
-						<div class="form-group">
-							<label>Repetir contraseña <span class="requerido">*</span></label>
-							<input type="password" class="form-control" placeholder="Repetir contraseña" ng-model="registerFields.repeat">
-						</div>
-						
-						<div class="checkbox">
-							<label>
-								<input type="checkbox" ng-model="registerFields.terms"/>
-							</label>
-							Acepto los <a href="" data-toggle="modal" data-target="#terms-and-conditions">Términos y condiciones</a>
-						</div>
-					</div>
-
-
-
-
-
-				</div>
-				<div class="modal-footer">
-					<button type="button" class="btn btn-primary" ng-click="register()">Aceptar</button>
-				</div>
-
-
-
-
-			</div>
-		</div>
+	<!-- Login error modal -->
+	<div modal-show modal-visible="show_login_error" class="modal fade" id="login-error-modal" tabindex="-1" role="dialog" aria-labelledby="login-error-modal-Label">
+	  	<div class="modal-dialog" role="document">
+	    	<div class="modal-content">
+	      		<div class="modal-header">
+	        		<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+	        		<h4 class="modal-title" id="myModalLabel">Error...</h4>
+	      		</div>
+		      	<div class="modal-body">
+			        <p>Los datos ingresados son incorrectos</p>
+			        <a href="#">Recuperar contraseña</a>
+		      	</div>
+		      	<div class="modal-footer">
+		        	<button type="button" class="btn btn-default" data-dismiss="modal">Aceptar</button>
+		      	</div>
+	    	</div>
+	  	</div>
 	</div>
 
-	<div class="modal fade" id="terms-and-conditions" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-		<div class="modal-dialog modal-lg">
-			<div class="modal-content">
-				<div class="modal-header">
-					<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-					<h4 class="modal-title" id="myModalLabel">Terminos y Condiciones</h4>
-				</div>
-				<div class="modal-body">
-					<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Similique, itaque, modi, aliquam nostrum at sapiente consequuntur natus odio reiciendis perferendis rem nisi tempore possimus ipsa porro delectus quidem dolorem ad.</p>
-					<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Similique, itaque, modi, aliquam nostrum at sapiente consequuntur natus odio reiciendis perferendis rem nisi tempore possimus ipsa porro delectus quidem dolorem ad.</p>
-					<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Similique, itaque, modi, aliquam nostrum at sapiente consequuntur natus odio reiciendis perferendis rem nisi tempore possimus ipsa porro delectus quidem dolorem ad.</p>
-					<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Similique, itaque, modi, aliquam nostrum at sapiente consequuntur natus odio reiciendis perferendis rem nisi tempore possimus ipsa porro delectus quidem dolorem ad.</p>
-					<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Similique, itaque, modi, aliquam nostrum at sapiente consequuntur natus odio reiciendis perferendis rem nisi tempore possimus ipsa porro delectus quidem dolorem ad.</p>
-					<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Similique, itaque, modi, aliquam nostrum at sapiente consequuntur natus odio reiciendis perferendis rem nisi tempore possimus ipsa porro delectus quidem dolorem ad.</p>
-					<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Similique, itaque, modi, aliquam nostrum at sapiente consequuntur natus odio reiciendis perferendis rem nisi tempore possimus ipsa porro delectus quidem dolorem ad.</p>
-				</div>
-			</div><!-- /.modal-content -->
-		</div><!-- /.modal-dialog -->
-	</div><!-- /.modal -->
+
+
+	
+
+
+	
 
 
 </div>

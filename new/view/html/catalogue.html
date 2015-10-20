@@ -38,12 +38,16 @@
 
 
 	<body>
+		
 
 		<div> 
 			<div ng-include="'header.html'"></div> <!-- Import's header -->
 		</div>
 
 		<div ng-controller="catalogueController" ng-init="breadcrumb_type=breadcrumb_type()">
+
+			<div class="se-pre-con" id="loading_page" ng-show="loading_page"></div>
+
 
 			<!-- Loads proper breadcrumb -->
 			<div ng-switch="breadcrumb_type">
@@ -357,7 +361,7 @@
 							</div>
 						</div>
 						<div ng-if="showNoProductsMessage()">
-							Lo sentimos, no se han encontrado productos con el criterio "{{search_string}}"
+							Lo sentimos, no se han encontrado productos"
 						</div>
 					</div>
 				</div>
