@@ -254,6 +254,8 @@
 									<li role="presentation" class="active"><a href="#Personales" data-toggle="pill">Datos Personales</a></li>
 									<li role="presentation"><a href="#InfoCuenta" data-toggle="pill">Información de cuenta</a></li>
 									<li role="presentation"><a href="#Direcciones" data-toggle="pill">Direcciones</a></li>
+									<li role="presentation"><a href="#Tarjetas" data-toggle="pill">Tarjetas</a></li>
+									<li role="presentation"><a href="#Compras" data-toggle="pill">Compras</a></li>
 								</ul>
 								<div class="tab-content">
 							    	<div class="tab-pane fade active in" id="Personales">
@@ -450,7 +452,7 @@
 							        <div class="tab-pane fade" id="Direcciones">
 						        		
 
-							        	<button type="button" class="btn btn-primary" ng-click="addAddress()">Agregar dirección</button>
+							        	<button type="button" class="btn btn-primary" ng-click="addAddress()" ng-disabled="creatingAddress.show_form">Agregar dirección</button>
 
 
 
@@ -499,10 +501,12 @@
 						        					<div class="col-md-4">
 							        					<div class="form-group">
 							        						<label>Provincia <span class="requerido">*</span></label>
-															<select class="form-control add-address-input" ng-model="update.province">
-							                                	<option value="A">CABA</option>
-							                                	<option value="B">Bs. As.</option>
+															<select class="form-control add-address-input" ng-model="createAddress.province">
+							                                	<option ng-repeat="i in creatingAddress.states" ng-value="i.stateId">{{i.name}}</option>
 							                                </select>
+							                                <!-- <select ng-options="address.name for address in creatingAddress.states track by address.stateId" class="form-control add-address-input" ng-model="createAddress.province">
+															    <option value="" ng-if="false"></option>
+															</select> -->
 							                            </div>
 							                        </div>
 
@@ -535,15 +539,29 @@
 						        					</div>
 						        					<div class="col-md-6">
 								        				<div class="add-address-form-buttons">
-								        					<button type="button" class="btn btn-primary" ng-click="finishEditLastName()">Cancelar</button>
-							        						<button type="button" class="btn btn-primary" ng-click="applicateEdit()">Aceptar</button>
+								        					<button type="button" class="btn btn-primary" ng-click="closeAddAddressForm()">Cancelar</button>
+							        						<button type="button" class="btn btn-primary" ng-click="applicateAddAddress()">Aceptar</button>
 
 								        				</div>
 								        			</div>
 								        		</div>
 					        				</form>
 										</div>
+
+
+										
+
 							        </div>
+
+							        <div class="tab-pane fade" id="Tarjetas">
+										Hola tarjetas
+			
+									</div>
+
+									<div class="tab-pane fade" id="Compras">
+										Hola compras
+			
+									</div>
 
 
 

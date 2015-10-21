@@ -68,15 +68,15 @@ angular.module('userPageApp', []).controller('userPageController', function($sco
 	function getCreatingAddressJSON() {
 
 		return {
-			name: null,
-			street: null,
-			number: null,
-			floor: null,
-			gate: null,
-			province: null,
-			city: null,
-			zipCode: null,
-			phoneNumber: null
+			name: "",
+			street: "",
+			number: "",
+			floor: "",
+			gate: "",
+			province: 'C',
+			city: "",
+			zipCode: "",
+			phoneNumber: ""
 		}
 	}
 
@@ -95,18 +95,41 @@ angular.module('userPageApp', []).controller('userPageController', function($sco
 		}
 	}
 
+	function getAllStates() {
+
+		$scope.loading_page = true;
+		var url = "http://eiffel.itba.edu.ar/hci/service3/Common.groovy?method=GetAllStates";
+		$http.get(url, {cache: true, timeout: 10000}).then(function(response) {
+
+			$scope.creatingAddress.states = response.data.states;
+			$scope.loading_page = false;
+		});
+
+	}
+
 
 	function createAddress() {
 
 		if (token != null) {
+
+			for (var key in $scope.createAddress) {
+				if ($scope.createAddress[key] == "") {
+					delete $scope.createAddress[String(key)];
+				}
+			}
+
 			$scope.loading_page = true;
 			var url = "http://eiffel.itba.edu.ar/hci/service3/Account.groovy?method=CreateAddress&username=" + user_local + "&authentication_token=" + token;
-			$http.get(url, {cache: true, timeout: 10000}).then(function(response) {
-				$scope.account = response.data.account;
-				$scope.passwordFake = "********";
-				$scope.loading_page = false;
-				$scope.update = getUpdatingJSON();
-			});
+			url += "&address=" + encodeURIComponent(JSON.stringify($scope.createAddress));
+			console.log(url);
+			console.log($scope.createAddress);
+			$scope.loading_page = false;
+			// $http.get(url, {cache: true, timeout: 10000}).then(function(response) {
+			// 	$scope.account = response.data.account;
+			// 	$scope.passwordFake = "********";
+			// 	$scope.loading_page = false;
+			// 	$scope.update = getUpdatingJSON();
+			// });
 
 		}
 	}
@@ -141,12 +164,12 @@ angular.module('userPageApp', []).controller('userPageController', function($sco
 	}
 
 	// Manages creating address data
-	$scope.createAddress = {};
-
+	$scope.createAddress = getCreatingAddressJSON();
 
 	// Used for creating address
 	$scope.creatingAddress = {
 		show_form: false,
+		states:[],
 		error: false
 	}
 
@@ -457,7 +480,18 @@ angular.module('userPageApp', []).controller('userPageController', function($sco
 	}
 
 	$scope.addAddress = function() {
+		getAllStates();
 		$scope.creatingAddress.show_form = true;
+	}
+
+	$scope.closeAddAddressForm = function() {
+
+		$scope.creatingAddress.show_form = false;
+	}
+
+	$scope.applicateAddAddress = function() {
+		createAddress()
+		$scope.closeAddAddressForm();
 	}
 
 
