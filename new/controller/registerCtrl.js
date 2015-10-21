@@ -40,19 +40,19 @@ angular.module('registerApp', []).controller('registerController', function($sco
 
 	function createAccount(username, password, repeat, firstName, lastName, gender, identityCard, email, birthdate, terms){
 
-		var reUser = /([a-zA-Z0-9]){6,15}/;
+		var reUser = /^([a-zA-Z0-9]){6,15}$/;
 		var ok1 = reUser.test(username);
-		var rePass = /.{6,15}/;
+		var rePass = /^.{6,15}$/;
 		var ok2 = rePass.test(password);
-		var reName = /([^0-9]){2,80}/;
+		var reName = /^([^0-9]){2,80}$/;
 		var ok3 =  reName.test(firstName);
 		var ok4 =  reName.test(lastName);
-		var reGender = /[FM]/;
+		var reGender = /^[FM]$/;
 		var ok5 =  reGender.test(gender);
-		var reIdentityCard = /(((([0-9]){0,3})\.){0,2})([0-9]){0,3}/;
+		var reIdentityCard =/(^[0-9]{2}\.[0-9]{3}\.[0-9]{3}$)|(^[0-9]{8}$)/;
 		var ok6 = reIdentityCard.test(identityCard);
 		var ok7 = email != null;
-		var reBirthdate = /(19|20)[0-9]{2}-[01][0-9]-[0-3][0-9]/;
+		var reBirthdate = /^((19[0-9]{2})|(2[0-9]{3}))-((0[0-9])|(1[0-2]))-(([0-2][0-9])|(3[01]))$/;
 		var ok8 = reBirthdate.test(birthdate);
 		var ok9 = password == repeat;
 		var ok10 = terms;
@@ -75,7 +75,7 @@ angular.module('registerApp', []).controller('registerController', function($sco
 				$scope.wrong_fields.push({name: "Género", info:"Debe especificar un género"});
 			}
 			if (!ok6) {
-				$scope.wrong_fields.push({name: "Documento", info:"Debe ingresar con el siguiente formato: XX.XXX.XXX"});
+				$scope.wrong_fields.push({name: "Documento", info:"Debe contener 8 dígitos (puede tener separador de miles)"});
 			}
 			if (!ok7) {
 				$scope.wrong_fields.push({name: "e-Mail", info:"Debe ingresar una dirección de correo electrónico válida"});
@@ -155,8 +155,6 @@ angular.module('registerApp', []).controller('registerController', function($sco
 
 	function getErrorFromServer(error, username, identity_card) {
 
-		console.log("I'm here 2");
-
 		switch (error) {
 			case 104:
 				return {name: "Usuario", info:"Debe ser una cadena de caracteres alfanuméricos, con una longitud de entre 6 y 15 caracteres"};
@@ -169,7 +167,7 @@ angular.module('registerApp', []).controller('registerController', function($sco
 			case 108:
 				return {name: "Género", info:"Debe especificar un género"};
 			case 109:
-				return {name: "Documento", info:"Debe ingresar con el siguiente formato: XX.XXX.XXX"};
+				return {name: "Documento", info:"Debe contener 8 dígitos (puede tener separador de miles)"};
 			case 110:
 				return {name: "e-Mail", info:"Debe ingresar una dirección de correo electrónico válida"};
 			case 111:

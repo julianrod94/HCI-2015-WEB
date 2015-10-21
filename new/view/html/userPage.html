@@ -261,7 +261,7 @@
 							        		<!-- nombre -->
 							        		<div class ="user-field">
 							        			<div ng-show="!showEditName">
-								        			<span class ="user-field-name">Nombre: </span>
+								        			<span class="user-field-name">Nombre: </span>
 								        			{{toTitleCase(account.firstName)}}
 								        			<a href ng-click="editName()">
 									        			<span class="edit-field">
@@ -276,7 +276,7 @@
 							        						<input class="form-control edit-form-input" ng-model="update.name">
 							        					</div>
 							        					<button type="button" class="btn btn-primary" ng-click="finishEditName()">Cancelar</button>
-							        					<button type="button" class="btn btn-primary" ng-click="finishEditName()">Aceptar</button>
+							        					<button type="button" class="btn btn-primary" ng-click="applicateEdit()">Aceptar</button>
 							        				</form>
 							        			</div>
 
@@ -285,7 +285,7 @@
 							        		<!-- apellido -->
           									<div class ="user-field">
           										<div ng-show="!showEditLastName">
-	          										<span class ="user-field-name">Apellido:</span>
+	          										<span class="user-field-name">Apellido:</span>
 	          										{{ toTitleCase(account.lastName) }}
 	          										<a href ng-click="editLastName()">
 		          										<span class="edit-field">
@@ -300,7 +300,7 @@
 							        						<input class="form-control edit-form-input" ng-model="update.lastName">
 							        					</div>
 							        					<button type="button" class="btn btn-primary" ng-click="finishEditLastName()">Cancelar</button>
-							        					<button type="button" class="btn btn-primary" ng-click="finishEditLastName()">Aceptar</button>
+							        					<button type="button" class="btn btn-primary" ng-click="applicateEdit()">Aceptar</button>
 							        				</form>
 							        			</div>
 
@@ -310,7 +310,7 @@
           									<!-- Nacimiento -->
 									        <div class ="user-field">
 									        	<div ng-show="!showEditBirthday">
-										        	<span class ="user-field-name">Fecha de nacimiento: </span>
+										        	<span class="user-field-name">Fecha de nacimiento: </span>
 										        	{{account.birthDate}}
 										        	<a href ng-click="editBirthday()">
 											        	<span class="edit-field">
@@ -325,7 +325,7 @@
 							        						<input class="form-control edit-form-input" ng-model="update.birthDate">
 							        					</div>
 							        					<button type="button" class="btn btn-primary" ng-click="finishEditBirthday()">Cancelar</button>
-							        					<button type="button" class="btn btn-primary" ng-click="finishEditBirthday()">Aceptar</button>
+							        					<button type="button" class="btn btn-primary" ng-click="applicateEdit()">Aceptar</button>
 							        				</form>
 							        			</div>
 									        </div>
@@ -333,7 +333,7 @@
 									        <!-- Genero -->
 									        <div class ="user-field">
 									        	<div ng-show="!showEditGender">
-										        	<span class ="user-field-name">Sexo: </span>
+										        	<span class="user-field-name">Sexo: </span>
 										        	{{ (account.gender =='M') ? "Masculino" : "Femenino"  }}
 										        	<a href ng-click="editGender()">
 											        	<span class="edit-field">
@@ -351,14 +351,14 @@
 							                                </select>
 							                            </div>
 							                            <button type="button" class="btn btn-primary" ng-click="finishEditGender()">Cancelar</button>
-							        					<button type="button" class="btn btn-primary" ng-click="finishEditGender()">Aceptar</button>
+							        					<button type="button" class="btn btn-primary" ng-click="applicateEdit()">Aceptar</button>
 							        				</form>
 							        			</div>
 									        </div>
 
 									        <div class ="user-field">
 									        	<div ng-show="!showEditIdCard">
-										        	<span class ="user-field-name">Documento: </span>
+										        	<span class="user-field-name">Documento: </span>
 										        	{{ account.identityCard }}
 										        	<a href ng-click="editIdCard()">
 											        	<span class="edit-field">
@@ -370,10 +370,10 @@
 									        		<form role="form">
 							        					<div class="form-group">
 							        						<label>Documento: </label>
-							        						<input class="form-control edit-form-input" ng-model="update.idCard">
+							        						<input type="text" class="form-control edit-form-input" ng-model="update.idCard">
 							        					</div>
 							        					<button type="button" class="btn btn-primary" ng-click="finishEditIdCard()">Cancelar</button>
-							        					<button type="button" class="btn btn-primary" ng-click="finishEditIdCard()">Aceptar</button>
+							        					<button type="button" class="btn btn-primary" ng-click="applicateEdit()">Aceptar</button>
 							        				</form>
 							        			</div>
 
@@ -387,14 +387,14 @@
 
 							        	<!-- User (can't change) -->
 							    		<div class ="user-field">
-						        			<span class ="user-field-name">Usuario: </span>
+						        			<span class="user-field-name">Usuario: </span>
 						        			{{account.username}}
 							        	</div>
 
 							        	<!-- e-Mail -->
 							        	<div class ="user-field">
 							        		<div ng-show="!showEditMail">
-							        			<span class ="user-field-name">e-Mail: </span>
+							        			<span class="user-field-name">e-Mail: </span>
 							        			{{account.email}}
 							        			<a href ng-click="editMail()">  
 								        			<span class="edit-field">
@@ -409,7 +409,7 @@
 						        						<input type="email" class="form-control edit-form-input" ng-model="update.email">
 						        					</div>
 						        					<button type="button" class="btn btn-primary" ng-click="finishEditMail()">Cancelar</button>
-						        					<button type="button" class="btn btn-primary" ng-click="finishEditMail()">Aceptar</button>
+						        					<button type="button" class="btn btn-primary" ng-click="applicateEdit()">Aceptar</button>
 						        				</form>
 						        			</div>
 						        		</div>
@@ -417,7 +417,7 @@
 						        		<!-- Contraseña -->
 						        		<div class ="user-field">
 						        			<div ng-show="!showEditPassword">
-							        			<span class ="user-field-name">Contraseña: </span>
+							        			<span class="user-field-name">Contraseña: </span>
 							        			{{passwordFake}}
 							        			<a href ng-click="editPassword()">   
 								        			<span class="edit-field">
@@ -448,39 +448,160 @@
 
 							        </div>
 							        <div class="tab-pane fade" id="Direcciones">
-						        		<div ng-repeat="i in user.addresses">
-						        			<hr>
-						        			<p> {{i.street + " " + i.number }} {{((i.floor != null)?' | ' + i.floor:'') + ((i.apartment != null)?i.apartment:'')}}</p>
-						        			<p> {{i.city + " - CP: " + i.zip_code }}</p>
-						        			<hr>
-						        		</div>
+						        		
+
+							        	<button type="button" class="btn btn-primary" ng-click="addAddress()">Agregar dirección</button>
+
+
+
+						        		<!-- Add Address form -->
+						        		<div class="add-address-form" ng-show="creatingAddress.show_form">
+								        	<form role="form">
+								        		<div class="row">
+									        		<div class="col-md-4">
+							        					<div class="form-group">
+							        						<label>Nombre: <span class="requerido">*</span></label>
+							        						<input autofocus class="form-control add-address-input" ng-model="createAddress.name">
+							        					</div>
+							        				</div>
+							        		
+								        			<div class="col-md-4">
+								        				<div class="form-group">
+							        						<label>Calle: <span class="requerido">*</span></label>
+							        						<input class="form-control add-address-input" ng-model="createAddress.street">
+							        					</div>
+								        			</div>
+						        				</div>
+
+
+						        				<div class="row">
+						        					<div class="col-md-4">
+							        					<div class="form-group">
+							        						<label>Número: <span class="requerido">*</span></label>
+							        						<input class="form-control add-address-input" ng-model="createAddress.number">
+							        					</div>
+							        				</div>
+							        				<div class="col-md-2">
+							        					<div class="form-group">
+							        						<label>Piso:</label>
+							        						<input class="form-control add-address-input add-address-input-sm" ng-model="createAddress.floor">
+							        					</div>
+							        				</div>
+							        				<div class="col-md-1">
+							        					<div class="form-group">
+							        						<label>Depto.:</label>
+							        						<input class="form-control add-address-input add-address-input-sm" ng-model="createAddress.gate">
+							        					</div>
+							        				</div>
+						        				</div>
+
+						        				<div class="row">
+						        					<div class="col-md-4">
+							        					<div class="form-group">
+							        						<label>Provincia <span class="requerido">*</span></label>
+															<select class="form-control add-address-input" ng-model="update.province">
+							                                	<option value="A">CABA</option>
+							                                	<option value="B">Bs. As.</option>
+							                                </select>
+							                            </div>
+							                        </div>
+
+							                        <div class="col-md-4">
+							        					<div class="form-group">
+							        						<label>Ciudad:</label>
+							        						<input class="form-control add-address-input" ng-model="createAddress.city">
+							        					</div>
+							        				</div>
+						                        </div>
+
+						                        <div class="row">
+							        				<div class="col-md-4">
+							        					<div class="form-group">
+							        						<label>Código Postal: <span class="requerido">*</span></label>
+							        						<input class="form-control add-address-input" ng-model="createAddress.zipCode">
+							        					</div>
+							        				</div>
+
+							        				<div class="col-md-4">
+							        					<div class="form-group">
+							        						<label>Teléfono: <span class="requerido">*</span></label>
+							        						<input class="form-control add-address-input" ng-model="createAddress.phoneNumber">
+							        					</div>
+							        				</div>
+						        				</div>
+
+						        				<div class="row">
+						        					<div class="col-md-4">
+						        					</div>
+						        					<div class="col-md-6">
+								        				<div class="add-address-form-buttons">
+								        					<button type="button" class="btn btn-primary" ng-click="finishEditLastName()">Cancelar</button>
+							        						<button type="button" class="btn btn-primary" ng-click="applicateEdit()">Aceptar</button>
+
+								        				</div>
+								        			</div>
+								        		</div>
+					        				</form>
+										</div>
 							        </div>
-							    </div>
-							</div>
+
+
+
+
+
+
+
+							        <!-- Updating modal -->
+									<div modal-show modal-visible="updating.show_modal" class="modal fade" role="dialog" aria-labelledby="register-error-modal-Label">
+									  	<div class="modal-dialog" role="document">
+									    	<div class="modal-content">
+									      		<div class="modal-header">
+									        		<button type="button" class="close" data-dismiss="modal" ng-click="dismissMessage()" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+									        		<h4 class="modal-title">{{updating.message}}</h4>
+									      		</div>
+										      	<div class="modal-body" id="register-modal-body">
+											        <p> {{ updating.hint }} <p>
+										      	</div>
+										      	<div class="modal-footer">
+										        	<button autofocus type="button" class="btn btn-default" data-dismiss="modal" data-target="register-error-modal" ng-click="dismissMessage()">Aceptar</button>
+										      	</div>
+									    	</div>
+									  	</div>
+									</div>
+
+
+						
+
+
+
+
+
+						    </div>
 						</div>
 					</div>
-
 				</div>
-			</div>
 
-			<div class="col-md-2">
-				
 			</div>
 		</div>
 
-
-		<br>
-		<br>
-		<br>
-		<br>
-		<br>
-		<br>
-		<br>
-		<br>
-		<div ng-app=""> 
-    		<div ng-include="'footer.html'"></div> <!-- Import's footer -->
-  		</div>
+		<div class="col-md-2">
+			
+		</div>
+	</div>
 
 
-	</body>
-	</html>
+	<br>
+	<br>
+	<br>
+	<br>
+	<br>
+	<br>
+	<br>
+	<br>
+	<div ng-app=""> 
+		<div ng-include="'footer.html'"></div> <!-- Import's footer -->
+		</div>
+
+
+</body>
+</html>

@@ -413,11 +413,11 @@
 
 					 	<label ng-if="applicated_filters.length > 0">Filtros aplicados:</label>
 					 	<div ng-repeat="i in applicated_filters track by i.id" class="applicated-filters">
-					 		<span class="filter-name">{{i.name}}: </span>
-					 		<span class="filter-value"> {{i.value}}</span> 
-						 	<a href class="remove-filter-link" ng-click="removeFilter(i.id)">
+					 		<a href class="remove-filter-link" ng-click="removeFilter(i.id)">
 	  							<span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
 							</a>
+					 		<span class="filter-name">{{i.name}}: </span>
+					 		<span class="filter-value"> {{i.value}}</span> 
 						</div>
 
 					 </div>

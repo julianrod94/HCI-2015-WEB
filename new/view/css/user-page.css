@@ -43,6 +43,7 @@
 .edit-field {
 	visibility: hidden;
 	color: #1b5d85;
+	float: right; /* Mueve el lapiz a la derecha */
 }
 
 .user-field {
@@ -63,6 +64,27 @@
 .edit-form-input {
 
 	width: 17em;
+}
+
+
+.add-address-form {
+
+}
+
+.add-address-input {
+
+	width: 17em;
+}
+
+.add-address-input-sm {
+
+	width: 8em;
+}
+
+.add-address-form-buttons {
+
+	padding-top: 2em;
+	padding-left: 5.3em;
 }
 
 
