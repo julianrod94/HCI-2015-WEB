@@ -452,9 +452,26 @@
 							        <div class="tab-pane fade" id="Direcciones">
 						        		
 
-							        	<button type="button" class="btn btn-primary" ng-click="addAddress()" ng-disabled="creatingAddress.show_form">Agregar dirección</button>
 
-
+							        	<div class="addresses" ng-repeat="i in allAddresses | orderBy: 'name'" ng-show="i.deleted == 'F'">
+							        		<p class="address-name"> {{i.name}}
+							        			<a href ng-click="editPassword()">   <!-- Removes address -->
+							        			<span class="remove-field">
+							        				<span class="glyphicon glyphicon-remove" aria-hidden="true"></span> Eliminar
+							        			</span>
+							        			<a href ng-click="editPassword()"> <!-- Edits address -->   
+							        			<span class="edit-field edit-address">
+							        				<span class="glyphicon glyphicon-pencil" aria-hidden="true"></span> Editar
+							        			</span>
+							        		</a>
+							        		</p>
+							        		<p class="address-info">{{i.street + " " + i.number + ((i.floor != null || i.gate != null) ?  (" - " + i.floor + " " + i.gate) : "")}}</p> 
+							        		<p class="address-info">{{ (i.city != null ? (i.city + ", ") : "") + getProvinceById(i.province) + " (CP:" + i.zipCode + ")" }}</p>
+											<p class="address-info"><span class="address-info-name">Telefono: </span>{{i.phoneNumber}}</p>
+							        	</div>
+							        	<div class="add-address-button">
+								        	<button type="button" class="btn btn-primary" ng-click="addAddress()" ng-disabled="creatingAddress.show_form">Agregar dirección</button>
+								        </div>
 
 						        		<!-- Add Address form -->
 						        		<div class="add-address-form" ng-show="creatingAddress.show_form">
@@ -504,9 +521,6 @@
 															<select class="form-control add-address-input" ng-model="createAddress.province">
 							                                	<option ng-repeat="i in creatingAddress.states" ng-value="i.stateId">{{i.name}}</option>
 							                                </select>
-							                                <!-- <select ng-options="address.name for address in creatingAddress.states track by address.stateId" class="form-control add-address-input" ng-model="createAddress.province">
-															    <option value="" ng-if="false"></option>
-															</select> -->
 							                            </div>
 							                        </div>
 
@@ -587,12 +601,23 @@
 									  	</div>
 									</div>
 
-
-						
-
-
-
-
+									<!-- Creating address modal -->
+									<div modal-show modal-visible="creatingAddress.show_modal" class="modal fade" role="dialog" aria-labelledby="add-address-modal-Label">
+									  	<div class="modal-dialog" role="document">
+									    	<div class="modal-content">
+									      		<div class="modal-header">
+									        		<button type="button" class="close" data-dismiss="modal" ng-click="dismissCreatingAddressMessage()" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+									        		<h4 class="modal-title">{{creatingAddress.message}}</h4>
+									      		</div>
+										      	<div class="modal-body" id="add-address-body">
+											        <p ng-repeat="i in creatingAddress.hints"> {{ i }} <p>
+										      	</div>
+										      	<div class="modal-footer">
+										        	<button autofocus type="button" class="btn btn-default" data-dismiss="modal" data-target="add-address-modal" ng-click="dismissCreatingAddressMessage()">Aceptar</button>
+										      	</div>
+									    	</div>
+									  	</div>
+									</div>
 
 						    </div>
 						</div>

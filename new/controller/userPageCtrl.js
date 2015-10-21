@@ -46,7 +46,7 @@ var cart = localStorage.getItem("cart_id:" + user_local);
 
 
 
-angular.module('userPageApp', []).controller('userPageController', function($scope, $http) {
+angular.module('userPageApp', []).controller('userPageController', function($scope, $http, $q) {
 
 
 
@@ -83,12 +83,10 @@ angular.module('userPageApp', []).controller('userPageController', function($sco
 	function getAccount() {
 
 		if (token != null) {
-			$scope.loading_page = true;
 			var url = "http://eiffel.itba.edu.ar/hci/service3/Account.groovy?method=GetAccount&username=" + user_local + "&authentication_token=" + token;
 			$http.get(url, {cache: true, timeout: 10000}).then(function(response) {
 				$scope.account = response.data.account;
 				$scope.passwordFake = "********";
-				$scope.loading_page = false;
 				$scope.update = getUpdatingJSON();
 			});
 
@@ -97,12 +95,10 @@ angular.module('userPageApp', []).controller('userPageController', function($sco
 
 	function getAllStates() {
 
-		$scope.loading_page = true;
 		var url = "http://eiffel.itba.edu.ar/hci/service3/Common.groovy?method=GetAllStates";
 		$http.get(url, {cache: true, timeout: 10000}).then(function(response) {
 
 			$scope.creatingAddress.states = response.data.states;
-			$scope.loading_page = false;
 		});
 
 	}
@@ -112,25 +108,100 @@ angular.module('userPageApp', []).controller('userPageController', function($sco
 
 		if (token != null) {
 
-			for (var key in $scope.createAddress) {
-				if ($scope.createAddress[key] == "") {
-					delete $scope.createAddress[String(key)];
-				}
+			console.log("entre");
+
+			// Checks input
+			if (!(/^.{1,80}$/).test($scope.createAddress.name)) {
+				$scope.creatingAddress.error = true;
+				$scope.creatingAddress.hints.push("El nombre debe ser una cadena de caracteres alfanuméricos y especiales, con una longitud de hasta 80 caracteres");
+			}
+			if (!(/^.{1,80}$/).test($scope.createAddress.street)) {
+				$scope.creatingAddress.error = true;
+				$scope.creatingAddress.hints.push("La calle debe ser una cadena de caracteres alfanuméricos y especiales, con una longitud de hasta 80 caracteres");
+			}
+			if (!(/^[A-Za-z0-9]{1,6}$/).test($scope.createAddress.number)) {
+				$scope.creatingAddress.error = true;
+				$scope.creatingAddress.hints.push("El número debe ser una cadena de caracteres alfanuméricos, con una longitud de hasta 6 caracteres");
+			}
+			if (!(/^[A-Za-z0-9]{0,3}$/).test($scope.createAddress.floor)) {
+				$scope.creatingAddress.error = true;
+				$scope.creatingAddress.hints.push("El piso debe ser una cadena de caracteres alfanuméricos, con una longitud de hasta 3 caracteres");
 			}
 
-			$scope.loading_page = true;
-			var url = "http://eiffel.itba.edu.ar/hci/service3/Account.groovy?method=CreateAddress&username=" + user_local + "&authentication_token=" + token;
-			url += "&address=" + encodeURIComponent(JSON.stringify($scope.createAddress));
-			console.log(url);
-			console.log($scope.createAddress);
-			$scope.loading_page = false;
-			// $http.get(url, {cache: true, timeout: 10000}).then(function(response) {
-			// 	$scope.account = response.data.account;
-			// 	$scope.passwordFake = "********";
-			// 	$scope.loading_page = false;
-			// 	$scope.update = getUpdatingJSON();
-			// });
+			if (!(/^[A-Za-z0-9]{0,2}$/).test($scope.createAddress.gate)) {
+				$scope.creatingAddress.error = true;
+				$scope.creatingAddress.hints.push("El departamento debe ser una cadena de caracteres alfanuméricos y especiales, con una longitud de hasta 2 caracteres");
+			}
+			if ($scope.createAddress.province == 'C' && $scope.createAddress.city != "") {
+				$scope.creatingAddress.error = true;
+				$scope.creatingAddress.hints.push("No debe especificar ciudad si se encuentra en la Ciudad Autónoma de Buenos Aires");
+			}
+			if (!(/^[A-Za-z]{0,80}$/).test($scope.createAddress.city)) {
+				$scope.creatingAddress.error = true;
+				$scope.creatingAddress.hints.push("La ciudad debe ser una cadena de caracteres alfabéticos, con una longitud de hasta 80 caracteres");
+			}
+			if (!(/^[A-Za-z0-9]{1,10}$/).test($scope.createAddress.zipCode)) {
+				$scope.creatingAddress.error = true;
+				$scope.creatingAddress.hints.push("El código postal debe ser una cadena de caracteres alfanuméricos, con una longitud de hasta 10 caracteres");
+			}
+			if (!(/^.{1,25}$/).test($scope.createAddress.phoneNumber)) {
+				$scope.creatingAddress.error = true;
+				$scope.creatingAddress.hints.push("El teléfono debe ser ser una cadena de caracteres alfanuméricos y especiales, con una longitud de hasta 25 caracteres");
+			}
 
+			console.log($scope.creatingAddress.hints);
+
+			if($scope.creatingAddress.error) {
+
+				$scope.creatingAddress.message = "Los datos ingresados son incorrectos";
+			} else {
+
+				// Erases optionals
+				for (var key in $scope.createAddress) {
+					if ($scope.createAddress[key] == "") {
+						delete $scope.createAddress[String(key)];
+					}
+				}
+				var url = "http://eiffel.itba.edu.ar/hci/service3/Account.groovy?method=CreateAddress&username=" + user_local + "&authentication_token=" + token;
+				url += "&address=" + encodeURIComponent(JSON.stringify($scope.createAddress));
+				console.log(url);
+				console.log($scope.createAddress);
+				$http.get(url, {cache: true, timeout: 10000}).then(function(response) {
+					if (response.data.hasOwnProperty("error")) {
+						$scope.creatingAddress.message = "Los datos ingresados son incorrectos"
+						$scope.creatingAddress.hints = getServerErrorMessage(response.data.error.code, $scope.update.idCard);
+						$scope.creatingAddress.error = true;
+					} else {
+						// La direccion fue agregada bien
+						$scope.createAddress = getCreatingAddressJSON();
+						$scope.creatingAddress.message = "La dirección se ha agregado con éxito"
+						$scope.creatingAddress.hints = "Presione la tecla \"Enter\" para continuar";
+						getAllAddresses(); 
+						//aux.closingFunction();
+					}
+				});
+			}
+			$scope.creatingAddress.show_modal = true;
+
+		}
+	}
+
+
+	function getAllAddresses() {
+
+		if (token != null) {
+
+			var url = "http://eiffel.itba.edu.ar/hci/service3/Account.groovy?method=GetAllAddresses&username=" + user_local + "&authentication_token=" + token; 
+			$http.get(url, {cache: true, timeout: 10000}).then(function(response) {
+				if(!response.data.hasOwnProperty("error")) {
+					if (response.data.addresses.length > 0) {
+						url += "&page_size=" + response.data.total;
+						$http.get(url, {cache: true, timeout: 10000}).then(function(response) {
+							$scope.allAddresses = response.data.addresses;
+						})
+					}
+				}
+			})
 		}
 	}
 
@@ -141,6 +212,7 @@ angular.module('userPageApp', []).controller('userPageController', function($sco
 	$scope.breadcrumbMessage =  whichPage;
 	$scope.account = null;
 	$scope.passwordFake = null;
+	$scope.allAddresses = null;
 
 	// Manages update data
 	$scope.update = {};
@@ -169,8 +241,11 @@ angular.module('userPageApp', []).controller('userPageController', function($sco
 	// Used for creating address
 	$scope.creatingAddress = {
 		show_form: false,
+		show_modal: false,
 		states:[],
-		error: false
+		error: false,
+		message: null,
+		hints:[]
 	}
 
 	$scope.tabChange = function(id) {
@@ -380,6 +455,13 @@ angular.module('userPageApp', []).controller('userPageController', function($sco
 		}
 	}
 
+	$scope.dismissCreatingAddressMessage = function() {
+		$scope.creatingAddress.show_modal = false;
+		if (!$scope.creatingAddress.error) {
+			window.location.replace(window.location.href);
+		}
+	}
+
 	function whichOneChanged() {
 
 		var JSONParameter = {
@@ -472,6 +554,26 @@ angular.module('userPageApp', []).controller('userPageController', function($sco
 				return "El e-Mail debe ser una dirección de correo electrónico válida";
 			case 111:
 				return "La fecha de nacimiento debe ser ingresado con el siguiente formáto AAAA-MM-DD";
+			case 144:
+				return "La dirección en inválida"
+			case 115:
+				return "El nombre debe ser una cadena de caracteres alfanuméricos y especiales, con una longitud de hasta 80 caracteres";
+			case 116:
+				return "La calle debe ser una cadena de caracteres alfanuméricos y especiales, con una longitud de hasta 80 caracteres";
+			case 117:
+				return "El numero debe ser una cadena de caracteres alfanuméricos y especiales, con una longitud de hasta 6 caracteres";
+			case 118:
+				return "El Piso debe ser una cadena de caracteres alfanuméricos, con una longitud de hasta 3 caracteres";
+			case 119:
+				return "El departamento debe ser una cadena de caracteres alfanuméricos, con una longitud de hasta 2 caracteres";
+			case 120:
+				return "Provincia inválida";
+			case 121:
+				return "La ciudad debe ser una cadena de caracteres alfabéticos, con una longitud de hasta 80 caracteres";
+			case 122:
+				return "El código postal debe ser una cadena de caracteres alfanuméricos, con una longitud de hasta 10 caracteres";
+			case 123:
+				return "El teléfono debe ser ser una cadena de caracteres alfanuméricos y especiales, con una longitud de hasta 25 caracteres";
 			case 201:
 				return "Ya existe un usuario con el documento " + "\"" + dni + "\"";
 			default:
@@ -480,7 +582,7 @@ angular.module('userPageApp', []).controller('userPageController', function($sco
 	}
 
 	$scope.addAddress = function() {
-		getAllStates();
+		
 		$scope.creatingAddress.show_form = true;
 	}
 
@@ -491,16 +593,40 @@ angular.module('userPageApp', []).controller('userPageController', function($sco
 
 	$scope.applicateAddAddress = function() {
 		createAddress()
-		$scope.closeAddAddressForm();
 	}
 
 
 
+	$scope.getProvinceById = function(province_id) {
+
+	 return $scope.creatingAddress.states.find(function(elem) {
+
+			return (elem.stateId == province_id)
+		}).name;
+	}
+
+
+	function doAjax() {
+
+		$scope.loading_page = true;
+		return $q(function (resolve, reject) {
+			resolve(ajaxCalls());
+			//reject(window.location.replace(window.location.href));
+		})
+	}
+
+	doAjax().then(function() {
+		$scope.loading_page = false;
+	})
+
 	// Ajax requests
-	getAccount();
-	//getCart();
-
-
+	function ajaxCalls() {
+	
+		getAccount();
+		//getCart();
+		getAllStates();
+		getAllAddresses();
+	}
 });
 
 

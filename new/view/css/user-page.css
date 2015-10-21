@@ -40,11 +40,27 @@
 	font-weight: bold;
 }
 
+
+
 .edit-field {
 	visibility: hidden;
 	color: #1b5d85;
 	float: right; /* Mueve el lapiz a la derecha */
+	font-weight: normal;
 }
+
+.edit-address {
+	padding-right: 1em;
+}
+
+.remove-field {
+	visibility: hidden;
+	color: red;
+	float: right; /* Mueve la cruz a la derecha */
+	font-weight: normal;
+
+}
+
 
 .user-field {
 	padding-top: 0.7em;
@@ -85,6 +101,39 @@
 
 	padding-top: 2em;
 	padding-left: 5.3em;
+}
+
+.addresses {
+
+	padding-top: 0.7em;
+    padding-bottom: 1.5em;
+    border-top: 1px solid #ddd;
+}
+
+.address-name {
+	font-weight: bold;
+}
+
+.addresses:hover .edit-field {
+    visibility: visible;
+}
+
+.addresses:hover .remove-field {
+	visibility: visible;
+}
+
+.address-info {
+	line-height: 60%;
+}
+
+.add-address-button {
+	border-top: 1px solid #ddd;
+	padding-top: 1.5em;
+	padding-bottom: 3.5em;
+}
+
+.add-address-button > button {
+	float: right;
 }
 
 
