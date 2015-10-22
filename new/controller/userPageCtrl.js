@@ -108,7 +108,6 @@ angular.module('userPageApp', []).controller('userPageController', function($sco
 
 		if (token != null) {
 
-			console.log("entre");
 
 			// Checks input
 			if (!(/^.{1,80}$/).test($scope.createAddress.name)) {
@@ -149,8 +148,6 @@ angular.module('userPageApp', []).controller('userPageController', function($sco
 				$scope.creatingAddress.hints.push("El teléfono debe ser ser una cadena de caracteres alfanuméricos y especiales, con una longitud de hasta 25 caracteres");
 			}
 
-			console.log($scope.creatingAddress.hints);
-
 			if($scope.creatingAddress.error) {
 
 				$scope.creatingAddress.message = "Los datos ingresados son incorrectos";
@@ -164,8 +161,7 @@ angular.module('userPageApp', []).controller('userPageController', function($sco
 				}
 				var url = "http://eiffel.itba.edu.ar/hci/service3/Account.groovy?method=CreateAddress&username=" + user_local + "&authentication_token=" + token;
 				url += "&address=" + encodeURIComponent(JSON.stringify($scope.createAddress));
-				console.log(url);
-				console.log($scope.createAddress);
+
 				$http.get(url, {cache: true, timeout: 10000}).then(function(response) {
 					if (response.data.hasOwnProperty("error")) {
 						$scope.creatingAddress.message = "Los datos ingresados son incorrectos"
@@ -176,12 +172,96 @@ angular.module('userPageApp', []).controller('userPageController', function($sco
 						$scope.createAddress = getCreatingAddressJSON();
 						$scope.creatingAddress.message = "La dirección se ha agregado con éxito"
 						$scope.creatingAddress.hints = "Presione la tecla \"Enter\" para continuar";
-						getAllAddresses(); 
-						//aux.closingFunction();
+						getAllAddresses();
 					}
 				});
 			}
 			$scope.creatingAddress.show_modal = true;
+
+		}
+	}
+
+	function updateAddress() {
+
+		// Checks input
+		if (token != null) {
+
+			if (!(/^.{1,80}$/).test($scope.updateAddress.name)) {
+				$scope.updatingAddress.error = true;
+				$scope.updatingAddress.hints.push("El nombre debe ser una cadena de caracteres alfanuméricos y especiales, con una longitud de hasta 80 caracteres");
+			}
+			if (!(/^.{1,80}$/).test($scope.updateAddress.street)) {
+				$scope.updatingAddress.error = true;
+				$scope.updatingAddress.hints.push("La calle debe ser una cadena de caracteres alfanuméricos y especiales, con una longitud de hasta 80 caracteres");
+			}
+			if (!(/^[A-Za-z0-9]{1,6}$/).test($scope.updateAddress.number)) {
+				$scope.updatingAddress.error = true;
+				$scope.updatingAddress.hints.push("El número debe ser una cadena de caracteres alfanuméricos, con una longitud de hasta 6 caracteres");
+			}
+			if (!(/^[A-Za-z0-9]{0,3}$/).test($scope.updateAddress.floor)) {
+				$scope.updatingAddress.error = true;
+				$scope.updatingAddress.hints.push("El piso debe ser una cadena de caracteres alfanuméricos, con una longitud de hasta 3 caracteres");
+			}
+
+			if (!(/^[A-Za-z0-9]{0,2}$/).test($scope.updateAddress.gate)) {
+				$scope.updatingAddress.error = true;
+				$scope.updatingAddress.hints.push("El departamento debe ser una cadena de caracteres alfanuméricos y especiales, con una longitud de hasta 2 caracteres");
+			}
+			if ($scope.updateAddress.province == 'C' && $scope.updateAddress.city != "") {
+				$scope.updatingAddress.error = true;
+				$scope.updatingAddress.hints.push("No debe especificar ciudad si se encuentra en la Ciudad Autónoma de Buenos Aires");
+			}
+			if (!(/^[A-Za-z]{0,80}$/).test($scope.updateAddress.city)) {
+				$scope.updatingAddress.error = true;
+				$scope.updatingAddress.hints.push("La ciudad debe ser una cadena de caracteres alfabéticos, con una longitud de hasta 80 caracteres");
+			}
+			if (!(/^[A-Za-z0-9]{1,10}$/).test($scope.updateAddress.zipCode)) {
+				$scope.updatingAddress.error = true;
+				$scope.updatingAddress.hints.push("El código postal debe ser una cadena de caracteres alfanuméricos, con una longitud de hasta 10 caracteres");
+			}
+			if (!(/^.{1,25}$/).test($scope.updateAddress.phoneNumber)) {
+				$scope.updatingAddress.error = true;
+				$scope.updatingAddress.hints.push("El teléfono debe ser ser una cadena de caracteres alfanuméricos y especiales, con una longitud de hasta 25 caracteres");
+			}
+
+
+			if (!$scope.updatingAddress.error) {
+
+				var url = "http://eiffel.itba.edu.ar/hci/service3/Account.groovy?method=UpdateAddress&username=" + user_local + "&authentication_token=" + token;
+				url += "&address=" + encodeURIComponent(JSON.stringify($scope.updateAddress));
+
+				$http.get(url, {cache: true, timeout: 10000}).then(function(response) {
+					if (response.data.hasOwnProperty("error")) {
+						$scope.updatingAddress.message = "Los datos ingresados son incorrectos"
+						$scope.updatingAddress.hints = getServerErrorMessage(response.data.error.code, $scope.update.idCard);
+						$scope.updatingAddress.error = true;
+					} else {
+						// La direccion fue agregada bien
+						$scope.updateAddress = {};
+						$scope.updatingAddress.message = "La dirección se ha modificado con éxito"
+						$scope.updatingAddress.hints = "Presione la tecla \"Enter\" para continuar";
+						getAllAddresses();
+					}
+				});
+
+			} else {
+
+				$scope.updatingAddress.message = "Los datos ingresados son incorrectos";
+			}
+			$scope.updatingAddress.show_modal = true;
+		}
+	}
+
+	function deleteAddress() {
+
+		if (token != null) {
+
+			var url = "http://eiffel.itba.edu.ar/hci/service3/Account.groovy?method=DeleteAddress&username=" + user_local + "&authentication_token=" + token; 
+			url += "&id=" + $scope.deletingAddress.address_id;
+			$http.get(url, {cache:true, timeout: 10000}).then(function(response) {
+				$scope.closeDeleteAddress();
+				window.location.replace(window.location.href);
+			})
 
 		}
 	}
@@ -247,6 +327,29 @@ angular.module('userPageApp', []).controller('userPageController', function($sco
 		message: null,
 		hints:[]
 	}
+
+	// Manages updating address data
+	$scope.updateAddress = {};
+
+	// Used for updating address
+	$scope.updatingAddress = {
+		address_id: null,
+		show_modal: false,
+		states:[],
+		error: false,
+		message: null,
+		hints:[]
+	}
+
+	// Used for deleting an address
+	$scope.deletingAddress = {
+		address_id: null,
+		show_modal: false,
+		message: "¿Está seguro que desea eliminar la siguiente dirección?",
+		whichAddress: null,
+		relaod: false
+	}
+
 
 	$scope.tabChange = function(id) {
 		
@@ -377,7 +480,6 @@ angular.module('userPageApp', []).controller('userPageController', function($sco
 
 			var url = "http://eiffel.itba.edu.ar/hci/service3/Account.groovy?method=ChangePassword&username=" + user_local;
 			url += "&password=" + $scope.update.passwordOld + "&new_password=" + $scope.update.passwordNew;
-			console.log(url);
 			$http.get(url, {cache: true, timeout: 10000}).then(function(response) {
 				if (response.data.hasOwnProperty("error")) {
 
@@ -415,6 +517,14 @@ angular.module('userPageApp', []).controller('userPageController', function($sco
 	}
 
 	$scope.applicateEdit = function() {
+
+		$scope.updating = {
+			show_modal: false,
+			field: null,
+			error: false,
+			message: null,
+			hint: null
+		}
 
 		var aux = whichOneChanged();
 		
@@ -462,6 +572,13 @@ angular.module('userPageApp', []).controller('userPageController', function($sco
 		}
 	}
 
+	$scope.dismissUpdatingAddressMessage = function() {
+		$scope.updatingAddress.show_modal = false;
+		if (!$scope.updatingAddress.error) {
+			window.location.replace(window.location.href);
+		}
+	}
+
 	function whichOneChanged() {
 
 		var JSONParameter = {
@@ -477,7 +594,7 @@ angular.module('userPageApp', []).controller('userPageController', function($sco
 		if ($scope.showEditName) {
 
 			$scope.updating.field = "El nombre";
-			$scope.updating.hint = "debe ser una cadena de caracteres alfabéticos y especiales, con una longitud de entre 8 y 15 caracteres";
+			$scope.updating.hint = "debe ser una cadena de caracteres alfabéticos y especiales, con una longitud de hasta 80 caracteres";
 			return {
 				closingFunction: $scope.finishEditName,
 				parameter: JSONParameter,
@@ -488,7 +605,7 @@ angular.module('userPageApp', []).controller('userPageController', function($sco
 		if ($scope.showEditLastName){
 
 			$scope.updating.field = "El apellido";
-			$scope.updating.hint = "debe ser una cadena de caracteres alfabéticos y especiales, con una longitud de entre 8 y 15 caracteres";
+			$scope.updating.hint = "debe ser una cadena de caracteres alfabéticos y especiales, con una longitud de hasta 80 caracteres";
 			return {
 				closingFunction: $scope.finishEditLastName,
 				parameter: JSONParameter,
@@ -543,9 +660,9 @@ angular.module('userPageApp', []).controller('userPageController', function($sco
 		switch(errorCode) {
 
 			case 106:
-				return "El nombre debe ser una cadena de caracteres alfabéticos y especiales, con una longitud de entre 8 y 15 caracteres";
+				return "El nombre debe ser una cadena de caracteres alfabéticos y especiales, con una longitud de hasta 80 caracteres";
 			case 107:
-				return "Apellido debe ser una cadena de caracteres alfabéticos y especiales, con una longitud de entre 8 y 15 caracteres";
+				return "Apellido debe ser una cadena de caracteres alfabéticos y especiales, con una longitud de hasta 80 caracteres";
 			case 108:
 				return "El género debe especificar un género";
 			case 109:
@@ -592,7 +709,74 @@ angular.module('userPageApp', []).controller('userPageController', function($sco
 	}
 
 	$scope.applicateAddAddress = function() {
+
+		$scope.creatingAddress = {
+			show_form: false,
+			show_modal: false,
+			states:[],
+			error: false,
+			message: null,
+			hints:[]
+		}
+		
 		createAddress()
+	}
+
+	$scope.openEditAddress = function(address_id) {
+
+		var aux = $scope.allAddresses.find(function(elem) {
+			return (elem.id == address_id);
+		});
+		for (var key in aux) {
+			$scope.updateAddress[String(key)] = aux[key];
+		}
+		$scope.updatingAddress.address_id = $scope.updateAddress.id;
+
+
+	}
+
+	$scope.closeEditAddressForm = function() {
+		$scope.updatingAddress.address_id = null;
+		$scope.updateAddress = {};
+	}
+
+	$scope.applicateEditAddress = function() {
+		var id = $scope.updatingAddress.address_id;
+		$scope.updatingAddress = {
+			address_id: id,
+			show_form: false,
+			show_modal: false,
+			states:[],
+			error: false,
+			message: null,
+			hints:[]
+		}
+		updateAddress();
+	}
+
+	$scope.openDeleteAddress = function(address_id) {
+
+		$scope.deletingAddress.address_id = address_id;
+		$scope.deletingAddress.show_modal = true;
+		$scope.deletingAddress.whichAddress = $scope.allAddresses.find(function(elem) {
+			return (elem.id == address_id);
+		});
+	}
+
+	$scope.closeDeleteAddress = function() {
+		$scope.deletingAddress = {
+			address_id: null,
+			show_modal: false,
+			message: "¿Está seguro que desea eliminar la siguiente dirección?",
+			whichAddress: null,
+			relaod: false
+		}
+	}
+
+	$scope.applicateDeleteAddress = function() {
+
+		deleteAddress();
+
 	}
 
 

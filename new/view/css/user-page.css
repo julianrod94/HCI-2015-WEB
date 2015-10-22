@@ -129,12 +129,15 @@
 .add-address-button {
 	border-top: 1px solid #ddd;
 	padding-top: 1.5em;
-	padding-bottom: 3.5em;
+	padding-bottom: 1em;
 }
 
-.add-address-button > button {
-	float: right;
+
+.delete-modal-info {
+
+	padding-left: 3em;
 }
+
 
 
 /* This only works with JavaScript, 
