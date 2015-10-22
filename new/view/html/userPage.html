@@ -72,87 +72,62 @@
 				<div class="tab-content">
 					<div class="tab-pane fade active in generalTabPane" id="Carrito">
 
-						<div>
+						<div class="tab-pane">
 
-							<div class="contaiiner-fluid">
+							<div class="contaiiner-fluid cart-container">
 								<div class="row">
 
-									<div class ="col-md-2">
-
-									</div>
-
-									<div class ="col-md-2">
+									<div class ="col-md-6">
 										<p>Producto</p>
 									</div> 
 									<div class="col-md-2">
-										<p>Colores</p>
-									</div>
-									<div class="col-md-1">
-										<p>Talle</p>
-									</div>
-									<div class="col-md-2">
 										<p>Cantidad</p>
 									</div>
-									<div class="col-md-2">
+									<div class="col-md-4">
 										<p>Precio</p>
 									</div>
 
 								</div>
 								<br>
 								<br>
-								<div class="row">
 
-									<div class ="col-md-2">
-										<img src="../../assets/clothes/t-shirts/dc_brickline_black_1.jpg" class="cart-image"/>
-									</div>
-
-									<div class ="col-md-2">
-										<p>DC - Brickline</p>
-										<br>
-										<div class="btn-group cart">
-
-											<div class="row" id="my-cart-buttons">
-												<button type="button" class="btn btn-warning">
-													<i class="glyphicon glyphicon-heart"></i>
-												</button>
-
-												<button type="button" class="btn btn-danger">
-													<i class="glyphicon glyphicon-remove"></i>
-												</button>
+								<div class="cart-content" ng-show="cart.items.length > 0">
+									<div class="row cart-line" ng-repeat="i in cart.items">
+										<p>
+											<a href ng-click="">   <!-- Removes item -->
+							        			<span class="remove-field">
+							        				<span class="glyphicon glyphicon-remove" aria-hidden="true"></span> Eliminar
+							        			</span>
+							        		</a>
+						        			<a href ng-click="openEditAddress(i.id)"> <!-- Edits item -->   
+							        			<span class="edit-field edit-address">
+							        				<span class="glyphicon glyphicon-pencil" aria-hidden="true"></span> Editar
+							        			</span>
+							        		</a>
+							        	</p>
+							        	<p>
+											<div class ="col-md-2">
+												<img ng-src={{i.product.imageUrl}} class="cart-image"/>
+											</div>
+											<div class ="col-md-4">
+												<p>{{i.product.name}}</p>
 											</div>
 
-										</div>
-									</div> 
-									<div class="col-md-2">
-										<img src="../../assets/clothes/t-shirts/dc_brickline_black_1.jpg" class="cart-image-colors"/>
-										<img src="../../assets/clothes/t-shirts/dc_brickline_white_1.jpg" class="cart-image-colors"/>
+											<div class="col-md-2">
+												{{i.quantity}}
+											</div> 
+
+											<div class="col-md-4">
+												<span class="price-per-unit"> {{i.quantity}} x ${{i.price}} <span>
+												<h3>${{i.quantity * i.price}}</h3>
+											</div>
+										</p>
 									</div>
-									<div class="col-md-1">      
-										<div class="btn-group">
-											<button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-												Talle
-												<span class="caret"></span>
-											</button>
-											<ul class="dropdown-menu">
-												<li><a href="#">S</a></li>
-												<li><a href="#">M</a></li>
-												<li><a href="#">L</a></li>
-											</ul>
-										</div>
-									</div>
-									<div class="col-md-2">
+								</div>
 
-
-										<input type="number" name="display_name" id="display_name" class="form-control input-lg" placeholder="2" tabindex="5">
-
-
-									</div>
-									<div class="col-md-2">
-										<p> 2 x $99.99
-											<h3>$199.98</h3>
-										</div>
-
-									</div>
+								<div class="cart-content" ng-show="cart.items.length == 0">
+									Actualmente no tiene productos en el carrito
+								</div>
 
 								</div>
 								<hr>
@@ -464,6 +439,7 @@
 									        			<span class="remove-field">
 									        				<span class="glyphicon glyphicon-remove" aria-hidden="true"></span> Eliminar
 									        			</span>
+									        		</a>
 								        			<a href ng-click="openEditAddress(i.id)"> <!-- Edits address -->   
 									        			<span class="edit-field edit-address">
 									        				<span class="glyphicon glyphicon-pencil" aria-hidden="true"></span> Editar
@@ -684,6 +660,7 @@
 									        			<span class="remove-field">
 									        				<span class="glyphicon glyphicon-remove" aria-hidden="true"></span> Eliminar
 									        			</span>
+									        		</a>
 								        			<a href ng-click="openEditCreditCard(i.id)"> <!-- Edits credit card -->   
 									        			<span class="edit-field edit-address">
 									        				<span class="glyphicon glyphicon-pencil" aria-hidden="true"></span> Editar

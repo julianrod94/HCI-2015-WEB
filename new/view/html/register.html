@@ -72,12 +72,12 @@
 						  	
 						  	<div class="form-group">
 								<label>Nombre: <span class="requerido">*</span></label>
-								<input class="form-control" placeholder="Nombre" ng-model="registerFields.name" tabIndex="1" autofocus>
+								<input class="form-control" placeholder="Ingrese su nombre" ng-model="registerFields.name" tabIndex="1" autofocus>
 							</div>
 
 							<div class="form-group">
 								<label>Apellido: <span class="requerido">*</span></label>
-								<input class="form-control" placeholder="Apellido" ng-model="registerFields.last_name" tabIndex="2">
+								<input class="form-control" placeholder="Ingrese su apellido" ng-model="registerFields.last_name" tabIndex="2">
 							</div>
 
 						  	<div class="form-group">
@@ -91,29 +91,29 @@
 
 							<div class="form-group">
 								<label>Fecha de nacimiento: <span class="requerido">*</span></label>
-								<input class="form-control" placeholder="Formato AAAA-MM-DD" ng-model="registerFields.birthday" tabIndex="4">
+								<input class="form-control" placeholder="Ingrese la fecha de su nacimiento con el formato AAAA-MM-DD" ng-model="registerFields.birthday" tabIndex="4">
 							</div>
 
 							<div class="form-group">
 								<label>Documento: <span class="requerido">*</span></label>
-								<input class="form-control" placeholder="Formato: XX.XXX.XXX" ng-model="registerFields.identity_card" tabIndex="5">
+								<input class="form-control" placeholder="Ingrese su documento (puede tener separador de miles)" ng-model="registerFields.identity_card" tabIndex="5">
 							</div>
 
 							<div class="form-group">
 								<label>Usuario: <span class="requerido">*</span></label>
-								<input type="text" class="form-control" placeholder="Usuario" ng-model="registerFields.username" tabIndex="6">
+								<input type="text" class="form-control" placeholder="Ingrese un usuario" ng-model="registerFields.username" tabIndex="6">
 							</div>
 							<div class="form-group">
 								<label>e-Mail: <span class="requerido">*</span></label>
-								<input type="email" class="form-control" placeholder="e-Mail" ng-model="registerFields.email" tabIndex="7">
+								<input type="email" class="form-control" placeholder="Ingrese su e-Mail" ng-model="registerFields.email" tabIndex="7">
 							</div>
 							<div class="form-group">
 								<label>Contraseña: <span class="requerido">*</span></label>
-								<input type="password" class="form-control" placeholder="Contraseña" ng-model="registerFields.password" tabIndex="8">
+								<input type="password" class="form-control" placeholder="Ingrese una contraseña" ng-model="registerFields.password" tabIndex="8">
 							</div>
 							<div class="form-group">
 								<label>Repetir contraseña: <span class="requerido">*</span></label>
-								<input type="password" class="form-control" placeholder="Repetir contraseña" ng-model="registerFields.repeat" tabIndex="9">
+								<input type="password" class="form-control" placeholder="Repita la contraseña elegida" ng-model="registerFields.repeat" tabIndex="9">
 							</div>
 							
 							<div class="checkbox">
@@ -162,7 +162,7 @@
 				</div><!-- /.modal -->
 
 				<!-- Register error modal -->
-				<div modal-show modal-visible="show_register_error" class="modal fade" id="stack2" tabindex="-1" role="dialog" aria-labelledby="register-error-modal-Label">
+				<div modal-show modal-visible="show_register_error" class="modal fade" id="stack2" role="dialog" aria-labelledby="register-error-modal-Label">
 				  	<div class="modal-dialog" role="document">
 				    	<div class="modal-content">
 				      		<div class="modal-header">

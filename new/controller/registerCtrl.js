@@ -1,9 +1,9 @@
 
 
-angular.module('registerApp', []).controller('registerController', function($scope, $http, $log, $timeout, $q, $window) {
+angular.module('registerApp', []).controller('registerController', function($scope, $http, $log, $timeout, $q, $window, signInSrv) {
 
 
-	function signIn(username, password){
+	function signIn(username, password) {
 
 		if(token != null) {
 			return; // Shouldn't get here, but in case...
@@ -13,8 +13,7 @@ angular.module('registerApp', []).controller('registerController', function($sco
 
 		$http.get(url, {cache: true, timeout: 10000}).then(function(response) {
 			if(response.data.hasOwnProperty("error")){
-				$scope.show_login_error = true;
-				return response.data.error.message;	
+				window.location.replace("home.html"); // There shouldn't be errors, but in case, the system kicks you off to the home page
 			}
 			$scope.token = response.data.authenticationToken;
 			localStorage.setItem("token",$scope.token);
@@ -44,7 +43,7 @@ angular.module('registerApp', []).controller('registerController', function($sco
 		var ok1 = reUser.test(username);
 		var rePass = /^.{6,15}$/;
 		var ok2 = rePass.test(password);
-		var reName = /^([^0-9]){2,80}$/;
+		var reName = /^([^0-9]){1,80}$/;
 		var ok3 =  reName.test(firstName);
 		var ok4 =  reName.test(lastName);
 		var reGender = /^[FM]$/;
@@ -66,10 +65,10 @@ angular.module('registerApp', []).controller('registerController', function($sco
 				$scope.wrong_fields.push({name: "Contraseña", info:"Debe ser una cadena de caracteres alfanuméricos y especiales, con una longitud de entre 8 y 15 caracteres"});
 			}
 			if (!ok3) {
-				$scope.wrong_fields.push({name: "Nombre", info:"Debe ser una cadena de caracteres alfabéticos y especiales, con una longitud de entre 8 y 15 caracteres"});
+				$scope.wrong_fields.push({name: "Nombre", info:"Debe ser una cadena de caracteres alfabéticos y especiales, con una longitud de hasta 80 caracteres"});
 			}
 			if (!ok4) {
-				$scope.wrong_fields.push({name: "Apellido", info:"Debe ser una cadena de caracteres alfabéticos y especiales, con una longitud de entre 8 y 15 caracteres"});
+				$scope.wrong_fields.push({name: "Apellido", info:"Debe ser una cadena de caracteres alfabéticos y especiales, con una longitud de hasta 80 caracteres"});
 			}
 			if (!ok5) {
 				$scope.wrong_fields.push({name: "Género", info:"Debe especificar un género"});
@@ -147,8 +146,9 @@ angular.module('registerApp', []).controller('registerController', function($sco
 					$scope.show_register_error = true;
 
 				return;
-			}	
-			signIn(username, password); //ya lo logeo de entrada
+			}
+			signInSrv.signIn(username,password);	
+			//signIn(username, password); //ya lo logeo de entrada
 			return;
 		})
 	}
@@ -203,6 +203,9 @@ angular.module('registerApp', []).controller('registerController', function($sco
 
 	$scope.register = function() {
 
+		$scope.show_register_error = false;
+		$scope.wrong_fields = [];
+
 		console.log($scope.registerFields);
 		var username = $scope.registerFields.username;
 		var password = $scope.registerFields.password;
@@ -214,8 +217,6 @@ angular.module('registerApp', []).controller('registerController', function($sco
 		var identity_card = $scope.registerFields.identity_card;
 		var birthday = $scope.registerFields.birthday;
 		var terms = $scope.registerFields.terms;
-
-
 
 		createAccount(username, password, repeat, name, last_name, gender, identity_card, email, birthday, terms);
 

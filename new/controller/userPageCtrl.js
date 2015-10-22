@@ -36,12 +36,6 @@ function getParameterByName(name) {
 //**********************************************************************************************************************************
 
 
-// var token = localStorage.getItem("token");
-// var user_local = localStorage.getItem("username");
-var cart = localStorage.getItem("cart_id:" + user_local);
-
-
-
 //**********************************************************************************************************************************
 
 
@@ -306,7 +300,7 @@ angular.module('userPageApp', []).controller('userPageController', function($sco
 			console.log(url);
 			$http.get(url, {cache:true, timeout: 10000}).then(function(response) {
 				$scope.closeDeleteAddress();
-				//window.location.replace(window.location.href);
+				//windwindow.location.replace(window.location.href);
 			})
 
 		}
@@ -393,18 +387,35 @@ angular.module('userPageApp', []).controller('userPageController', function($sco
 
 
 
+	function getCart() {
+
+		if (token != null) {
+			var url = "http://eiffel.itba.edu.ar/hci/service3/Order.groovy?method=GetOrderById&username=" + user_local + "&authentication_token=" + token;
+			url += "&id=" + cart;
+			console.log(url);
+			$http.get(url, {cache:true, timeout: 10000}).then(function(response) {
+				$scope.cart = response.data.order
+				console.log($scope.cart);
+			})
+		}
+
+	}
 	
 
-	// "http://eiffel.itba.edu.ar/hci/service3/Order.groovy?method=GetOrderById&username"
+	// 
 
 	$scope.loading_page = true && token != null; // Prevents loading when being in another part
 
 	$scope.breadcrumbMessage =  whichPage;
+	
+	$scope.cart = null;
+
 	$scope.account = null;
 	$scope.passwordFake = null;
 	$scope.allAddresses = null;
 	$scope.allCreditCards = null;
 	$scope.states = null;
+
 
 	// Manages update data
 	$scope.update = {};
@@ -1176,7 +1187,7 @@ angular.module('userPageApp', []).controller('userPageController', function($sco
 	function ajaxCalls() {
 	
 		getAccount();
-		//getCart();
+		getCart();
 		getAllStates();
 		getAllAddresses();
 		getAllCreditCards();

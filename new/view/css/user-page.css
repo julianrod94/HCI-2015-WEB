@@ -147,6 +147,31 @@
 	font-weight: bold;
 }
 
+.cart-line {
+
+	padding-top: 0.7em;
+    padding-bottom: 1.5em;
+    border-top: 1px solid #ddd;
+}
+
+.cart-line:hover .remove-field {
+	visibility: visible;
+}
+
+.cart-line:hover .edit-field {
+	visibility: visible;
+}
+
+.cart-container {
+
+	margin-left: 30px;
+	margin-right: 30px;
+}
+
+.price-per-unit {
+	font-size: 90%;
+}
+
 
 
 /* This only works with JavaScript, 

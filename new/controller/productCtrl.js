@@ -163,6 +163,31 @@ angular.module('productApp', []).controller('productController', function($scope
         });
 	}
 
+    function addItemToCart() {
+
+        if (cart == null) {
+            return;
+        }
+        var orderJSON = {
+            order: {
+                id: parseInt(cart)
+            },
+            product: {
+                id: $scope.product.id
+            },
+            quantity: $scope.selectedAttributes.quantity,
+            color: "red"
+        }
+
+        var url =  "http://eiffel.itba.edu.ar/hci/service3/Order.groovy?method=AddItemToOrder&username=" + user_local;
+        url += "&authentication_token=" + token + "&order_item=" + encodeURIComponent(JSON.stringify(orderJSON));
+        $http.get(url, {cache: true, timeout: 10000}).then(function(response) {
+            window.location.replace("userPage.html?id=carrito");
+        });
+
+
+    }
+
 	function generateCategoryBreadcrumbLink(category_id) {
 		return "catalogue.html?calling_option=1&gender=" + gender + "&category=" + category_id;
 	}
@@ -173,7 +198,14 @@ angular.module('productApp', []).controller('productController', function($scope
 
 
 	$scope.product = null;
+    $scope.selectedAttributes = {
+        size: null,
+        color: null,
+        quantity: 1
+    }
+
 	$scope.similars = null;
+    $scope.userLogged = token != null;
 
 	$scope.product_variants = function() {
 		return list_of_products_with_same_color
@@ -251,7 +283,15 @@ angular.module('productApp', []).controller('productController', function($scope
 	$scope.link_for_sub_category = null;
 
 
+    $scope.addToCart = function() {
+
+        $scope.selectedAttributes.color = $scope.selectedAttributes.color.trim();
+        addItemToCart()
+    }
+
+
 	getProductByAJAX();
+    
 })
 
 

@@ -25,7 +25,7 @@ function getSection(result) {
 
 var token = localStorage.getItem("token");
 var user_local = localStorage.getItem("username");
-var cart = localStorage.getItem("cart_id:" + user_local);
+var cart = localStorage.getItem("current_cart_user:" + user_local);
 
 
 
@@ -52,7 +52,7 @@ function getParameterByName(name) {
 
 
 
-angular.module('headerApp', []).controller('headerController', function($scope, $http, $log, $timeout, $q, $window) {
+angular.module('headerApp', []).controller('headerController', function($scope, $http, $log, $timeout, $q, $window, signInSrv) {
 
 	function getAllCategories(gender_id) {
 
@@ -71,29 +71,6 @@ angular.module('headerApp', []).controller('headerController', function($scope, 
 		});
 	}
 
-
-	function signIn(username, password){
-
-		if(token != null) {
-			return "Ya esta logeado, cierre la sesion existente e intentelo de nuevo";
-		}
-
-		var url = "http://eiffel.itba.edu.ar/hci/service3/Account.groovy?method=SignIn&username=" + username + "&password=" + password;
-
-		$http.get(url, {cache: true, timeout: 10000}).then(function(response) {
-			if(response.data.hasOwnProperty("error")){
-				$scope.show_login_error = true;
-				return response.data.error.message;	
-			}
-			$scope.token = response.data.authenticationToken;
-			localStorage.setItem("token",$scope.token);
-			localStorage.setItem("username",response.data.account.username);
-			if (cart == null) {
-				createCart(response.data.account.username, $scope.token);
-			}
-			window.location.replace(window.location.href); 
-		});
-	}
 
 	function getAccount() {
 
@@ -122,35 +99,6 @@ angular.module('headerApp', []).controller('headerController', function($scope, 
 		});
 	}
 
-	function createCart(user_name, token) {
-
-		url = "http://eiffel.itba.edu.ar/hci/service3/Order.groovy?method=CreateOrder&username=" + user_name + "&authentication_token=" + token;
-		// Creates a cart
-		$http.get(url, {cache: true, timeout: 10000}).then(function(response) {
-			localStorage.setItem("cart_id:" + user_name, response.data.order.id);
-			$scope.cart = response.data.order.id;
-
-		});
-	}
-
-	function saveCartInAPI(cart_id, user_name, token) {
-
-		var url = "http://eiffel.itba.edu.ar/hci/service3/Order.groovy?method=GetPreferences&username=" + user_name + "&authentication_token=" + token;
-		$http.get(url, {cache: true, timeout: 10000}).then(function(response) {
-			$scope.userPreferences = JSON.parse(response.data.preferences);
-			$scope.userPreferences["current_cart"] = cart_id;
-			var auxJSON = encodeURIComponent(JSON.stringify($scope.userPreferences));
-			var nextURL = "http://eiffel.itba.edu.ar/hci/service3/Order.groovy?method=GetPreferences&username=" + user_name + "&authentication_token=" + token + "&value=" + auxJSON;
-			console.log(nextURL);
-			$http.get(url, {cache: true, timeout: 10000}).then(function(response) {
-				//Do nothing, don't need nothing from here
-				//Maybe try to create favorites here
-			})
-
-		});
-
-
-	}
 
 	function updateAccount(firstName, lastName, gender, identityCard, email, birthdate){
 		if(token == null){
@@ -280,7 +228,8 @@ angular.module('headerApp', []).controller('headerController', function($scope, 
 	}
 
 	$scope.login = function() {
-		signIn($scope.user_model,$scope.password_model);
+		//signIn($scope.user_model,$scope.password_model);
+		$scope.show_login_error = !signInSrv.signIn($scope.user_model, $scope.password_model);
 	}
 
 	$scope.logout = function() {
@@ -372,7 +321,96 @@ angular.module('headerApp').directive("modalShow", function () {
 
 });
 
+angular.module('headerApp').service('signInSrv', function($http){
+	return {
 
+		signIn: function signIn(username, password) {
+
+			console.log("llegue al service");
+			
+			if(token != null) {
+				return "Ya esta logeado, cierre la sesion existente e intentelo de nuevo"; // Shouldn't be displayed anywhere
+				console.log("Hay algo mal");
+			}
+
+			var url = "http://eiffel.itba.edu.ar/hci/service3/Account.groovy?method=SignIn&username=" + username + "&password=" + password;
+			$http.get(url, {cache: true, timeout: 10000}).then(function(response) {
+				if(response.data.hasOwnProperty("error")){
+					//$scope.show_login_error = true; // Must see how to implement this from header controller
+					console.log("couldn't log in")
+					return false;	
+				}
+
+				localStorage.setItem("token",response.data.authenticationToken); // Stores token in local storage
+				localStorage.setItem("username",response.data.account.username); // Stores username
+				currentCart = localStorage.getItem("current_cart_user:" + response.data.account.username); //Looks for cart in local storage
+				
+				if (currentCart == null || currentCart == "") {
+
+					//Must look for cart in preferences
+					var preferences_url = "http://eiffel.itba.edu.ar/hci/service3/Account.groovy?method=GetPreferences&username=" + response.data.account.username;
+					preferences_url += "&authentication_token=" + response.data.authenticationToken;
+					console.log(preferences_url);
+
+					$http.get(preferences_url, {cache: true, timeout: 10000}).then(function(response) {
+						
+						localStorage.setItem("user_preferences", response.data.preferences) //Saves preferences
+						var preferences_response = JSON.parse(localStorage.getItem("user_preferences"));
+						
+						if (preferences_response != null && preferences_response["current_cart"] != null) {
+
+							// There is a current cart saved in the API
+							console.log("Getting cart from API...")
+							localStorage.setItem("current_cart_user:" + localStorage.getItem("username") ,preferences_response["current_cart"]); // Stores the cart in local storage
+						} else {
+
+							// There wasn't a cart current cart in the API
+							console.log("No cart in API, must create one and save it the API...");
+							
+							create_cart_url = "http://eiffel.itba.edu.ar/hci/service3/Order.groovy?method=CreateOrder&username=" + localStorage.getItem("username")
+							create_cart_url += "&authentication_token=" + localStorage.getItem("token");
+							console.log(create_cart_url);
+
+							$http.get(create_cart_url, {cache: true, timeout: 10000}).then(function(response) {
+								localStorage.setItem("current_cart_user:" + localStorage.getItem("username"), response.data.order.id); // Cart was created sucessfully, now must store it in API
+								
+								if (preferences_response == null) {
+									preferences_response = {};
+								}
+								preferences_response["current_cart"] = response.data.order.id;
+								preferences_response = JSON.stringify(preferences_response);
+								console.log(preferences_response);
+
+								localStorage.setItem("current_cart_user:" + localStorage.getItem("username") , response.data.order.id); // Stores cart in local storage
+
+								var save_cart_url = "http://eiffel.itba.edu.ar/hci/service3/Account.groovy?method=UpdatePreferences&username=" + localStorage.getItem("username"); 
+								save_cart_url += "&authentication_token=" + localStorage.getItem("token") + "&value=" + encodeURIComponent(preferences_response);
+								console.log(save_cart_url);
+								
+								$http.get(save_cart_url, {cache: true, timeout: 10000}).then(function(response) {
+									//Do nothing, don't need nothing from here
+									//Maybe try to create favorites here
+								});
+							})// Ends creating cart
+						} // Closes inner else
+						localStorage.setItem("user_preferences", null);
+					}); // Ends looking for cart in API
+				} // Closes outer if
+				else {
+					console.log("Ya tenía un carrito");
+				}
+				var nextPage = window.location.href
+				if (nextPage == "http://localhost:8000/view/html/register.html") {
+					nextPage == "home.html"
+				}
+				window.location.replace(nextPage); 
+			}); // Ends login
+			return true;
+		}						
+
+	}		
+
+})
 
 
 
