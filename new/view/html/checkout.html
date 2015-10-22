@@ -30,10 +30,11 @@
 
   <!-- My code -->
   <script src="../../controller/headerCtrl.js"></script>
+  <script src="../../controller/checkoutCtrl.js"></script>
   <script src="../js/home.js"></script>
 
 </head>
-<body>
+<body ng-controller="checkOutController">
 
   <div>
     <div ng-include="'header.html'"></div> <!-- Import's header -->
@@ -56,7 +57,7 @@
         </dt>
         <dd class="accordion-content accordionItem is-collapsed" id="accordion1" aria-hidden="true">
           <br>
-          <div class="container-fluid row" ng-show="1===1">     <!-- ng-show mostrar de entrada -->
+          <div class="container-fluid row" ng-show="getShowAddress()==1">     <!-- ng-show mostrar de entrada -->
             <div class="col-md-6">
               <div class="form-group">
                 <label for="gender">Elegi una direccion ya existente: <span class="requerido"></span></label>
@@ -71,7 +72,7 @@
             <div class="col-md-4">
               <label for="gender">O agrega una nueva: <span class="requerido"></span></label>
               <br>
-              <button type="button" class="btn btn-success">
+              <button type="button" class="btn btn-success" ng-click="setShowAddress('newAddress')">
                 Crear nueva direccion
               </button>
             </div>
@@ -81,11 +82,11 @@
 
 
 
-            <!-- copie y pegue el form de userpage. Capaz no anda bien con el controller -->
+          <!-- copie y pegue el form de userpage. Capaz no anda bien con el controller -->
 
-          <div class="container-fluid row">
+          <div class="container-fluid row" ng-show="getShowAddress()===2">
             <div class="col-md-3"></div>
-            <div class="add-address-form col-md-9" ng-show="1===1">     <!-- se muestra cuando se selecciono nueva direccion -->
+            <div class="add-address-form col-md-9">     <!-- se muestra cuando se selecciono nueva direccion -->
               <form role="form">
                 <div class="row">
                   <div class="col-md-4">
@@ -165,7 +166,7 @@
                   <div class="col-md-6">
                     <div class="add-address-form-buttons">
                       <button type="button" class="btn btn-primary" ng-click="closeAddAddressForm()">Cancelar</button>
-                      <button type="button" class="btn btn-primary" ng-click="applicateAddAddress()">Aceptar</button>
+                      <button type="button" class="btn btn-primary" ng-click="applicateAddAddress() ">Aceptar</button>
 
                     </div>
                   </div>
@@ -223,6 +224,55 @@
               <button type="button" class="btn btn-success">
                 Crear nueva tarjeta
               </button>
+            </div>
+          </div>
+
+
+
+
+
+
+
+
+          <div class="container-fluid row" ng-show="1===1">
+            <div class="col-md-4"></div>
+            <div class="col-md-8">
+              <form role="form">
+                <div class="row">
+                  <div class="col-md-4">
+                    <div class="form-group">
+                      <label>Número: <span class="requerido">*</span></label>
+                      <input autofocus class="form-control add-address-input" ng-model="updateCreditCard.number">
+                    </div>
+                  </div>
+                </div>
+
+                <div class="row">
+                  <div class="col-md-4">
+                    <div class="form-group">
+                      <label>Vencimiento: <span class="requerido">*</span></label>
+                      <input class="form-control add-address-input" placeholder="MMAA" ng-model="updateCreditCard.expirationDate">
+                    </div>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-md-4">
+                    <div class="form-group">
+                      <label>Código de seguridad: <span class="requerido">*</span></label>
+                      <input class="form-control add-address-input" ng-model="updateCreditCard.securityCode">
+                    </div>
+                  </div>
+                </div>
+
+                <div class="row">
+                  <div class="col-md-6">
+                    <div class="add-address-form-buttons">
+                      <button type="button" class="btn btn-primary" ng-click="closeEditCreditCard()">Cancelar</button>
+                      <button type="button" class="btn btn-primary" ng-click="applicateEditCreditCard()">Aceptar</button>
+                    </div>
+                  </div>
+                </div>
+              </form>
             </div>
           </div>
           <br>
