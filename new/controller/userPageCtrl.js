@@ -19,6 +19,10 @@ function whereIAm(id) {
 	}
 }
 
+if (localStorage.getItem("token") == null) {
+	window.location.replace("home.html");
+}
+
 
 // ***************************************************************************************************************
 
@@ -297,10 +301,9 @@ angular.module('userPageApp', []).controller('userPageController', function($sco
 
 			var url = "http://eiffel.itba.edu.ar/hci/service3/Account.groovy?method=DeleteAddress&username=" + user_local + "&authentication_token=" + token; 
 			url += "&id=" + $scope.deletingAddress.address_id;
-			console.log(url);
 			$http.get(url, {cache:true, timeout: 10000}).then(function(response) {
 				$scope.closeDeleteAddress();
-				//windwindow.location.replace(window.location.href);
+				window.location.replace(window.location.href);
 			})
 
 		}
@@ -378,6 +381,7 @@ angular.module('userPageApp', []).controller('userPageController', function($sco
 
 			var url = "http://eiffel.itba.edu.ar/hci/service3/Account.groovy?method=DeleteCreditCard&username=" + user_local + "&authentication_token=" + token; 
 			url += "&id=" + $scope.deletingCreditCard.card_id;
+			console.log(url);
 			$http.get(url, {cache:true, timeout: 10000}).then(function(response) {
 				$scope.closeDeleteCreditCard();
 				window.location.replace(window.location.href);
@@ -395,7 +399,10 @@ angular.module('userPageApp', []).controller('userPageController', function($sco
 			console.log(url);
 			$http.get(url, {cache:true, timeout: 10000}).then(function(response) {
 				$scope.cart = response.data.order
-				console.log($scope.cart);
+				for (var i = 0 ; i < $scope.cart.items.length ; i++) {
+					$scope.cart_total += $scope.cart.items[i].price * $scope.cart.items[i].quantity;
+				}
+
 			})
 		}
 
@@ -409,6 +416,7 @@ angular.module('userPageApp', []).controller('userPageController', function($sco
 	$scope.breadcrumbMessage =  whichPage;
 	
 	$scope.cart = null;
+	$scope.cart_total = 0
 
 	$scope.account = null;
 	$scope.passwordFake = null;
