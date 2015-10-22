@@ -74,7 +74,7 @@
 
 						<div class="tab-pane">
 
-							<div class="contaiiner-fluid cart-container">
+							<div class="container-fluid cart-container">
 								<div class="row">
 
 									<div class ="col-md-6">
@@ -107,10 +107,14 @@
 										</p>
 										<p>
 											<div class ="col-md-2">
-												<img ng-src={{i.product.imageUrl}} class="cart-image"/>
+												<a ng-href="product.html?product_id={{i.product.id}}">
+													<img ng-src={{i.product.imageUrl}} class="cart-image"/>
+												</a>
 											</div>
 											<div class ="col-md-4">
-												<p>{{i.product.name}}</p>
+												<a ng-href="product.html?product_id={{i.product.id}}">
+													<p>{{i.product.name}}</p>
+												</a>
 											</div>
 
 											<div class="col-md-2">
@@ -139,7 +143,7 @@
 										<h3><strong>${{cart_total}}</strong></h3>
 									</div>
 									<div class="col-md-1" id="button-checkout">
-										<button type="button" class="btn btn-success">
+										<button type="button" class="btn btn-success" ng-disabled="cart.items.length == 0">
 											Finalizar compra
 										</button> 
 									</div>
@@ -154,7 +158,7 @@
 
 							<div>
 
-								<div class="contaiiner-fluid">
+								<div class="container-fluid">
 									<div class="row">
 
 										<div class ="col-md-2">
@@ -178,40 +182,15 @@
 									<br>
 									<br>
 									<div class="row">
-
-										<div class ="col-md-2">
-											<img src="../../assets/clothes/t-shirts/dc_brickline_black_1.jpg" class="cart-image"/>
+										<div class ="col-md-3">
+											<P>
 										</div>
-
-										<div class ="col-md-2">
-											<p>DC - Brickline</p>
-											<br>
-											<div class="btn-group cart">
-
-												<div class="row" id="my-cart-buttons">
-													<button type="button" class="btn btn-success">
-														<i class="glyphicon glyphicon-shopping-cart"></i>
-													</button>
-
-													<button type="button" class="btn btn-danger">
-														<i class="glyphicon glyphicon-remove"></i>
-													</button>
-												</div>
-
-											</div>
-										</div> 
-										<div class="col-md-3">
-											<img src="../../assets/clothes/t-shirts/dc_brickline_black_1.jpg" class="cart-image-colors"/>
-											<img src="../../assets/clothes/t-shirts/dc_brickline_white_1.jpg" class="cart-image-colors"/>
+										<div class ="col-md-6">
+											<p class="no-disponible">NO DISPONIBLE</p>
 										</div>
-										<div class="col-md-3">      
-											<h4>M</h4>
+										<div class ="col-md-3">
+											<p>
 										</div>
-
-										<div class="col-md-2">
-											<h3>$199.98</h3>
-										</div>
-
 									</div>
 
 
@@ -777,8 +756,20 @@
 									</div>
 
 									<div class="tab-pane fade" id="Compras">
-										Hola compras
 										
+										<div class="container-fluid">
+											<div class="row">
+												<div class ="col-md-3">
+													<P>
+												</div>
+												<div class ="col-md-6">
+													<p class="no-disponible">NO DISPONIBLE</p>
+												</div>
+												<div class ="col-md-3">
+													<p>
+												</div>
+											</div>
+										</div>
 									</div>
 
 

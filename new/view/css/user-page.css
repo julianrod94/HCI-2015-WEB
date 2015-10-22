@@ -172,7 +172,11 @@
 	font-size: 90%;
 }
 
+.no-disponible {
+	font-weight: bold;
+	font-size: 300%;
 
+}
 
 /* This only works with JavaScript, 
 if it's not present, don't show loader */

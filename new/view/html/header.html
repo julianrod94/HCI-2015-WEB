@@ -35,7 +35,7 @@
 	<!-- Nav bar -->
 	<nav class="navbar navbar-inverse">
 		<div class="container-fluid">
-			<!-- Brand and toggle get grouped for better mobile display -->
+
 			<div class="navbar-header">
 				<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
 					<span class="sr-only">Toggle navigation</span>
@@ -45,7 +45,6 @@
 				</button>
 			</div>
 
-			<!-- Collect the nav links, forms, and other content for toggling -->
 			<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
 				<ul class="nav navbar-nav">
 
@@ -70,7 +69,7 @@
 										<li ng-repeat="i in (brands | filter:{id:'1'})[0].brands[0].values |limitTo:6">
 											<a ng-href="{{ getBrandLink(1,i) }}">{{i}}</a>
 										</li>
-										<li class="see-more-brands">Ver más</li>
+										<li class="see-more-brands"><a href="underConstruction.html">Ver más</a></li>
 									</ul>
 								</div>
 							</div>
@@ -99,7 +98,7 @@
 										<li ng-repeat="i in (brands | filter:{id:'2'})[0].brands[0].values |limitTo:6">
 											<a ng-href="{{ getBrandLink(2,i) }}">{{i}}</a>
 										</li>
-										<li class="see-more-brands">Ver más</li>
+										<li class="see-more-brands"><a href="underConstruction.html">Ver más</a></li>
 									</ul>
 								</div>
 							</div>
@@ -128,9 +127,7 @@
 										<li ng-repeat="i in (brands | filter:{id:'3'})[0].brands[0].values |limitTo:6">
 											<a ng-href="{{ getBrandLink(3,i) }}">{{i}}</a>
 										</li>
-										<li class="see-more-brands">
-											<a href="#">Ver más</a>
-										</li>
+										<li class="see-more-brands"><a href="underConstruction.html">Ver más</a></li>
 									</ul>
 								</div>
 							</div>
@@ -158,9 +155,7 @@
 										<li ng-repeat="i in (brands | filter:{id:'4'})[0].brands[0].values |limitTo:6">
 											<a ng-href="{{ getBrandLink(4,i) }}">{{i}}</a>
 										</li>
-										<li class="see-more-brands">
-											<a href="#">Ver más</a>
-										</li>
+										<li class="see-more-brands"><a href="underConstruction.html">Ver más</a></li>
 									</ul>
 								</div>
 							</div>
@@ -182,12 +177,58 @@
 							<i class="glyphicon glyphicon-shopping-cart"></i>
 							<span class="caret"></span>
 						</a>
-						<ul class="dropdown-menu" ng-if="userLogged()">
-							<li><a href="#">Action</a></li>
-							<li><a href="#">Another action</a></li>
-							<li><a href="#">Something else here</a></li>
-							<li role="separator" class="divider"></li>
-							<li><a href="#">Separated link</a></li>
+						<ul class="dropdown-menu multi-column columns-2 cart-drop-down" ng-if="userLogged()">
+							<div class="row header-cart-title">
+								<div class="col-sm-6">
+									<ul class="multi-column-dropdown">
+										<li>
+											Producto
+										</li>
+									</ul>
+								</div>
+								<div class="col-sm-6">
+									<ul class="multi-column-dropdown">
+										<li>
+											Precio
+										</li>
+									</ul>
+								</div>
+							</div>
+							<div class="row" ng-repeat="i in header_cart.items">
+								<div class="col-sm-6">
+									<ul class="multi-column-dropdown">
+										<li class="header-cart-line">
+											<a ng-href="product.html?product_id={{i.product.id}}">
+												<img ng-src={{i.product.imageUrl}} class="header-cart-image"/>
+												<p>{{i.product.name}}</p>
+											</a>
+										</li>
+									</ul>
+								</div>
+								<div class="col-sm-6">
+									<ul class="multi-column-dropdown">
+										<li class="header-cart-line">
+											<p class="header-cart-line-quantity">{{i.quantity}} x ${{i.price}}</p>
+											<p class="header-cart-line-price">${{i.quantity * i.price}}</p>
+										</li>
+									</ul>
+								</div>
+							</div>
+							<div class="row">
+								<div class="col-sm-6">
+									<ul class="multi-column-dropdown">
+									</ul>
+								</div>
+								<div class="col-sm-6">
+									<ul class="multi-column-dropdown">
+										<button type="button" class="btn btn-success" ng-disabled="cart.items.length == 0">
+											Finalizar compra
+										</button> 
+									</ul>
+								</div>
+
+							</div>
+
 						</ul>
 					</li>
 
@@ -202,11 +243,11 @@
 							<span class="caret"></span>
 						</a>
 						<ul class="dropdown-menu" ng-if="userLogged()">
-							<li><a href="#">Action</a></li>
-							<li><a href="#">Another action</a></li>
-							<li><a href="#">Something else here</a></li>
-							<li role="separator" class="divider"></li>
-							<li><a href="#">Separated link</a></li>
+							<li><a href=""></a></li>
+							<li><a href=""></a></li>
+							<li><a href="#">NO DISPONIBLE</a></li>
+							<li><a href=""></a></li>
+							<li><a href=""></a></li>
 						</ul>
 					</li>
 
