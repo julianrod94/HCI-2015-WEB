@@ -141,6 +141,11 @@
 	float: right;
 }
 
+.need-help {
+    float: right;
+    padding-bottom: 1em;
+}
+
 @media (max-width: 767px) {
     .dropdown-menu.multi-column {
         min-width: 240px !important;

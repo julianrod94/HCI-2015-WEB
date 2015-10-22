@@ -34,11 +34,10 @@
   line-height: 30px;
 }
 
-.carousel-control {
+/*.carousel-control {
   width: 30px;
   height: 30px;
   top: -35px;
-
 }
 .left.carousel-control {
   right: 30px;
@@ -52,10 +51,11 @@
   text-shadow: none;
   color: #333;
   border: 1px solid #ddd;
-}
+}*/
 .carousel-inner > .item > img {
   margin: 0 auto;
 }
+
 
 .productbox {
   background-color:#ffffff;
