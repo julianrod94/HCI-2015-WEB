@@ -80,6 +80,15 @@ angular.module('userPageApp', []).controller('userPageController', function($sco
 		}
 	}
 
+	function getCreatingCardJSON() {
+		
+		return {
+			number: "",
+			expirationDate: "",
+			securityCode: ""
+		}
+	}
+
 	function getAccount() {
 
 		if (token != null) {
@@ -93,14 +102,50 @@ angular.module('userPageApp', []).controller('userPageController', function($sco
 		}
 	}
 
+	function getAllAddresses() {
+
+		if (token != null) {
+
+			var url = "http://eiffel.itba.edu.ar/hci/service3/Account.groovy?method=GetAllAddresses&username=" + user_local + "&authentication_token=" + token; 
+			$http.get(url, {cache: true, timeout: 10000}).then(function(response) {
+				if(!response.data.hasOwnProperty("error")) {
+					if (response.data.addresses.length > 0) {
+						url += "&page_size=" + response.data.total;
+						$http.get(url, {cache: true, timeout: 10000}).then(function(response) {
+							$scope.allAddresses = response.data.addresses;
+						})
+					}
+				}
+			})
+		}
+	}
+
 	function getAllStates() {
 
 		var url = "http://eiffel.itba.edu.ar/hci/service3/Common.groovy?method=GetAllStates";
 		$http.get(url, {cache: true, timeout: 10000}).then(function(response) {
 
-			$scope.creatingAddress.states = response.data.states;
+			$scope.states = response.data.states;
 		});
 
+	}
+
+	function getAllCreditCards() {
+
+		if (token != null) {
+
+			var url = "http://eiffel.itba.edu.ar/hci/service3/Account.groovy?method=GetAllCreditCards&username=" + user_local + "&authentication_token=" + token; 
+			$http.get(url, {cache: true, timeout: 10000}).then(function(response) {
+				if(!response.data.hasOwnProperty("error")) {
+					if (response.data.creditCards.length > 0) {
+						url += "&page_size=" + response.data.total;
+						$http.get(url, {cache: true, timeout: 10000}).then(function(response) {
+							$scope.allCreditCards = response.data.creditCards;
+						})
+					}
+				}
+			})
+		}
 	}
 
 
@@ -165,13 +210,13 @@ angular.module('userPageApp', []).controller('userPageController', function($sco
 				$http.get(url, {cache: true, timeout: 10000}).then(function(response) {
 					if (response.data.hasOwnProperty("error")) {
 						$scope.creatingAddress.message = "Los datos ingresados son incorrectos"
-						$scope.creatingAddress.hints = getServerErrorMessage(response.data.error.code, $scope.update.idCard);
+						$scope.creatingAddress.hints.push(getServerErrorMessage(response.data.error.code, $scope.update.idCard));
 						$scope.creatingAddress.error = true;
 					} else {
 						// La direccion fue agregada bien
 						$scope.createAddress = getCreatingAddressJSON();
 						$scope.creatingAddress.message = "La dirección se ha agregado con éxito"
-						$scope.creatingAddress.hints = "Presione la tecla \"Enter\" para continuar";
+						$scope.creatingAddress.hints.push("Presione la tecla \"Enter\" para continuar");
 						getAllAddresses();
 					}
 				});
@@ -233,13 +278,13 @@ angular.module('userPageApp', []).controller('userPageController', function($sco
 				$http.get(url, {cache: true, timeout: 10000}).then(function(response) {
 					if (response.data.hasOwnProperty("error")) {
 						$scope.updatingAddress.message = "Los datos ingresados son incorrectos"
-						$scope.updatingAddress.hints = getServerErrorMessage(response.data.error.code, $scope.update.idCard);
+						$scope.updatingAddress.hints.push(getServerErrorMessage(response.data.error.code, $scope.update.idCard));
 						$scope.updatingAddress.error = true;
 					} else {
 						// La direccion fue agregada bien
 						$scope.updateAddress = {};
 						$scope.updatingAddress.message = "La dirección se ha modificado con éxito"
-						$scope.updatingAddress.hints = "Presione la tecla \"Enter\" para continuar";
+						$scope.updatingAddress.hints.push("Presione la tecla \"Enter\" para continuar");
 						getAllAddresses();
 					}
 				});
@@ -258,32 +303,97 @@ angular.module('userPageApp', []).controller('userPageController', function($sco
 
 			var url = "http://eiffel.itba.edu.ar/hci/service3/Account.groovy?method=DeleteAddress&username=" + user_local + "&authentication_token=" + token; 
 			url += "&id=" + $scope.deletingAddress.address_id;
+			console.log(url);
 			$http.get(url, {cache:true, timeout: 10000}).then(function(response) {
 				$scope.closeDeleteAddress();
-				window.location.replace(window.location.href);
+				//window.location.replace(window.location.href);
 			})
 
 		}
 	}
 
-
-	function getAllAddresses() {
+	function createCreditCard() {
 
 		if (token != null) {
 
-			var url = "http://eiffel.itba.edu.ar/hci/service3/Account.groovy?method=GetAllAddresses&username=" + user_local + "&authentication_token=" + token; 
-			$http.get(url, {cache: true, timeout: 10000}).then(function(response) {
-				if(!response.data.hasOwnProperty("error")) {
-					if (response.data.addresses.length > 0) {
-						url += "&page_size=" + response.data.total;
-						$http.get(url, {cache: true, timeout: 10000}).then(function(response) {
-							$scope.allAddresses = response.data.addresses;
-						})
+			validateCard($scope.createCreditCard, $scope.creatingCreditCard);
+
+			if($scope.creatingCreditCard.error) {
+
+				$scope.creatingCreditCard.message = "Los datos ingresados son incorrectos";
+			} else {
+
+				var url = "http://eiffel.itba.edu.ar/hci/service3/Account.groovy?method=CreateCreditCard&username=" + user_local + "&authentication_token=" + token;
+				url += "&credit_card=" + encodeURIComponent(JSON.stringify($scope.createCreditCard));
+				$http.get(url, {cache: true, timeout: 10000}).then(function(response) {
+					if (response.data.hasOwnProperty("error")) {
+						$scope.creatingCreditCard.message = "Los datos ingresados son incorrectos"
+						$scope.creatingCreditCard.hints.push(getServerErrorMessage(response.data.error.code, $scope.update.idCard));
+						$scope.creatingCreditCard.error = true;
+					} else {
+
+						$scope.createCreditCard = getCreatingCardJSON();
+						$scope.creatingCreditCard.message = "La tarjeta de crédito se ha agregado con éxito"
+						$scope.creatingCreditCard.hints.push("Presione la tecla \"Enter\" para continuar");
+						getAllCreditCards();
 					}
-				}
-			})
+				});
+			}
+			$scope.creatingCreditCard.show_modal = true;
+
+
 		}
 	}
+
+
+	function updateCreditCard() {
+
+		if (token != null) {
+
+			validateCard($scope.updateCreditCard, $scope.updatingCreditCard);
+
+			if (!$scope.updatingCreditCard.error) {
+
+				var url = "http://eiffel.itba.edu.ar/hci/service3/Account.groovy?method=UpdateCreditCard&username=" + user_local + "&authentication_token=" + token;
+				url += "&credit_card=" + encodeURIComponent(JSON.stringify($scope.updateCreditCard));
+				console.log(url);
+				$http.get(url, {cache: true, timeout: 10000}).then(function(response) {
+					if (response.data.hasOwnProperty("error")) {
+						$scope.updatingCreditCard.message = "Los datos ingresados son incorrectos"
+						$scope.updatingCreditCard.hints.push(getServerErrorMessage(response.data.error.code, $scope.update.idCard));
+						$scope.updatingCreditCard.error = true;
+					} else {
+						$scope.updateCreditCard = {};
+						$scope.updatingCreditCard.message = "La tarjeta de crédito se ha modificado con éxito"
+						$scope.updatingCreditCard.hints.push("Presione la tecla \"Enter\" para continuar");
+						getAllCreditCards();
+					}
+				});
+
+			} else {
+
+				$scope.updatingCreditCard.message = "Los datos ingresados son incorrectos";
+			}
+			$scope.updatingCreditCard.show_modal = true;
+		}
+	}
+
+	function deleteCreditCard() {
+
+		if (token != null) {
+
+			var url = "http://eiffel.itba.edu.ar/hci/service3/Account.groovy?method=DeleteCreditCard&username=" + user_local + "&authentication_token=" + token; 
+			url += "&id=" + $scope.deletingCreditCard.card_id;
+			$http.get(url, {cache:true, timeout: 10000}).then(function(response) {
+				$scope.closeDeleteCreditCard();
+				window.location.replace(window.location.href);
+			})
+		}	
+	}
+
+
+
+	
 
 	// "http://eiffel.itba.edu.ar/hci/service3/Order.groovy?method=GetOrderById&username"
 
@@ -293,6 +403,8 @@ angular.module('userPageApp', []).controller('userPageController', function($sco
 	$scope.account = null;
 	$scope.passwordFake = null;
 	$scope.allAddresses = null;
+	$scope.allCreditCards = null;
+	$scope.states = null;
 
 	// Manages update data
 	$scope.update = {};
@@ -315,6 +427,10 @@ angular.module('userPageApp', []).controller('userPageController', function($sco
 		hint: null
 	}
 
+
+	// ******************************
+
+
 	// Manages creating address data
 	$scope.createAddress = getCreatingAddressJSON();
 
@@ -322,10 +438,10 @@ angular.module('userPageApp', []).controller('userPageController', function($sco
 	$scope.creatingAddress = {
 		show_form: false,
 		show_modal: false,
-		states:[],
+		states: $scope.states,
 		error: false,
 		message: null,
-		hints:[]
+		hints: []
 	}
 
 	// Manages updating address data
@@ -335,10 +451,10 @@ angular.module('userPageApp', []).controller('userPageController', function($sco
 	$scope.updatingAddress = {
 		address_id: null,
 		show_modal: false,
-		states:[],
+		states: $scope.states,
 		error: false,
 		message: null,
-		hints:[]
+		hints: []
 	}
 
 	// Used for deleting an address
@@ -349,6 +465,51 @@ angular.module('userPageApp', []).controller('userPageController', function($sco
 		whichAddress: null,
 		relaod: false
 	}
+
+
+	// ******************************
+
+
+	// Manages creating a credit card
+	$scope.createCreditCard = getCreatingCardJSON()
+
+	// Used for creating credit card
+	$scope.creatingCreditCard = {
+		show_form: false,
+		show_modal: false,
+		card_names:["Visa", "Master Card", "American Express", "Diners"],
+		selected_card_name: null,
+		error: false,
+		message: null,
+		hints: []
+	}
+
+	// Manages updating a credit card data
+	$scope.updateCreditCard = {};
+
+	// Used for updating credit card
+	$scope.updatingCreditCard = {
+		card_id: null,
+		show_modal: false,
+		card_names:["Visa", "Master Card", "American Express", "Diners"],
+		selected_card_name: null,
+		error: false,
+		message: null,
+		hints: []
+	}
+
+	// Used for deleting a credit card
+	$scope.deletingCreditCard = {
+		card_id: null,
+		show_modal: false,
+		message: "¿Está seguro que desea eliminar la siguiente tarjeta de crédito?",
+		whichCard: null,
+		relaod: false
+	} 
+
+
+	// ******************************
+
 
 
 	$scope.tabChange = function(id) {
@@ -496,8 +657,10 @@ angular.module('userPageApp', []).controller('userPageController', function($sco
 			
 		} else {
 
-			$scope.updating.message = "Los datos ingresados son incorrectos";	
-			$scope.updating.hint = ($scope.update.passwordNew != $scope.update.passwordRepeat) ? "Debe repetir la misma contraseña" : "La contraseña debe ser una cadena de caracteres alfanuméricos y especiales, con una longitud de entre 8 y 15 caracteres";
+			$scope.updating.message = "Los datos ingresados son incorrectos";
+			var str1 = "Debe repetir la misma contraseña";
+			var str2 = "La contraseña debe ser una cadena de caracteres alfanuméricos y especiales, con una longitud de entre 8 y 15 caracteres";
+			$scope.updating.hint = ($scope.update.passwordNew != $scope.update.passwordRepeat) ? str1 : str2;
 			$scope.updating.error = true;
 		}
 		$scope.updating.show_modal = true;
@@ -569,12 +732,30 @@ angular.module('userPageApp', []).controller('userPageController', function($sco
 		$scope.creatingAddress.show_modal = false;
 		if (!$scope.creatingAddress.error) {
 			window.location.replace(window.location.href);
+		} else {
+			$scope.creatingAddress.show_form = true;
 		}
 	}
 
 	$scope.dismissUpdatingAddressMessage = function() {
 		$scope.updatingAddress.show_modal = false;
 		if (!$scope.updatingAddress.error) {
+			window.location.replace(window.location.href);
+		}
+	}
+
+	$scope.dismissCreatingCreditCardMessage = function() {
+		$scope.creatingCreditCard.show_modal = false;
+		if (!$scope.creatingCreditCard.error) {
+			window.location.replace(window.location.href);
+		} else {
+			$scope.creatingCreditCard.show_form = true;
+		}
+	}
+
+	$scope.dismissUpdatingCreditCardMessage = function() {
+		$scope.updatingCreditCard.show_modal = false;
+		if (!$scope.updatingCreditCard.error) {
 			window.location.replace(window.location.href);
 		}
 	}
@@ -619,7 +800,7 @@ angular.module('userPageApp', []).controller('userPageController', function($sco
 			return {
 				closingFunction: $scope.finishEditBirthday,
 				parameter: JSONParameter,
-				error: !(/^((19[0-9]{2})|(2[0-9]{3}))-((0[0-9])|(1[0-2]))-(([0-2][0-9])|(3[01]))$/).test($scope.update.birthDate)
+				error: !(/^((19[0-9]{2})|(2[0-9]{3}))-((0[0-9])|(1[0-2]))-((0[1-9])|([1-2][0-9])|(3[01]))$/).test($scope.update.birthDate)
 			};
 		}
 		if ($scope.showEditGender){
@@ -691,10 +872,75 @@ angular.module('userPageApp', []).controller('userPageController', function($sco
 				return "El código postal debe ser una cadena de caracteres alfanuméricos, con una longitud de hasta 10 caracteres";
 			case 123:
 				return "El teléfono debe ser ser una cadena de caracteres alfanuméricos y especiales, con una longitud de hasta 25 caracteres";
+			case 134:
+				return "Tarjeta de crédito inválida";
+			case 135:
+				return "El número es inválido";
+			case 136:
+				return "La fecha de expiración es inválida";
+			case 137:
+				return "El código de seguridad es inválido"
 			case 201:
 				return "Ya existe un usuario con el documento " + "\"" + dni + "\"";
+			case 203:
+				return "Ya existe dicha tarjeta de crédito";
 			default:
 				return " Algo salio mal";
+		}
+	}
+
+	function validateCard(action, action_info) {
+
+		var amexRegex = /^(34|37)[0-9]{13}$/;
+		var dinersRegex = /^(36)[0-9]{14}$/;
+		var masterCardRegex = /^(51|52|53)[0-9]{14}$/;
+		var visaRegex = /^4([0-9]{12}|[0-9]{15})$/;
+
+		if (amexRegex.test(action.number)) {
+			action_info.selected_card_name = action_info.card_names[2]; // American Express
+		
+		} else if (dinersRegex.test(action.number)) {
+			action_info.selected_card_name = action_info.card_names[3]; // Diners
+		
+		} else if (masterCardRegex.test(action.number)) {
+			action_info.selected_card_name = action_info.card_names[1]; // Master Card
+		
+		}
+		else if (visaRegex.test(action.number)) {
+			action_info.selected_card_name = action_info.card_names[0]; // Visa
+		
+		} else {
+			action_info.error = true;
+			action_info.hints.push("Tarjeta de crédito invalida. Por favor, revise el número")
+		}
+
+		var expDateRegex = /^((0[1-9])|1(0|1|2))[0-9]{2}$/;
+		if (!expDateRegex.test(action.expirationDate)) {
+			action_info.error = true;
+			action_info.hints.push("La fecha de vencimiento es inválida");
+		} else {
+			var actualYear = String(new Date().getFullYear()).substring(2,4);
+			var actualMonth = String(new Date().getMonth() + 1);
+			var actualDate = actualYear + actualMonth; // Reverse append to check efficiently if actual date is bigger than expiration date
+			var expMonth = action.expirationDate.substring(0,2);
+			var expYear = action.expirationDate.substring(2,4);
+			var expDate = expYear + expMonth; // Reverse append to check efficiently if actual date is bigger than expiration date
+			if (actualDate >= expDate) {
+				action_info.error = true;
+				action_info.hints.push("La fecha de vencimiento debe ser posterior a la fecha actual");
+			}
+		}
+
+		var secCodeRegex = /^[0-9]{3,4}$/;
+		if (!secCodeRegex.test(action.securityCode)) {
+			action_info.error = true;
+			action_info.hints.push("Código de seguridad inválido. Debe ser un número de 4 cifras para American Express, o de 3 cifras para el resto de las tarjetas");
+		} else if (action.securityCode.length != 4 && action_info.selected_card_name == "American Express") {
+			action_info.error = true;
+			action_info.hints.push("Código de seguridad inválido. Debe ser un número de 4 cifras para American Express");
+		} else if (action.securityCode.length != 3 && action_info.selected_card_name != "American Express" && action_info.selected_card_name != null) {
+			action_info.error = true;
+			action_info.hints.push("Código de seguridad inválido. Debe ser un número de 3 cifras");
 		}
 	}
 
@@ -713,10 +959,10 @@ angular.module('userPageApp', []).controller('userPageController', function($sco
 		$scope.creatingAddress = {
 			show_form: false,
 			show_modal: false,
-			states:[],
+			states: $scope.states,
 			error: false,
 			message: null,
-			hints:[]
+			hints: []
 		}
 		
 		createAddress()
@@ -744,12 +990,11 @@ angular.module('userPageApp', []).controller('userPageController', function($sco
 		var id = $scope.updatingAddress.address_id;
 		$scope.updatingAddress = {
 			address_id: id,
-			show_form: false,
 			show_modal: false,
-			states:[],
+			states: $scope.states,
 			error: false,
 			message: null,
-			hints:[]
+			hints: []
 		}
 		updateAddress();
 	}
@@ -780,13 +1025,137 @@ angular.module('userPageApp', []).controller('userPageController', function($sco
 	}
 
 
+	$scope.addCreditCard = function() {
+		
+		$scope.creatingCreditCard.show_form = true;
+	}
+
+	$scope.closeAddCreditCardForm = function() {
+
+		$scope.creatingCreditCard.show_form = false;
+	}
+
+	$scope.applicateAddCreditCard = function() {
+
+		$scope.creatingCreditCard = {
+			show_form: false,
+			show_modal: false,
+			card_names:["Visa", "Master Card", "American Express", "Diners"],
+			selected_card_name: null,
+			error: false,
+			message: null,
+			hints: []
+		}
+		
+		$scope.closeAddCreditCardForm();
+		createCreditCard();
+	}
+
+	$scope.openEditCreditCard = function(card_id) {
+
+		var aux = $scope.allCreditCards.find(function(elem) {
+			return (elem.id == card_id);
+		});
+		for (var key in aux) {
+			$scope.updateCreditCard[String(key)] = aux[key];
+		}
+		$scope.updatingCreditCard.card_id = $scope.updateCreditCard.id;
+	}
+
+	$scope.closeEditCreditCard = function() {
+		$scope.updatingCreditCard.card_id = null;
+		$scope.updateCreditCard = {};
+	}
+
+	$scope.applicateEditCreditCard = function() {
+		var id = $scope.updatingCreditCard.card_id;
+		$scope.updatingCreditCard = {
+			card_id: id,
+			show_modal: false,
+			card_names:["Visa", "Master Card", "American Express", "Diners"],
+			selected_card_name: null,
+			error: false,
+			message: null,
+			hints:[]
+		}
+		updateCreditCard();
+	}
+
+	$scope.openDeleteCreditCard = function(card_id) {
+
+		$scope.deletingCreditCard.card_id = card_id;
+		$scope.deletingCreditCard.show_modal = true;
+		$scope.deletingCreditCard.whichCard = $scope.allCreditCards.find(function(elem) {
+			return (elem.id == card_id);
+		});
+	}
+
+	$scope.closeDeleteCreditCard = function() {
+		$scope.deletingCreditCard = {
+			card_id: null,
+			show_modal: false,
+			message: "¿Está seguro que desea eliminar la siguiente tarjeta de crédito?",
+			whichCard: null,
+			relaod: false
+		}
+	}
+
+	$scope.applicateDeleteCreditCard = function() {
+
+		deleteCreditCard();
+
+	}
+
+
+	// ************************
+
+
+
+
+
 
 	$scope.getProvinceById = function(province_id) {
 
-	 return $scope.creatingAddress.states.find(function(elem) {
+	 return $scope.states.find(function(elem) {
 
 			return (elem.stateId == province_id)
 		}).name;
+	}
+
+	$scope.giveMeMyBrand = function(card_number) {
+
+		var amexRegex = /^(34|37)[0-9]{13}$/;
+		var dinersRegex = /^(36)[0-9]{14}$/;
+		var masterCardRegex = /^(51|52|53)[0-9]{14}$/;
+		var visaRegex = /^4([0-9]{12}|[0-9]{15})$/;
+
+		if (amexRegex.test(card_number)) {
+			return "American Express";
+		} else if (dinersRegex.test(card_number)) {
+			return "Diners";
+		
+		} else if (masterCardRegex.test(card_number)) {
+			return "Master Card";
+		}
+		else if (visaRegex.test(card_number)) {
+			return "Visa";
+		} 
+	}
+
+	$scope.giveMeEncodedNumber = function(card_number) {
+
+		var l = card_number.length;
+		var aux = "";
+		for (var i = 0 ; i <= l - 4 ; i++) {
+			aux += "X";
+		}
+		return aux + " - " + card_number.substring(l-4,l);
+	}
+
+
+	$scope.giveMeFormatedDate = function(expDate) {
+
+		return expDate.substring(0,2) + " – " + expDate.substring(2,4);
 	}
 
 
@@ -810,6 +1179,7 @@ angular.module('userPageApp', []).controller('userPageController', function($sco
 		//getCart();
 		getAllStates();
 		getAllAddresses();
+		getAllCreditCards();
 	}
 });
 

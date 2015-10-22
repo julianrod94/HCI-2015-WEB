@@ -138,6 +138,15 @@
 	padding-left: 3em;
 }
 
+.add-credit-card-button {
+	padding-top: 1.5em;
+	padding-left: 5em;
+}
+
+.card-info-name {
+	font-weight: bold;
+}
+
 
 
 /* This only works with JavaScript, 

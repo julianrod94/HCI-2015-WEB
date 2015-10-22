@@ -52,7 +52,7 @@ angular.module('registerApp', []).controller('registerController', function($sco
 		var reIdentityCard =/(^[0-9]{2}\.[0-9]{3}\.[0-9]{3}$)|(^[0-9]{8}$)/;
 		var ok6 = reIdentityCard.test(identityCard);
 		var ok7 = email != null;
-		var reBirthdate = /^((19[0-9]{2})|(2[0-9]{3}))-((0[0-9])|(1[0-2]))-(([0-2][0-9])|(3[01]))$/;
+		var reBirthdate = /^((19[0-9]{2})|(2[0-9]{3}))-((0[0-9])|(1[0-2]))-((0[1-9])|([1-2][0-9])|(3[01]))$/;
 		var ok8 = reBirthdate.test(birthdate);
 		var ok9 = password == repeat;
 		var ok10 = terms;

@@ -450,6 +450,10 @@
 
 							        </div>
 							        <div class="tab-pane fade" id="Direcciones">
+
+							        	<div ng-if="allAddresses == null">
+							        		Usted no posee direcciones almacenadas en el sistema
+							        	</div>
 						        		
 
 
@@ -516,7 +520,7 @@
 							        					<div class="form-group">
 							        						<label>Provincia <span class="requerido">*</span></label>
 															<select class="form-control add-address-input" ng-model="updateAddress.province">
-							                                	<option ng-repeat="i in creatingAddress.states" ng-value="i.stateId">{{i.name}}</option>
+							                                	<option ng-repeat="i in states" ng-value="i.stateId">{{i.name}}</option>
 							                                </select>
 							                            </div>
 							                        </div>
@@ -617,7 +621,7 @@
 							        					<div class="form-group">
 							        						<label>Provincia <span class="requerido">*</span></label>
 															<select class="form-control add-address-input" ng-model="createAddress.province">
-							                                	<option ng-repeat="i in creatingAddress.states" ng-value="i.stateId">{{i.name}}</option>
+							                                	<option ng-repeat="i in states" ng-value="i.stateId">{{i.name}}</option>
 							                                </select>
 							                            </div>
 							                        </div>
@@ -666,7 +670,131 @@
 							        </div>
 
 							        <div class="tab-pane fade" id="Tarjetas">
-										Hola tarjetas
+
+							        	<div ng-if="allCreditCards == null">
+							        		Usted no posee tarjetas de crédito almacenadas en el sistema
+							        	</div>
+
+
+
+							        	<div class="addresses" ng-repeat="i in allCreditCards">
+							        		<div ng-show="i.id != updatingCreditCard.card_id")>
+								        		<p class="address-name"> {{giveMeMyBrand(i.number)}}
+								        			<a href ng-click="openDeleteCreditCard(i.id)">   <!-- Removes credit card -->
+									        			<span class="remove-field">
+									        				<span class="glyphicon glyphicon-remove" aria-hidden="true"></span> Eliminar
+									        			</span>
+								        			<a href ng-click="openEditCreditCard(i.id)"> <!-- Edits credit card -->   
+									        			<span class="edit-field edit-address">
+									        				<span class="glyphicon glyphicon-pencil" aria-hidden="true"></span> Editar
+									        			</span>
+									        		</a>
+								        		</p>
+								        		<p class="address-info"><span class="card-info-name">Numero: </span>{{giveMeEncodedNumber(i.number)}}</p>
+								        		<p class="address-info"><span class="card-info-name">Vencimiento: </span>{{giveMeFormatedDate(i.expirationDate)}}</p>
+											</div>
+											<div class="edit-form" ng-show="i.id == updatingCreditCard.card_id">
+								        		
+												<form role="form">
+								        		<div class="row">
+								        			<div class="col-md-4">
+							        					<div class="form-group">
+							        						<label>Número: <span class="requerido">*</span></label>
+							        						<input autofocus class="form-control add-address-input" ng-model="updateCreditCard.number">
+							        					</div>
+							        				</div>
+						        				</div>
+
+						        				<div class="row">
+						        					<div class="col-md-4">
+							        					<div class="form-group">
+							        						<label>Vencimiento: <span class="requerido">*</span></label>
+							        						<input class="form-control add-address-input" placeholder="MMAA" ng-model="updateCreditCard.expirationDate">
+							        					</div>
+							        				</div>
+							        			</div>
+							        			<div class="row">
+							        				<div class="col-md-4">
+							        					<div class="form-group">
+							        						<label>Código de seguridad: <span class="requerido">*</span></label>
+							        						<input class="form-control add-address-input" ng-model="updateCreditCard.securityCode">
+							        					</div>
+							        				</div>
+						        				</div>
+
+						        				<div class="row">
+						        					<div class="col-md-6">
+								        				<div class="add-address-form-buttons">
+								        					<button type="button" class="btn btn-primary" ng-click="closeEditCreditCard()">Cancelar</button>
+							        						<button type="button" class="btn btn-primary" ng-click="applicateEditCreditCard()">Aceptar</button>
+								        				</div>
+								        			</div>
+								        		</div>
+					        				</form>
+
+
+
+
+
+						        			</div>
+
+
+
+							        	</div>
+
+
+
+
+
+
+
+
+							        	<div class="add-address-button">
+								        	<button type="button" class="btn btn-primary" ng-click="addCreditCard()" ng-disabled="creatingCreditCard.show_form">Agregar tarjta de crédito</button>
+								        </div>
+										
+							        	<!-- Add Credit Card form -->
+						        		<div class="add-address-form" ng-show="creatingCreditCard.show_form">
+								        	<form role="form">
+								        		<div class="row">
+								        			<div class="col-md-4">
+							        					<div class="form-group">
+							        						<label>Número: <span class="requerido">*</span></label>
+							        						<input autofocus class="form-control add-address-input" ng-model="createCreditCard.number">
+							        					</div>
+							        				</div>
+						        				</div>
+
+						        				<div class="row">
+						        					<div class="col-md-4">
+							        					<div class="form-group">
+							        						<label>Vencimiento: <span class="requerido">*</span></label>
+							        						<input class="form-control add-address-input" placeholder="MMAA" ng-model="createCreditCard.expirationDate">
+							        					</div>
+							        				</div>
+							        			</div>
+							        			<div class="row">
+							        				<div class="col-md-4">
+							        					<div class="form-group">
+							        						<label>Código de seguridad:</label>
+							        						<input class="form-control add-address-input" ng-model="createCreditCard.securityCode">
+							        					</div>
+							        				</div>
+						        				</div>
+
+						        				<div class="row">
+						        					<div class="col-md-6">
+								        				<div class="add-credit-card-button">
+								        					<button type="button" class="btn btn-primary" ng-click="closeAddCreditCardForm()">Cancelar</button>
+							        						<button type="button" class="btn btn-primary" ng-click="applicateAddCreditCard()">Aceptar</button>
+								        				</div>
+								        			</div>
+								        		</div>
+					        				</form>
+										</div>
+
+
+
 			
 									</div>
 
@@ -760,6 +888,63 @@
 									</div>
 
 
+									<!-- Creating credit card modal -->
+									<div modal-show modal-visible="creatingCreditCard.show_modal" class="modal fade" role="dialog" aria-labelledby="add-credit-card-modal-Label">
+									  	<div class="modal-dialog" role="document">
+									    	<div class="modal-content">
+									      		<div class="modal-header">
+									        		<button type="button" class="close" data-dismiss="modal" ng-click="dismissCreatingAddressMessage()" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+									        		<h4 class="modal-title">{{creatingCreditCard.message}}</h4>
+									      		</div>
+										      	<div class="modal-body" id="add-credit-card-body">
+											        <p ng-repeat="i in creatingCreditCard.hints"> {{ i }} <p>
+										      	</div>
+										      	<div class="modal-footer">
+										        	<button autofocus type="button" class="btn btn-default" data-dismiss="modal" data-target="add-credit-card-modal" ng-click="dismissCreatingCreditCardMessage()">Aceptar</button>
+										      	</div>
+									    	</div>
+									  	</div>
+									</div>
+
+									<!-- Updating credit card modal -->
+									<div modal-show modal-visible="updatingCreditCard.show_modal" class="modal fade" role="dialog" aria-labelledby="update-credit-card-modal-Label">
+									  	<div class="modal-dialog" role="document">
+									    	<div class="modal-content">
+									      		<div class="modal-header">
+									        		<button type="button" class="close" data-dismiss="modal" ng-click="dismissUpdatingCreditCardMessage()" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+									        		<h4 class="modal-title">{{updatingCreditCard.message}}</h4>
+									      		</div>
+										      	<div class="modal-body" id="update-credit-card-body">
+											        <p ng-repeat="i in updatingCreditCard.hints"> {{ i }} <p>
+										      	</div>
+										      	<div class="modal-footer">
+										        	<button autofocus type="button" class="btn btn-default" data-dismiss="modal" data-target="update-credit-card-modal" ng-click="dismissUpdatingCreditCardMessage()">Aceptar</button>
+										      	</div>
+									    	</div>
+									  	</div>
+									</div>
+
+									<!-- Deleting credit card modal -->
+									<div modal-show modal-visible="deletingCreditCard.show_modal" class="modal fade" role="dialog" aria-labelledby="delete-credit-card-modal-Label">
+									  	<div class="modal-dialog" role="document">
+									    	<div class="modal-content">
+									      		<div class="modal-header">
+									        		<button type="button" class="close" data-dismiss="modal" ng-click="closeDeleteCreditCard()" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+									        		<h4 class="modal-title">{{deletingCreditCard.message}}</h4>
+									      		</div>
+									      		<p class="address-name delete-modal-info"> {{giveMeMyBrand(deletingCreditCard.whichCard.number)}}</p>
+									      		<p class="address-info delete-modal-info"><span class="card-info-name">Numero: </span>{{giveMeEncodedNumber(deletingCreditCard.whichCard.number)}}</p>
+								        		<p class="address-info delete-modal-info"><span class="card-info-name">Vencimiento: </span>{{giveMeFormatedDate(deletingCreditCard.whichCard.expirationDate)}}</p>
+										      	
+										      	<div class="modal-footer">
+										      		<button autofocus type="button" class="btn btn-default" data-dismiss="modal" data-target="delete-credit-card-modal" ng-click="closeDeleteCreditCard()">Cancelar</button>
+										        	<button autofocus type="button" class="btn btn-default" data-dismiss="modal" data-target="delete-credit-card-modal" ng-click="applicateDeleteCreditCard()">Aceptar</button>
+										      	</div>
+									    	</div>
+									  	</div>
+									</div>
+
+
 
 						    </div>
 						</div>
@@ -785,7 +970,7 @@
 	<br>
 	<div ng-app=""> 
 		<div ng-include="'footer.html'"></div> <!-- Import's footer -->
-		</div>
+	</div>
 
 
 </body>
