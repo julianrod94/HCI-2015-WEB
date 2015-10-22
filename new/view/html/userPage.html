@@ -95,17 +95,17 @@
 									<div class="row cart-line" ng-repeat="i in cart.items">
 										<p>
 											<a href ng-click="">   <!-- Removes item -->
-							        			<span class="remove-field">
-							        				<span class="glyphicon glyphicon-remove" aria-hidden="true"></span> Eliminar
-							        			</span>
-							        		</a>
-						        			<a href ng-click="openEditAddress(i.id)"> <!-- Edits item -->   
-							        			<span class="edit-field edit-address">
-							        				<span class="glyphicon glyphicon-pencil" aria-hidden="true"></span> Editar
-							        			</span>
-							        		</a>
-							        	</p>
-							        	<p>
+												<span class="remove-field">
+													<span class="glyphicon glyphicon-remove" aria-hidden="true"></span> Eliminar
+												</span>
+											</a>
+											<a href ng-click="openEditAddress(i.id)"> <!-- Edits item -->   
+												<span class="edit-field edit-address">
+													<span class="glyphicon glyphicon-pencil" aria-hidden="true"></span> Editar
+												</span>
+											</a>
+										</p>
+										<p>
 											<div class ="col-md-2">
 												<img ng-src={{i.product.imageUrl}} class="cart-image"/>
 											</div>
@@ -119,15 +119,15 @@
 
 											<div class="col-md-4">
 												<span class="price-per-unit"> {{i.quantity}} x ${{i.price}} <span>
-												<h3>${{i.quantity * i.price}}</h3>
-											</div>
-										</p>
+													<h3>${{i.quantity * i.price}}</h3>
+												</div>
+											</p>
+										</div>
 									</div>
-								</div>
 
-								<div class="cart-content" ng-show="cart.items.length == 0">
-									Actualmente no tiene productos en el carrito
-								</div>
+									<div class="cart-content" ng-show="cart.items.length == 0">
+										Actualmente no tiene productos en el carrito
+									</div>
 
 								</div>
 								<hr>
@@ -234,551 +234,551 @@
 									<li role="presentation"><a href="#Compras" data-toggle="pill">Compras</a></li>
 								</ul>
 								<div class="tab-content">
-							    	<div class="tab-pane fade active in" id="Personales">
-							        		
-							        		<!-- nombre -->
-							        		<div class ="user-field">
-							        			<div ng-show="!showEditName">
-								        			<span class="user-field-name">Nombre: </span>
-								        			{{toTitleCase(account.firstName)}}
-								        			<a href ng-click="editName()">
-									        			<span class="edit-field">
-									        				<span class="glyphicon glyphicon-pencil" aria-hidden="true"></span> Editar
-									        			</span>
-									        		</a>
-								        		</div>
-								        		<div class="edit-form" ng-show="showEditName">
-							        				<form role="form">
-							        					<div class="form-group">
-							        						<label>Nombre:</label>
-							        						<input class="form-control edit-form-input" ng-model="update.name">
-							        					</div>
-							        					<button type="button" class="btn btn-primary" ng-click="finishEditName()">Cancelar</button>
-							        					<button type="button" class="btn btn-primary" ng-click="applicateEdit()">Aceptar</button>
-							        				</form>
-							        			</div>
+									<div class="tab-pane fade active in" id="Personales">
+										
+										<!-- nombre -->
+										<div class ="user-field">
+											<div ng-show="!showEditName">
+												<span class="user-field-name">Nombre: </span>
+												{{toTitleCase(account.firstName)}}
+												<a href ng-click="editName()">
+													<span class="edit-field">
+														<span class="glyphicon glyphicon-pencil" aria-hidden="true"></span> Editar
+													</span>
+												</a>
+											</div>
+											<div class="edit-form" ng-show="showEditName">
+												<form role="form">
+													<div class="form-group">
+														<label>Nombre:</label>
+														<input class="form-control edit-form-input" ng-model="update.name">
+													</div>
+													<button type="button" class="btn btn-primary" ng-click="finishEditName()">Cancelar</button>
+													<button type="button" class="btn btn-primary" ng-click="applicateEdit()">Aceptar</button>
+												</form>
+											</div>
 
-							        		</div>
+										</div>
 
-							        		<!-- apellido -->
-          									<div class ="user-field">
-          										<div ng-show="!showEditLastName">
-	          										<span class="user-field-name">Apellido:</span>
-	          										{{ toTitleCase(account.lastName) }}
-	          										<a href ng-click="editLastName()">
-		          										<span class="edit-field">
-									        				<span class="glyphicon glyphicon-pencil" aria-hidden="true"></span> Editar
-									        			</span>
-									        		</a>
-									        	</div>
-							        			<div class="edit-form" ng-show="showEditLastName">
-							        				<form role="form">
-							        					<div class="form-group">
-							        						<label>Apellido: </label>
-							        						<input class="form-control edit-form-input" ng-model="update.lastName">
-							        					</div>
-							        					<button type="button" class="btn btn-primary" ng-click="finishEditLastName()">Cancelar</button>
-							        					<button type="button" class="btn btn-primary" ng-click="applicateEdit()">Aceptar</button>
-							        				</form>
-							        			</div>
-
-
-          									</div>
-
-          									<!-- Nacimiento -->
-									        <div class ="user-field">
-									        	<div ng-show="!showEditBirthday">
-										        	<span class="user-field-name">Fecha de nacimiento: </span>
-										        	{{account.birthDate}}
-										        	<a href ng-click="editBirthday()">
-											        	<span class="edit-field">
-									        				<span class="glyphicon glyphicon-pencil" aria-hidden="true"></span> Editar
-									        			</span>
-									        		</a>
-								        		</div>
-								        		<div class="edit-form" ng-show="showEditBirthday">
-									        		<form role="form">
-							        					<div class="form-group">
-							        						<label>Fecha de nacimiento: </label>
-							        						<input class="form-control edit-form-input" ng-model="update.birthDate">
-							        					</div>
-							        					<button type="button" class="btn btn-primary" ng-click="finishEditBirthday()">Cancelar</button>
-							        					<button type="button" class="btn btn-primary" ng-click="applicateEdit()">Aceptar</button>
-							        				</form>
-							        			</div>
-									        </div>
-
-									        <!-- Genero -->
-									        <div class ="user-field">
-									        	<div ng-show="!showEditGender">
-										        	<span class="user-field-name">Sexo: </span>
-										        	{{ (account.gender =='M') ? "Masculino" : "Femenino"  }}
-										        	<a href ng-click="editGender()">
-											        	<span class="edit-field">
-									        				<span class="glyphicon glyphicon-pencil" aria-hidden="true"></span> Editar
-									        			</span>
-									        		</a>
-								        		</div>
-								        		<div class="edit-form" ng-show="showEditGender">
-									        		<form role="form">
-							        					<div class="form-group">
-							        						<label>Género</label>
-															<select class="form-control edit-form-input" ng-model="update.gender">
-							                                	<option value="M">Masculino</option>
-							                                	<option value="F">Femenino</option>
-							                                </select>
-							                            </div>
-							                            <button type="button" class="btn btn-primary" ng-click="finishEditGender()">Cancelar</button>
-							        					<button type="button" class="btn btn-primary" ng-click="applicateEdit()">Aceptar</button>
-							        				</form>
-							        			</div>
-									        </div>
-
-									        <div class ="user-field">
-									        	<div ng-show="!showEditIdCard">
-										        	<span class="user-field-name">Documento: </span>
-										        	{{ account.identityCard }}
-										        	<a href ng-click="editIdCard()">
-											        	<span class="edit-field">
-									        				<span class="glyphicon glyphicon-pencil" aria-hidden="true"></span> Editar
-									        			</span>
-									        		</a>
-								        		</div>
-								        		<div class="edit-form" ng-show="showEditIdCard">
-									        		<form role="form">
-							        					<div class="form-group">
-							        						<label>Documento: </label>
-							        						<input type="text" class="form-control edit-form-input" ng-model="update.idCard">
-							        					</div>
-							        					<button type="button" class="btn btn-primary" ng-click="finishEditIdCard()">Cancelar</button>
-							        					<button type="button" class="btn btn-primary" ng-click="applicateEdit()">Aceptar</button>
-							        				</form>
-							        			</div>
-
-									        </div>
-							        
+										<!-- apellido -->
+										<div class ="user-field">
+											<div ng-show="!showEditLastName">
+												<span class="user-field-name">Apellido:</span>
+												{{ toTitleCase(account.lastName) }}
+												<a href ng-click="editLastName()">
+													<span class="edit-field">
+														<span class="glyphicon glyphicon-pencil" aria-hidden="true"></span> Editar
+													</span>
+												</a>
+											</div>
+											<div class="edit-form" ng-show="showEditLastName">
+												<form role="form">
+													<div class="form-group">
+														<label>Apellido: </label>
+														<input class="form-control edit-form-input" ng-model="update.lastName">
+													</div>
+													<button type="button" class="btn btn-primary" ng-click="finishEditLastName()">Cancelar</button>
+													<button type="button" class="btn btn-primary" ng-click="applicateEdit()">Aceptar</button>
+												</form>
+											</div>
 
 
+										</div>
 
-							        </div>
-							        <div class="tab-pane fade" id="InfoCuenta">
+										<!-- Nacimiento -->
+										<div class ="user-field">
+											<div ng-show="!showEditBirthday">
+												<span class="user-field-name">Fecha de nacimiento: </span>
+												{{account.birthDate}}
+												<a href ng-click="editBirthday()">
+													<span class="edit-field">
+														<span class="glyphicon glyphicon-pencil" aria-hidden="true"></span> Editar
+													</span>
+												</a>
+											</div>
+											<div class="edit-form" ng-show="showEditBirthday">
+												<form role="form">
+													<div class="form-group">
+														<label>Fecha de nacimiento: </label>
+														<input class="form-control edit-form-input" ng-model="update.birthDate">
+													</div>
+													<button type="button" class="btn btn-primary" ng-click="finishEditBirthday()">Cancelar</button>
+													<button type="button" class="btn btn-primary" ng-click="applicateEdit()">Aceptar</button>
+												</form>
+											</div>
+										</div>
 
-							        	<!-- User (can't change) -->
-							    		<div class ="user-field">
-						        			<span class="user-field-name">Usuario: </span>
-						        			{{account.username}}
-							        	</div>
+										<!-- Genero -->
+										<div class ="user-field">
+											<div ng-show="!showEditGender">
+												<span class="user-field-name">Sexo: </span>
+												{{ (account.gender =='M') ? "Masculino" : "Femenino"  }}
+												<a href ng-click="editGender()">
+													<span class="edit-field">
+														<span class="glyphicon glyphicon-pencil" aria-hidden="true"></span> Editar
+													</span>
+												</a>
+											</div>
+											<div class="edit-form" ng-show="showEditGender">
+												<form role="form">
+													<div class="form-group">
+														<label>Género</label>
+														<select class="form-control edit-form-input" ng-model="update.gender">
+															<option value="M">Masculino</option>
+															<option value="F">Femenino</option>
+														</select>
+													</div>
+													<button type="button" class="btn btn-primary" ng-click="finishEditGender()">Cancelar</button>
+													<button type="button" class="btn btn-primary" ng-click="applicateEdit()">Aceptar</button>
+												</form>
+											</div>
+										</div>
 
-							        	<!-- e-Mail -->
-							        	<div class ="user-field">
-							        		<div ng-show="!showEditMail">
-							        			<span class="user-field-name">e-Mail: </span>
-							        			{{account.email}}
-							        			<a href ng-click="editMail()">  
-								        			<span class="edit-field">
-								        				<span class="glyphicon glyphicon-pencil" aria-hidden="true"></span> Editar
-								        			</span>
-								        		</a>
-							        		</div>
-							        		<div class="edit-form" ng-show="showEditMail">
-								        		<form role="form">
-						        					<div class="form-group">
-						        						<label>e-Mail: </label>
-						        						<input type="email" class="form-control edit-form-input" ng-model="update.email">
-						        					</div>
-						        					<button type="button" class="btn btn-primary" ng-click="finishEditMail()">Cancelar</button>
-						        					<button type="button" class="btn btn-primary" ng-click="applicateEdit()">Aceptar</button>
-						        				</form>
-						        			</div>
-						        		</div>
+										<div class ="user-field">
+											<div ng-show="!showEditIdCard">
+												<span class="user-field-name">Documento: </span>
+												{{ account.identityCard }}
+												<a href ng-click="editIdCard()">
+													<span class="edit-field">
+														<span class="glyphicon glyphicon-pencil" aria-hidden="true"></span> Editar
+													</span>
+												</a>
+											</div>
+											<div class="edit-form" ng-show="showEditIdCard">
+												<form role="form">
+													<div class="form-group">
+														<label>Documento: </label>
+														<input type="text" class="form-control edit-form-input" ng-model="update.idCard">
+													</div>
+													<button type="button" class="btn btn-primary" ng-click="finishEditIdCard()">Cancelar</button>
+													<button type="button" class="btn btn-primary" ng-click="applicateEdit()">Aceptar</button>
+												</form>
+											</div>
 
-						        		<!-- Contraseña -->
-						        		<div class ="user-field">
-						        			<div ng-show="!showEditPassword">
-							        			<span class="user-field-name">Contraseña: </span>
-							        			{{passwordFake}}
-							        			<a href ng-click="editPassword()">   
-								        			<span class="edit-field">
-								        				<span class="glyphicon glyphicon-pencil" aria-hidden="true"></span> Editar
-								        			</span>
-								        		</a>
-							        		</div>
-							        		<div class="edit-form" ng-show="showEditPassword">
-								        		<form role="form">
-						        					<div class="form-group">
-						        						<label>Contraseña actual: </label>
-						        						<input type="password" class="form-control edit-form-input" ng-model="update.passwordOld" placeholder="Ingrese su contraseña actual...">
-						        					</div>
-						        					<div class="form-group">
-						        						<label>Contraseña nueva: </label>
-						        						<input type="password" class="form-control edit-form-input" ng-model="update.passwordNew"placeholder="Ingrese la contraseña nueva...">
-						        					</div>
-						        					<div class="form-group">
-						        						<label>Repetir contraseña: </label>
-						        						<input type="password" class="form-control edit-form-input" ng-model="update.passwordRepeat" placeholder="Repita la contraseña...">
-						        					</div>
-						        					<button type="button" class="btn btn-primary" ng-click="finishEditPassword()">Cancelar</button>
-						        					<button type="button" class="btn btn-primary" ng-click="applicateEditPassword()">Aceptar</button>
-						        				</form>
-						        			</div>
-
-						        		</div>
-
-							        </div>
-							        <div class="tab-pane fade" id="Direcciones">
-
-							        	<div ng-if="allAddresses == null">
-							        		Usted no posee direcciones almacenadas en el sistema
-							        	</div>
-						        		
+										</div>
+										
 
 
-							        	<div class="addresses" ng-repeat="i in allAddresses" ng-show="i.deleted == 'F'">
-							        		<div ng-show="i.id != updatingAddress.address_id")>
-								        		<p class="address-name"> {{i.name}}
-								        			<a href ng-click="openDeleteAddress(i.id)">   <!-- Removes address -->
-									        			<span class="remove-field">
-									        				<span class="glyphicon glyphicon-remove" aria-hidden="true"></span> Eliminar
-									        			</span>
-									        		</a>
-								        			<a href ng-click="openEditAddress(i.id)"> <!-- Edits address -->   
-									        			<span class="edit-field edit-address">
-									        				<span class="glyphicon glyphicon-pencil" aria-hidden="true"></span> Editar
-									        			</span>
-									        		</a>
-								        		</p>
-								        		<p class="address-info">{{i.street + " " + i.number + ((i.floor != null || i.gate != null) ?  (" - " + i.floor + " " + i.gate) : "")}}</p> 
-								        		<p class="address-info">{{ (i.city != null ? (i.city + ", ") : "") + getProvinceById(i.province) + " (CP:" + i.zipCode + ")" }}</p>
+
+									</div>
+									<div class="tab-pane fade" id="InfoCuenta">
+
+										<!-- User (can't change) -->
+										<div class ="user-field">
+											<span class="user-field-name">Usuario: </span>
+											{{account.username}}
+										</div>
+
+										<!-- e-Mail -->
+										<div class ="user-field">
+											<div ng-show="!showEditMail">
+												<span class="user-field-name">e-Mail: </span>
+												{{account.email}}
+												<a href ng-click="editMail()">  
+													<span class="edit-field">
+														<span class="glyphicon glyphicon-pencil" aria-hidden="true"></span> Editar
+													</span>
+												</a>
+											</div>
+											<div class="edit-form" ng-show="showEditMail">
+												<form role="form">
+													<div class="form-group">
+														<label>e-Mail: </label>
+														<input type="email" class="form-control edit-form-input" ng-model="update.email">
+													</div>
+													<button type="button" class="btn btn-primary" ng-click="finishEditMail()">Cancelar</button>
+													<button type="button" class="btn btn-primary" ng-click="applicateEdit()">Aceptar</button>
+												</form>
+											</div>
+										</div>
+
+										<!-- Contraseña -->
+										<div class ="user-field">
+											<div ng-show="!showEditPassword">
+												<span class="user-field-name">Contraseña: </span>
+												{{passwordFake}}
+												<a href ng-click="editPassword()">   
+													<span class="edit-field">
+														<span class="glyphicon glyphicon-pencil" aria-hidden="true"></span> Editar
+													</span>
+												</a>
+											</div>
+											<div class="edit-form" ng-show="showEditPassword">
+												<form role="form">
+													<div class="form-group">
+														<label>Contraseña actual: </label>
+														<input type="password" class="form-control edit-form-input" ng-model="update.passwordOld" placeholder="Ingrese su contraseña actual...">
+													</div>
+													<div class="form-group">
+														<label>Contraseña nueva: </label>
+														<input type="password" class="form-control edit-form-input" ng-model="update.passwordNew"placeholder="Ingrese la contraseña nueva...">
+													</div>
+													<div class="form-group">
+														<label>Repetir contraseña: </label>
+														<input type="password" class="form-control edit-form-input" ng-model="update.passwordRepeat" placeholder="Repita la contraseña...">
+													</div>
+													<button type="button" class="btn btn-primary" ng-click="finishEditPassword()">Cancelar</button>
+													<button type="button" class="btn btn-primary" ng-click="applicateEditPassword()">Aceptar</button>
+												</form>
+											</div>
+
+										</div>
+
+									</div>
+									<div class="tab-pane fade" id="Direcciones">
+
+										<div ng-if="allAddresses == null">
+											Usted no posee direcciones almacenadas en el sistema
+										</div>
+										
+
+
+										<div class="addresses" ng-repeat="i in allAddresses" ng-show="i.deleted == 'F'">
+											<div ng-show="i.id != updatingAddress.address_id")>
+												<p class="address-name"> {{i.name}}
+													<a href ng-click="openDeleteAddress(i.id)">   <!-- Removes address -->
+														<span class="remove-field">
+															<span class="glyphicon glyphicon-remove" aria-hidden="true"></span> Eliminar
+														</span>
+													</a>
+													<a href ng-click="openEditAddress(i.id)"> <!-- Edits address -->   
+														<span class="edit-field edit-address">
+															<span class="glyphicon glyphicon-pencil" aria-hidden="true"></span> Editar
+														</span>
+													</a>
+												</p>
+												<p class="address-info">{{i.street + " " + i.number + ((i.floor != null || i.gate != null) ?  (" - " + i.floor + " " + i.gate) : "")}}</p> 
+												<p class="address-info">{{ (i.city != null ? (i.city + ", ") : "") + getProvinceById(i.province) + " (CP:" + i.zipCode + ")" }}</p>
 												<p class="address-info"><span class="address-info-name">Telefono: </span>{{i.phoneNumber}}</p>
 											</div>
 											<div class="edit-form" ng-show="i.id == updatingAddress.address_id">
-								        		
+												
 												<form role="form">
-								        		<div class="row">
-									        		<div class="col-md-4">
-							        					<div class="form-group">
-							        						<label>Nombre: <span class="requerido">*</span></label>
-							        						<input autofocus class="form-control add-address-input" ng-model="updateAddress.name">
-							        					</div>
-							        				</div>
-							        		
-								        			<div class="col-md-4">
-								        				<div class="form-group">
-							        						<label>Calle: <span class="requerido">*</span></label>
-							        						<input class="form-control add-address-input" ng-model="updateAddress.street">
-							        					</div>
-								        			</div>
-						        				</div>
+													<div class="row">
+														<div class="col-md-4">
+															<div class="form-group">
+																<label>Nombre: <span class="requerido">*</span></label>
+																<input autofocus class="form-control add-address-input" ng-model="updateAddress.name">
+															</div>
+														</div>
+														
+														<div class="col-md-4">
+															<div class="form-group">
+																<label>Calle: <span class="requerido">*</span></label>
+																<input class="form-control add-address-input" ng-model="updateAddress.street">
+															</div>
+														</div>
+													</div>
 
 
-						        				<div class="row">
-						        					<div class="col-md-4">
-							        					<div class="form-group">
-							        						<label>Número: <span class="requerido">*</span></label>
-							        						<input class="form-control add-address-input" ng-model="updateAddress.number">
-							        					</div>
-							        				</div>
-							        				<div class="col-md-2">
-							        					<div class="form-group">
-							        						<label>Piso:</label>
-							        						<input class="form-control add-address-input add-address-input-sm" ng-model="updateAddress.floor">
-							        					</div>
-							        				</div>
-							        				<div class="col-md-1">
-							        					<div class="form-group">
-							        						<label>Depto.:</label>
-							        						<input class="form-control add-address-input add-address-input-sm" ng-model="updateAddress.gate">
-							        					</div>
-							        				</div>
-						        				</div>
+													<div class="row">
+														<div class="col-md-4">
+															<div class="form-group">
+																<label>Número: <span class="requerido">*</span></label>
+																<input class="form-control add-address-input" ng-model="updateAddress.number">
+															</div>
+														</div>
+														<div class="col-md-2">
+															<div class="form-group">
+																<label>Piso:</label>
+																<input class="form-control add-address-input add-address-input-sm" ng-model="updateAddress.floor">
+															</div>
+														</div>
+														<div class="col-md-1">
+															<div class="form-group">
+																<label>Depto.:</label>
+																<input class="form-control add-address-input add-address-input-sm" ng-model="updateAddress.gate">
+															</div>
+														</div>
+													</div>
 
-						        				<div class="row">
-						        					<div class="col-md-4">
-							        					<div class="form-group">
-							        						<label>Provincia <span class="requerido">*</span></label>
-															<select class="form-control add-address-input" ng-model="updateAddress.province">
-							                                	<option ng-repeat="i in states" ng-value="i.stateId">{{i.name}}</option>
-							                                </select>
-							                            </div>
-							                        </div>
+													<div class="row">
+														<div class="col-md-4">
+															<div class="form-group">
+																<label>Provincia <span class="requerido">*</span></label>
+																<select class="form-control add-address-input" ng-model="updateAddress.province">
+																	<option ng-repeat="i in states" ng-value="i.stateId">{{i.name}}</option>
+																</select>
+															</div>
+														</div>
 
-							                        <div class="col-md-4">
-							        					<div class="form-group">
-							        						<label>Ciudad:</label>
-							        						<input class="form-control add-address-input" ng-model="updateAddress.city">
-							        					</div>
-							        				</div>
-						                        </div>
+														<div class="col-md-4">
+															<div class="form-group">
+																<label>Ciudad:</label>
+																<input class="form-control add-address-input" ng-model="updateAddress.city">
+															</div>
+														</div>
+													</div>
 
-						                        <div class="row">
-							        				<div class="col-md-4">
-							        					<div class="form-group">
-							        						<label>Código Postal: <span class="requerido">*</span></label>
-							        						<input class="form-control add-address-input" ng-model="updateAddress.zipCode">
-							        					</div>
-							        				</div>
+													<div class="row">
+														<div class="col-md-4">
+															<div class="form-group">
+																<label>Código Postal: <span class="requerido">*</span></label>
+																<input class="form-control add-address-input" ng-model="updateAddress.zipCode">
+															</div>
+														</div>
 
-							        				<div class="col-md-4">
-							        					<div class="form-group">
-							        						<label>Teléfono: <span class="requerido">*</span></label>
-							        						<input class="form-control add-address-input" ng-model="updateAddress.phoneNumber">
-							        					</div>
-							        				</div>
-						        				</div>
+														<div class="col-md-4">
+															<div class="form-group">
+																<label>Teléfono: <span class="requerido">*</span></label>
+																<input class="form-control add-address-input" ng-model="updateAddress.phoneNumber">
+															</div>
+														</div>
+													</div>
 
-						        				<div class="row">
-						        					<div class="col-md-4">
-						        					</div>
-						        					<div class="col-md-6">
-								        				<div class="add-address-form-buttons">
-								        					<button type="button" class="btn btn-primary" ng-click="closeEditAddressForm()">Cancelar</button>
-							        						<button type="button" class="btn btn-primary" ng-click="applicateEditAddress()">Aceptar</button>
+													<div class="row">
+														<div class="col-md-4">
+														</div>
+														<div class="col-md-6">
+															<div class="add-address-form-buttons">
+																<button type="button" class="btn btn-primary" ng-click="closeEditAddressForm()">Cancelar</button>
+																<button type="button" class="btn btn-primary" ng-click="applicateEditAddress()">Aceptar</button>
 
-								        				</div>
-								        			</div>
-								        		</div>
-					        				</form>
-
-
-
-
-
-						        			</div>
+															</div>
+														</div>
+													</div>
+												</form>
 
 
 
-							        	</div>
-							        	<div class="add-address-button">
-								        	<button type="button" class="btn btn-primary" ng-click="addAddress()" ng-disabled="creatingAddress.show_form">Agregar dirección</button>
-								        </div>
-
-						        		<!-- Add Address form -->
-						        		<div class="add-address-form" ng-show="creatingAddress.show_form">
-								        	<form role="form">
-								        		<div class="row">
-									        		<div class="col-md-4">
-							        					<div class="form-group">
-							        						<label>Nombre: <span class="requerido">*</span></label>
-							        						<input autofocus class="form-control add-address-input" ng-model="createAddress.name">
-							        					</div>
-							        				</div>
-							        		
-								        			<div class="col-md-4">
-								        				<div class="form-group">
-							        						<label>Calle: <span class="requerido">*</span></label>
-							        						<input class="form-control add-address-input" ng-model="createAddress.street">
-							        					</div>
-								        			</div>
-						        				</div>
 
 
-						        				<div class="row">
-						        					<div class="col-md-4">
-							        					<div class="form-group">
-							        						<label>Número: <span class="requerido">*</span></label>
-							        						<input class="form-control add-address-input" ng-model="createAddress.number">
-							        					</div>
-							        				</div>
-							        				<div class="col-md-2">
-							        					<div class="form-group">
-							        						<label>Piso:</label>
-							        						<input class="form-control add-address-input add-address-input-sm" ng-model="createAddress.floor">
-							        					</div>
-							        				</div>
-							        				<div class="col-md-1">
-							        					<div class="form-group">
-							        						<label>Depto.:</label>
-							        						<input class="form-control add-address-input add-address-input-sm" ng-model="createAddress.gate">
-							        					</div>
-							        				</div>
-						        				</div>
+											</div>
 
-						        				<div class="row">
-						        					<div class="col-md-4">
-							        					<div class="form-group">
-							        						<label>Provincia <span class="requerido">*</span></label>
+
+
+										</div>
+										<div class="add-address-button">
+											<button type="button" class="btn btn-primary" ng-click="addAddress()" ng-disabled="creatingAddress.show_form">Agregar dirección</button>
+										</div>
+
+										<!-- Add Address form -->
+										<div class="add-address-form" ng-show="creatingAddress.show_form">
+											<form role="form">
+												<div class="row">
+													<div class="col-md-4">
+														<div class="form-group">
+															<label>Nombre: <span class="requerido">*</span></label>
+															<input autofocus class="form-control add-address-input" ng-model="createAddress.name">
+														</div>
+													</div>
+													
+													<div class="col-md-4">
+														<div class="form-group">
+															<label>Calle: <span class="requerido">*</span></label>
+															<input class="form-control add-address-input" ng-model="createAddress.street">
+														</div>
+													</div>
+												</div>
+
+
+												<div class="row">
+													<div class="col-md-4">
+														<div class="form-group">
+															<label>Número: <span class="requerido">*</span></label>
+															<input class="form-control add-address-input" ng-model="createAddress.number">
+														</div>
+													</div>
+													<div class="col-md-2">
+														<div class="form-group">
+															<label>Piso:</label>
+															<input class="form-control add-address-input add-address-input-sm" ng-model="createAddress.floor">
+														</div>
+													</div>
+													<div class="col-md-1">
+														<div class="form-group">
+															<label>Depto.:</label>
+															<input class="form-control add-address-input add-address-input-sm" ng-model="createAddress.gate">
+														</div>
+													</div>
+												</div>
+
+												<div class="row">
+													<div class="col-md-4">
+														<div class="form-group">
+															<label>Provincia <span class="requerido">*</span></label>
 															<select class="form-control add-address-input" ng-model="createAddress.province">
-							                                	<option ng-repeat="i in states" ng-value="i.stateId">{{i.name}}</option>
-							                                </select>
-							                            </div>
-							                        </div>
+																<option ng-repeat="i in states" ng-value="i.stateId">{{i.name}}</option>
+															</select>
+														</div>
+													</div>
 
-							                        <div class="col-md-4">
-							        					<div class="form-group">
-							        						<label>Ciudad:</label>
-							        						<input class="form-control add-address-input" ng-model="createAddress.city">
-							        					</div>
-							        				</div>
-						                        </div>
+													<div class="col-md-4">
+														<div class="form-group">
+															<label>Ciudad:</label>
+															<input class="form-control add-address-input" ng-model="createAddress.city">
+														</div>
+													</div>
+												</div>
 
-						                        <div class="row">
-							        				<div class="col-md-4">
-							        					<div class="form-group">
-							        						<label>Código Postal: <span class="requerido">*</span></label>
-							        						<input class="form-control add-address-input" ng-model="createAddress.zipCode">
-							        					</div>
-							        				</div>
+												<div class="row">
+													<div class="col-md-4">
+														<div class="form-group">
+															<label>Código Postal: <span class="requerido">*</span></label>
+															<input class="form-control add-address-input" ng-model="createAddress.zipCode">
+														</div>
+													</div>
 
-							        				<div class="col-md-4">
-							        					<div class="form-group">
-							        						<label>Teléfono: <span class="requerido">*</span></label>
-							        						<input class="form-control add-address-input" ng-model="createAddress.phoneNumber">
-							        					</div>
-							        				</div>
-						        				</div>
+													<div class="col-md-4">
+														<div class="form-group">
+															<label>Teléfono: <span class="requerido">*</span></label>
+															<input class="form-control add-address-input" ng-model="createAddress.phoneNumber">
+														</div>
+													</div>
+												</div>
 
-						        				<div class="row">
-						        					<div class="col-md-4">
-						        					</div>
-						        					<div class="col-md-6">
-								        				<div class="add-address-form-buttons">
-								        					<button type="button" class="btn btn-primary" ng-click="closeAddAddressForm()">Cancelar</button>
-							        						<button type="button" class="btn btn-primary" ng-click="applicateAddAddress()">Aceptar</button>
+												<div class="row">
+													<div class="col-md-4">
+													</div>
+													<div class="col-md-6">
+														<div class="add-address-form-buttons">
+															<button type="button" class="btn btn-primary" ng-click="closeAddAddressForm()">Cancelar</button>
+															<button type="button" class="btn btn-primary" ng-click="applicateAddAddress()">Aceptar</button>
 
-								        				</div>
-								        			</div>
-								        		</div>
-					        				</form>
+														</div>
+													</div>
+												</div>
+											</form>
 										</div>
 
 
 										
 
-							        </div>
+									</div>
 
-							        <div class="tab-pane fade" id="Tarjetas">
+									<div class="tab-pane fade" id="Tarjetas">
 
-							        	<div ng-if="allCreditCards == null">
-							        		Usted no posee tarjetas de crédito almacenadas en el sistema
-							        	</div>
+										<div ng-if="allCreditCards == null">
+											Usted no posee tarjetas de crédito almacenadas en el sistema
+										</div>
 
 
 
-							        	<div class="addresses" ng-repeat="i in allCreditCards">
-							        		<div ng-show="i.id != updatingCreditCard.card_id")>
-								        		<p class="address-name"> {{giveMeMyBrand(i.number)}}
-								        			<a href ng-click="openDeleteCreditCard(i.id)">   <!-- Removes credit card -->
-									        			<span class="remove-field">
-									        				<span class="glyphicon glyphicon-remove" aria-hidden="true"></span> Eliminar
-									        			</span>
-									        		</a>
-								        			<a href ng-click="openEditCreditCard(i.id)"> <!-- Edits credit card -->   
-									        			<span class="edit-field edit-address">
-									        				<span class="glyphicon glyphicon-pencil" aria-hidden="true"></span> Editar
-									        			</span>
-									        		</a>
-								        		</p>
-								        		<p class="address-info"><span class="card-info-name">Numero: </span>{{giveMeEncodedNumber(i.number)}}</p>
-								        		<p class="address-info"><span class="card-info-name">Vencimiento: </span>{{giveMeFormatedDate(i.expirationDate)}}</p>
+										<div class="addresses" ng-repeat="i in allCreditCards">
+											<div ng-show="i.id != updatingCreditCard.card_id")>
+												<p class="address-name"> {{giveMeMyBrand(i.number)}}
+													<a href ng-click="openDeleteCreditCard(i.id)">   <!-- Removes credit card -->
+														<span class="remove-field">
+															<span class="glyphicon glyphicon-remove" aria-hidden="true"></span> Eliminar
+														</span>
+													</a>
+													<a href ng-click="openEditCreditCard(i.id)"> <!-- Edits credit card -->   
+														<span class="edit-field edit-address">
+															<span class="glyphicon glyphicon-pencil" aria-hidden="true"></span> Editar
+														</span>
+													</a>
+												</p>
+												<p class="address-info"><span class="card-info-name">Numero: </span>{{giveMeEncodedNumber(i.number)}}</p>
+												<p class="address-info"><span class="card-info-name">Vencimiento: </span>{{giveMeFormatedDate(i.expirationDate)}}</p>
 											</div>
 											<div class="edit-form" ng-show="i.id == updatingCreditCard.card_id">
-								        		
+												
 												<form role="form">
-								        		<div class="row">
-								        			<div class="col-md-4">
-							        					<div class="form-group">
-							        						<label>Número: <span class="requerido">*</span></label>
-							        						<input autofocus class="form-control add-address-input" ng-model="updateCreditCard.number">
-							        					</div>
-							        				</div>
-						        				</div>
+													<div class="row">
+														<div class="col-md-4">
+															<div class="form-group">
+																<label>Número: <span class="requerido">*</span></label>
+																<input autofocus class="form-control add-address-input" ng-model="updateCreditCard.number">
+															</div>
+														</div>
+													</div>
 
-						        				<div class="row">
-						        					<div class="col-md-4">
-							        					<div class="form-group">
-							        						<label>Vencimiento: <span class="requerido">*</span></label>
-							        						<input class="form-control add-address-input" placeholder="MMAA" ng-model="updateCreditCard.expirationDate">
-							        					</div>
-							        				</div>
-							        			</div>
-							        			<div class="row">
-							        				<div class="col-md-4">
-							        					<div class="form-group">
-							        						<label>Código de seguridad: <span class="requerido">*</span></label>
-							        						<input class="form-control add-address-input" ng-model="updateCreditCard.securityCode">
-							        					</div>
-							        				</div>
-						        				</div>
+													<div class="row">
+														<div class="col-md-4">
+															<div class="form-group">
+																<label>Vencimiento: <span class="requerido">*</span></label>
+																<input class="form-control add-address-input" placeholder="MMAA" ng-model="updateCreditCard.expirationDate">
+															</div>
+														</div>
+													</div>
+													<div class="row">
+														<div class="col-md-4">
+															<div class="form-group">
+																<label>Código de seguridad: <span class="requerido">*</span></label>
+																<input class="form-control add-address-input" ng-model="updateCreditCard.securityCode">
+															</div>
+														</div>
+													</div>
 
-						        				<div class="row">
-						        					<div class="col-md-6">
-								        				<div class="add-address-form-buttons">
-								        					<button type="button" class="btn btn-primary" ng-click="closeEditCreditCard()">Cancelar</button>
-							        						<button type="button" class="btn btn-primary" ng-click="applicateEditCreditCard()">Aceptar</button>
-								        				</div>
-								        			</div>
-								        		</div>
-					        				</form>
-
-
-
-
-
-						        			</div>
-
-
-
-							        	</div>
+													<div class="row">
+														<div class="col-md-6">
+															<div class="add-address-form-buttons">
+																<button type="button" class="btn btn-primary" ng-click="closeEditCreditCard()">Cancelar</button>
+																<button type="button" class="btn btn-primary" ng-click="applicateEditCreditCard()">Aceptar</button>
+															</div>
+														</div>
+													</div>
+												</form>
 
 
 
 
 
+											</div>
 
 
 
-							        	<div class="add-address-button">
-								        	<button type="button" class="btn btn-primary" ng-click="addCreditCard()" ng-disabled="creatingCreditCard.show_form">Agregar tarjta de crédito</button>
-								        </div>
-										
-							        	<!-- Add Credit Card form -->
-						        		<div class="add-address-form" ng-show="creatingCreditCard.show_form">
-								        	<form role="form">
-								        		<div class="row">
-								        			<div class="col-md-4">
-							        					<div class="form-group">
-							        						<label>Número: <span class="requerido">*</span></label>
-							        						<input autofocus class="form-control add-address-input" ng-model="createCreditCard.number">
-							        					</div>
-							        				</div>
-						        				</div>
-
-						        				<div class="row">
-						        					<div class="col-md-4">
-							        					<div class="form-group">
-							        						<label>Vencimiento: <span class="requerido">*</span></label>
-							        						<input class="form-control add-address-input" placeholder="MMAA" ng-model="createCreditCard.expirationDate">
-							        					</div>
-							        				</div>
-							        			</div>
-							        			<div class="row">
-							        				<div class="col-md-4">
-							        					<div class="form-group">
-							        						<label>Código de seguridad:</label>
-							        						<input class="form-control add-address-input" ng-model="createCreditCard.securityCode">
-							        					</div>
-							        				</div>
-						        				</div>
-
-						        				<div class="row">
-						        					<div class="col-md-6">
-								        				<div class="add-credit-card-button">
-								        					<button type="button" class="btn btn-primary" ng-click="closeAddCreditCardForm()">Cancelar</button>
-							        						<button type="button" class="btn btn-primary" ng-click="applicateAddCreditCard()">Aceptar</button>
-								        				</div>
-								        			</div>
-								        		</div>
-					        				</form>
 										</div>
 
 
 
-			
+
+
+
+
+
+										<div class="add-address-button">
+											<button type="button" class="btn btn-primary" ng-click="addCreditCard()" ng-disabled="creatingCreditCard.show_form">Agregar tarjta de crédito</button>
+										</div>
+										
+										<!-- Add Credit Card form -->
+										<div class="add-address-form" ng-show="creatingCreditCard.show_form">
+											<form role="form">
+												<div class="row">
+													<div class="col-md-4">
+														<div class="form-group">
+															<label>Número: <span class="requerido">*</span></label>
+															<input autofocus class="form-control add-address-input" ng-model="createCreditCard.number">
+														</div>
+													</div>
+												</div>
+
+												<div class="row">
+													<div class="col-md-4">
+														<div class="form-group">
+															<label>Vencimiento: <span class="requerido">*</span></label>
+															<input class="form-control add-address-input" placeholder="MMAA" ng-model="createCreditCard.expirationDate">
+														</div>
+													</div>
+												</div>
+												<div class="row">
+													<div class="col-md-4">
+														<div class="form-group">
+															<label>Código de seguridad:</label>
+															<input class="form-control add-address-input" ng-model="createCreditCard.securityCode">
+														</div>
+													</div>
+												</div>
+
+												<div class="row">
+													<div class="col-md-6">
+														<div class="add-credit-card-button">
+															<button type="button" class="btn btn-primary" ng-click="closeAddCreditCardForm()">Cancelar</button>
+															<button type="button" class="btn btn-primary" ng-click="applicateAddCreditCard()">Aceptar</button>
+														</div>
+													</div>
+												</div>
+											</form>
+										</div>
+
+
+
+										
 									</div>
 
 									<div class="tab-pane fade" id="Compras">
 										Hola compras
-			
+										
 									</div>
 
 
@@ -787,169 +787,169 @@
 
 
 
-							        <!-- Updating modal -->
+									<!-- Updating modal -->
 									<div modal-show modal-visible="updating.show_modal" class="modal fade" role="dialog" aria-labelledby="register-error-modal-Label">
-									  	<div class="modal-dialog" role="document">
-									    	<div class="modal-content">
-									      		<div class="modal-header">
-									        		<button type="button" class="close" data-dismiss="modal" ng-click="dismissMessage()" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-									        		<h4 class="modal-title">{{updating.message}}</h4>
-									      		</div>
-										      	<div class="modal-body" id="register-modal-body">
-											        <p> {{ updating.hint }} <p>
-										      	</div>
-										      	<div class="modal-footer">
-										        	<button autofocus type="button" class="btn btn-default" data-dismiss="modal" data-target="register-error-modal" ng-click="dismissMessage()">Aceptar</button>
-										      	</div>
-									    	</div>
-									  	</div>
+										<div class="modal-dialog" role="document">
+											<div class="modal-content">
+												<div class="modal-header">
+													<button type="button" class="close" data-dismiss="modal" ng-click="dismissMessage()" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+													<h4 class="modal-title">{{updating.message}}</h4>
+												</div>
+												<div class="modal-body" id="register-modal-body">
+													<p> {{ updating.hint }} <p>
+													</div>
+													<div class="modal-footer">
+														<button autofocus type="button" class="btn btn-default" data-dismiss="modal" data-target="register-error-modal" ng-click="dismissMessage()">Aceptar</button>
+													</div>
+												</div>
+											</div>
+										</div>
+
+										<!-- Creating address modal -->
+										<div modal-show modal-visible="creatingAddress.show_modal" class="modal fade" role="dialog" aria-labelledby="add-address-modal-Label">
+											<div class="modal-dialog" role="document">
+												<div class="modal-content">
+													<div class="modal-header">
+														<button type="button" class="close" data-dismiss="modal" ng-click="dismissCreatingAddressMessage()" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+														<h4 class="modal-title">{{creatingAddress.message}}</h4>
+													</div>
+													<div class="modal-body" id="add-address-body">
+														<p ng-repeat="i in creatingAddress.hints"> {{ i }} <p>
+														</div>
+														<div class="modal-footer">
+															<button autofocus type="button" class="btn btn-default" data-dismiss="modal" data-target="add-address-modal" ng-click="dismissCreatingAddressMessage()">Aceptar</button>
+														</div>
+													</div>
+												</div>
+											</div>
+
+
+											<!-- Updating address modal -->
+											<div modal-show modal-visible="updatingAddress.show_modal" class="modal fade" role="dialog" aria-labelledby="update-address-modal-Label">
+												<div class="modal-dialog" role="document">
+													<div class="modal-content">
+														<div class="modal-header">
+															<button type="button" class="close" data-dismiss="modal" ng-click="dismissUpdatingAddressMessage()" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+															<h4 class="modal-title">{{updatingAddress.message}}</h4>
+														</div>
+														<div class="modal-body" id="update-address-body">
+															<p ng-repeat="i in updatingAddress.hints"> {{ i }} <p>
+															</div>
+															<div class="modal-footer">
+																<button autofocus type="button" class="btn btn-default" data-dismiss="modal" data-target="update-address-modal" ng-click="dismissUpdatingAddressMessage()">Aceptar</button>
+															</div>
+														</div>
+													</div>
+												</div>
+
+												<!-- Deleting address modal -->
+												<div modal-show modal-visible="deletingAddress.show_modal" class="modal fade" role="dialog" aria-labelledby="delete-address-modal-Label">
+													<div class="modal-dialog" role="document">
+														<div class="modal-content">
+															<div class="modal-header">
+																<button type="button" class="close" data-dismiss="modal" ng-click="closeDeleteAddres()" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+																<h4 class="modal-title">{{deletingAddress.message}}</h4>
+															</div>
+															<p class="address-name delete-modal-info"> {{deletingAddress.whichAddress.name}}</p>
+															<p class="address-info delete-modal-info">{{deletingAddress.whichAddress.street + " " + deletingAddress.whichAddress.number + ((deletingAddress.whichAddress.floor != null || deletingAddress.whichAddress.gate != null) ?  (" - " + deletingAddress.whichAddress.floor + " " + deletingAddress.whichAddress.gate) : "")}}</p> 
+															
+															<p class="address-info delete-modal-info">{{ (deletingAddress.whichAddress.city != null ? (deletingAddress.whichAddress.city + ", ") : "") + getProvinceById(deletingAddress.whichAddress.province) + " (CP:" + deletingAddress.whichAddress.zipCode + ")" }}</p>
+															
+															<p class="address-info delete-modal-info"><span class="address-info-name">Telefono: </span>{{deletingAddress.whichAddress.phoneNumber}}</p>
+															
+															<div class="modal-footer">
+																<button autofocus type="button" class="btn btn-default" data-dismiss="modal" data-target="delete-address-modal" ng-click="closeDeleteAddres()">Cancelar</button>
+																<button autofocus type="button" class="btn btn-default" data-dismiss="modal" data-target="delete-address-modal" ng-click="applicateDeleteAddress()">Aceptar</button>
+															</div>
+														</div>
+													</div>
+												</div>
+
+
+												<!-- Creating credit card modal -->
+												<div modal-show modal-visible="creatingCreditCard.show_modal" class="modal fade" role="dialog" aria-labelledby="add-credit-card-modal-Label">
+													<div class="modal-dialog" role="document">
+														<div class="modal-content">
+															<div class="modal-header">
+																<button type="button" class="close" data-dismiss="modal" ng-click="dismissCreatingAddressMessage()" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+																<h4 class="modal-title">{{creatingCreditCard.message}}</h4>
+															</div>
+															<div class="modal-body" id="add-credit-card-body">
+																<p ng-repeat="i in creatingCreditCard.hints"> {{ i }} <p>
+																</div>
+																<div class="modal-footer">
+																	<button autofocus type="button" class="btn btn-default" data-dismiss="modal" data-target="add-credit-card-modal" ng-click="dismissCreatingCreditCardMessage()">Aceptar</button>
+																</div>
+															</div>
+														</div>
+													</div>
+
+													<!-- Updating credit card modal -->
+													<div modal-show modal-visible="updatingCreditCard.show_modal" class="modal fade" role="dialog" aria-labelledby="update-credit-card-modal-Label">
+														<div class="modal-dialog" role="document">
+															<div class="modal-content">
+																<div class="modal-header">
+																	<button type="button" class="close" data-dismiss="modal" ng-click="dismissUpdatingCreditCardMessage()" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+																	<h4 class="modal-title">{{updatingCreditCard.message}}</h4>
+																</div>
+																<div class="modal-body" id="update-credit-card-body">
+																	<p ng-repeat="i in updatingCreditCard.hints"> {{ i }} <p>
+																	</div>
+																	<div class="modal-footer">
+																		<button autofocus type="button" class="btn btn-default" data-dismiss="modal" data-target="update-credit-card-modal" ng-click="dismissUpdatingCreditCardMessage()">Aceptar</button>
+																	</div>
+																</div>
+															</div>
+														</div>
+
+														<!-- Deleting credit card modal -->
+														<div modal-show modal-visible="deletingCreditCard.show_modal" class="modal fade" role="dialog" aria-labelledby="delete-credit-card-modal-Label">
+															<div class="modal-dialog" role="document">
+																<div class="modal-content">
+																	<div class="modal-header">
+																		<button type="button" class="close" data-dismiss="modal" ng-click="closeDeleteCreditCard()" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+																		<h4 class="modal-title">{{deletingCreditCard.message}}</h4>
+																	</div>
+																	<p class="address-name delete-modal-info"> {{giveMeMyBrand(deletingCreditCard.whichCard.number)}}</p>
+																	<p class="address-info delete-modal-info"><span class="card-info-name">Numero: </span>{{giveMeEncodedNumber(deletingCreditCard.whichCard.number)}}</p>
+																	<p class="address-info delete-modal-info"><span class="card-info-name">Vencimiento: </span>{{giveMeFormatedDate(deletingCreditCard.whichCard.expirationDate)}}</p>
+																	
+																	<div class="modal-footer">
+																		<button autofocus type="button" class="btn btn-default" data-dismiss="modal" data-target="delete-credit-card-modal" ng-click="closeDeleteCreditCard()">Cancelar</button>
+																		<button autofocus type="button" class="btn btn-default" data-dismiss="modal" data-target="delete-credit-card-modal" ng-click="applicateDeleteCreditCard()">Aceptar</button>
+																	</div>
+																</div>
+															</div>
+														</div>
+
+
+
+													</div>
+												</div>
+											</div>
+										</div>
+
 									</div>
+								</div>
 
-									<!-- Creating address modal -->
-									<div modal-show modal-visible="creatingAddress.show_modal" class="modal fade" role="dialog" aria-labelledby="add-address-modal-Label">
-									  	<div class="modal-dialog" role="document">
-									    	<div class="modal-content">
-									      		<div class="modal-header">
-									        		<button type="button" class="close" data-dismiss="modal" ng-click="dismissCreatingAddressMessage()" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-									        		<h4 class="modal-title">{{creatingAddress.message}}</h4>
-									      		</div>
-										      	<div class="modal-body" id="add-address-body">
-											        <p ng-repeat="i in creatingAddress.hints"> {{ i }} <p>
-										      	</div>
-										      	<div class="modal-footer">
-										        	<button autofocus type="button" class="btn btn-default" data-dismiss="modal" data-target="add-address-modal" ng-click="dismissCreatingAddressMessage()">Aceptar</button>
-										      	</div>
-									    	</div>
-									  	</div>
-									</div>
+								<div class="col-md-2">
+									
+								</div>
+							</div>
 
 
-									<!-- Updating address modal -->
-									<div modal-show modal-visible="updatingAddress.show_modal" class="modal fade" role="dialog" aria-labelledby="update-address-modal-Label">
-									  	<div class="modal-dialog" role="document">
-									    	<div class="modal-content">
-									      		<div class="modal-header">
-									        		<button type="button" class="close" data-dismiss="modal" ng-click="dismissUpdatingAddressMessage()" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-									        		<h4 class="modal-title">{{updatingAddress.message}}</h4>
-									      		</div>
-										      	<div class="modal-body" id="update-address-body">
-											        <p ng-repeat="i in updatingAddress.hints"> {{ i }} <p>
-										      	</div>
-										      	<div class="modal-footer">
-										        	<button autofocus type="button" class="btn btn-default" data-dismiss="modal" data-target="update-address-modal" ng-click="dismissUpdatingAddressMessage()">Aceptar</button>
-										      	</div>
-									    	</div>
-									  	</div>
-									</div>
-
-									<!-- Deleting address modal -->
-									<div modal-show modal-visible="deletingAddress.show_modal" class="modal fade" role="dialog" aria-labelledby="delete-address-modal-Label">
-									  	<div class="modal-dialog" role="document">
-									    	<div class="modal-content">
-									      		<div class="modal-header">
-									        		<button type="button" class="close" data-dismiss="modal" ng-click="closeDeleteAddres()" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-									        		<h4 class="modal-title">{{deletingAddress.message}}</h4>
-									      		</div>
-									      		<p class="address-name delete-modal-info"> {{deletingAddress.whichAddress.name}}</p>
-										      	<p class="address-info delete-modal-info">{{deletingAddress.whichAddress.street + " " + deletingAddress.whichAddress.number + ((deletingAddress.whichAddress.floor != null || deletingAddress.whichAddress.gate != null) ?  (" - " + deletingAddress.whichAddress.floor + " " + deletingAddress.whichAddress.gate) : "")}}</p> 
-								        		
-								        		<p class="address-info delete-modal-info">{{ (deletingAddress.whichAddress.city != null ? (deletingAddress.whichAddress.city + ", ") : "") + getProvinceById(deletingAddress.whichAddress.province) + " (CP:" + deletingAddress.whichAddress.zipCode + ")" }}</p>
-												
-												<p class="address-info delete-modal-info"><span class="address-info-name">Telefono: </span>{{deletingAddress.whichAddress.phoneNumber}}</p>
-										      	
-										      	<div class="modal-footer">
-										      		<button autofocus type="button" class="btn btn-default" data-dismiss="modal" data-target="delete-address-modal" ng-click="closeDeleteAddres()">Cancelar</button>
-										        	<button autofocus type="button" class="btn btn-default" data-dismiss="modal" data-target="delete-address-modal" ng-click="applicateDeleteAddress()">Aceptar</button>
-										      	</div>
-									    	</div>
-									  	</div>
-									</div>
+							<br>
+							<br>
+							<br>
+							<br>
+							<br>
+							<br>
+							<br>
+							<br>
+							<div ng-app=""> 
+								<div ng-include="'footer.html'"></div> <!-- Import's footer -->
+							</div>
 
 
-									<!-- Creating credit card modal -->
-									<div modal-show modal-visible="creatingCreditCard.show_modal" class="modal fade" role="dialog" aria-labelledby="add-credit-card-modal-Label">
-									  	<div class="modal-dialog" role="document">
-									    	<div class="modal-content">
-									      		<div class="modal-header">
-									        		<button type="button" class="close" data-dismiss="modal" ng-click="dismissCreatingAddressMessage()" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-									        		<h4 class="modal-title">{{creatingCreditCard.message}}</h4>
-									      		</div>
-										      	<div class="modal-body" id="add-credit-card-body">
-											        <p ng-repeat="i in creatingCreditCard.hints"> {{ i }} <p>
-										      	</div>
-										      	<div class="modal-footer">
-										        	<button autofocus type="button" class="btn btn-default" data-dismiss="modal" data-target="add-credit-card-modal" ng-click="dismissCreatingCreditCardMessage()">Aceptar</button>
-										      	</div>
-									    	</div>
-									  	</div>
-									</div>
-
-									<!-- Updating credit card modal -->
-									<div modal-show modal-visible="updatingCreditCard.show_modal" class="modal fade" role="dialog" aria-labelledby="update-credit-card-modal-Label">
-									  	<div class="modal-dialog" role="document">
-									    	<div class="modal-content">
-									      		<div class="modal-header">
-									        		<button type="button" class="close" data-dismiss="modal" ng-click="dismissUpdatingCreditCardMessage()" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-									        		<h4 class="modal-title">{{updatingCreditCard.message}}</h4>
-									      		</div>
-										      	<div class="modal-body" id="update-credit-card-body">
-											        <p ng-repeat="i in updatingCreditCard.hints"> {{ i }} <p>
-										      	</div>
-										      	<div class="modal-footer">
-										        	<button autofocus type="button" class="btn btn-default" data-dismiss="modal" data-target="update-credit-card-modal" ng-click="dismissUpdatingCreditCardMessage()">Aceptar</button>
-										      	</div>
-									    	</div>
-									  	</div>
-									</div>
-
-									<!-- Deleting credit card modal -->
-									<div modal-show modal-visible="deletingCreditCard.show_modal" class="modal fade" role="dialog" aria-labelledby="delete-credit-card-modal-Label">
-									  	<div class="modal-dialog" role="document">
-									    	<div class="modal-content">
-									      		<div class="modal-header">
-									        		<button type="button" class="close" data-dismiss="modal" ng-click="closeDeleteCreditCard()" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-									        		<h4 class="modal-title">{{deletingCreditCard.message}}</h4>
-									      		</div>
-									      		<p class="address-name delete-modal-info"> {{giveMeMyBrand(deletingCreditCard.whichCard.number)}}</p>
-									      		<p class="address-info delete-modal-info"><span class="card-info-name">Numero: </span>{{giveMeEncodedNumber(deletingCreditCard.whichCard.number)}}</p>
-								        		<p class="address-info delete-modal-info"><span class="card-info-name">Vencimiento: </span>{{giveMeFormatedDate(deletingCreditCard.whichCard.expirationDate)}}</p>
-										      	
-										      	<div class="modal-footer">
-										      		<button autofocus type="button" class="btn btn-default" data-dismiss="modal" data-target="delete-credit-card-modal" ng-click="closeDeleteCreditCard()">Cancelar</button>
-										        	<button autofocus type="button" class="btn btn-default" data-dismiss="modal" data-target="delete-credit-card-modal" ng-click="applicateDeleteCreditCard()">Aceptar</button>
-										      	</div>
-									    	</div>
-									  	</div>
-									</div>
-
-
-
-						    </div>
-						</div>
-					</div>
-				</div>
-
-			</div>
-		</div>
-
-		<div class="col-md-2">
-			
-		</div>
-	</div>
-
-
-	<br>
-	<br>
-	<br>
-	<br>
-	<br>
-	<br>
-	<br>
-	<br>
-	<div ng-app=""> 
-		<div ng-include="'footer.html'"></div> <!-- Import's footer -->
-	</div>
-
-
-</body>
-</html>
+						</body>
+						</html>
