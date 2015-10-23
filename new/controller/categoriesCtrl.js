@@ -66,7 +66,10 @@ angular.module('categoriesApp', []).controller('categoriesController', function(
         var url = "http://eiffel.itba.edu.ar/hci/service3/Catalog.groovy?method=GetAllCategories&filters=" + encodeURIComponent(getFilters(pageId));
         $http.get(url, {cache: true, timeout: 10000}).then(function(response) {
              $scope.categories = response.data.categories;
-             completeList($scope.categories).then();
+             completeList($scope.categories).then( function() {
+                        $scope.loading_page = false;
+                    }
+                );
         });
     }
 
@@ -103,6 +106,7 @@ angular.module('categoriesApp', []).controller('categoriesController', function(
     $scope.categories = null;
     $scope.subcategories = [];
     $scope.pictures = [];
+    $scope.loading_page = true;
 
     $scope.gender = function() {
         var result;

@@ -46,6 +46,9 @@
 		</div>
 
 	<div ng-controller="categoriesController">
+
+		<div class="se-pre-con" id="loading_page" ng-show="loading_page"></div>
+		
 		<ol class="breadcrumb">
   			<li><a href="home.html">Home</a></li>
  			<li class="active"> {{gender()}}</li>
@@ -141,7 +144,7 @@
 			</div>
 		
 			<div class="col-md-2">
-				<div ng-include="'recommendations.html'"></div> <!-- Import's recommendations -->
+				
 			</div>
 		</div>
 	</div>

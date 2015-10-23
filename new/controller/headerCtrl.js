@@ -90,7 +90,6 @@ angular.module('headerApp', []).controller('headerController', function($scope, 
 		if (token != null) {
 			var url = "http://eiffel.itba.edu.ar/hci/service3/Order.groovy?method=GetOrderById&username=" + user_local + "&authentication_token=" + token;
 			url += "&id=" + cart;
-			console.log(url);
 			$http.get(url, {cache:true, timeout: 10000}).then(function(response) {
 				$scope.header_cart = response.data.order
 				for (var i = 0 ; i < $scope.header_cart.items.length ; i++) {
@@ -190,7 +189,7 @@ angular.module('headerApp', []).controller('headerController', function($scope, 
 
 	$scope.login = function() {
 		//signIn($scope.user_model,$scope.password_model);
-		$scope.show_login_error = !signInSrv.signIn($scope.user_model, $scope.password_model);
+		$scope.show_login_error = !signInSrv.signIn($scope.user_model, $scope.password_model, $scope);
 	}
 
 	$scope.logout = function() {
@@ -286,7 +285,7 @@ angular.module('headerApp').directive("modalShow", function () {
 angular.module('headerApp').service('signInSrv', function($http){
 	return {
 
-		signIn: function signIn(username, password) {
+		signIn: function signIn(username, password, scope) {
 
 			console.log("llegue al service");
 			
@@ -300,7 +299,8 @@ angular.module('headerApp').service('signInSrv', function($http){
 				if(response.data.hasOwnProperty("error")){
 					//$scope.show_login_error = true; // Must see how to implement this from header controller
 					console.log("couldn't log in")
-					return false;	
+					scope.show_login_error = true;
+					//return true;	
 				}
 
 				localStorage.setItem("token",response.data.authenticationToken); // Stores token in local storage
